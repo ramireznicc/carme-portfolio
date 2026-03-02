@@ -2,9 +2,11 @@
  * PostCard
  *
  * Renders a single portfolio card.
- * Ready for future embed integration: add an `embedUrl` field to the post
- * object and conditionally render an <iframe> instead of the gradient placeholder.
+ * - Instagram embeds: iframe con crop de header via CSS
+ * - TikTok embeds: iframe escalado con ResizeObserver para evitar recortes
  */
+
+import { useRef, useEffect, useState } from 'react'
 
 const PlayIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -18,39 +20,90 @@ const HeartIcon = () => (
   </svg>
 )
 
+// Dimensiones naturales del player de TikTok embed v2
+const TK_W = 325
+const TK_H = 740
+
+function TikTokEmbed({ src, title }) {
+  const wrapRef = useRef(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const ro = new ResizeObserver(([entry]) => {
+      setScale(entry.contentRect.width / TK_W)
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  return (
+    <div ref={wrapRef} className="post-tiktok-wrap">
+      <iframe
+        src={src}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        style={{
+          width: TK_W,
+          height: TK_H,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          border: 'none',
+        }}
+      />
+    </div>
+  )
+}
+
 export default function PostCard({ post }) {
   const {
     platform, aspectRatio, thumbClass, shapes,
     badgeLabel, hasPlay, countIcon, count,
-    client, title, tags,
-    // embedUrl,  // future: use this to render real embeds
+    client, title, tags, embedUrl,
   } = post
 
   return (
     <article className="post-card">
       {/* ── Thumbnail ── */}
-      <div className={`post-thumb ${aspectRatio}`}>
-        <div className={`post-thumb-inner ${thumbClass}`}>
-          {/* Decorative shapes */}
-          {shapes.map((s) => (
-            <div key={s} className={`thumb-shape ${s}`} aria-hidden="true" />
-          ))}
-
-          {/* Platform badge */}
-          <span className={`platform-badge ${platform === 'ig' ? 'badge-ig' : 'badge-tiktok'}`}>
-            {platform === 'tiktok' && <span aria-hidden="true">♪</span>}
-            {badgeLabel}
-          </span>
-
-          {/* Play button (videos only) */}
-          {hasPlay && <div className="play-btn" aria-label="Reproducir video" />}
-
-          {/* Views / likes counter */}
-          <div className="views-overlay" aria-label={`${count} ${countIcon === 'play' ? 'views' : 'likes'}`}>
-            {countIcon === 'play' ? <PlayIcon /> : <HeartIcon />}
-            {count}
+      <div className={`post-thumb ${aspectRatio}${embedUrl && platform === 'tiktok' ? ' tiktok-embed-container' : ''}`}>
+        {embedUrl && platform === 'tiktok' ? (
+          <TikTokEmbed src={embedUrl} title={title} />
+        ) : embedUrl ? (
+          <>
+            <iframe
+              src={embedUrl}
+              className={`post-embed post-embed-${platform}`}
+              loading="lazy"
+              title={title}
+            />
+            {/* Captura touch events en mobile para que el swipe del carrusel funcione.
+                Al tap abre el post en Instagram. */}
+            <a
+              href={embedUrl.replace('/embed/', '/')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="embed-swipe-guard"
+              aria-label="Ver en Instagram"
+            />
+          </>
+        ) : (
+          <div className={`post-thumb-inner ${thumbClass}`}>
+            {shapes.map((s) => (
+              <div key={s} className={`thumb-shape ${s}`} aria-hidden="true" />
+            ))}
+            <span className={`platform-badge ${platform === 'ig' ? 'badge-ig' : 'badge-tiktok'}`}>
+              {platform === 'tiktok' && <span aria-hidden="true">♪</span>}
+              {badgeLabel}
+            </span>
+            {hasPlay && <div className="play-btn" aria-label="Reproducir video" />}
+            <div className="views-overlay" aria-label={`${count} ${countIcon === 'play' ? 'views' : 'likes'}`}>
+              {countIcon === 'play' ? <PlayIcon /> : <HeartIcon />}
+              {count}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ── Info ── */}

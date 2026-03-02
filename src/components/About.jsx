@@ -55,10 +55,6 @@ export default function About() {
               </div>
             </div>
 
-            <div className="availability-badge">
-              <span className="availability-dot" />
-              Disponible para proyectos
-            </div>
           </div>
         </FadeIn>
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FadeIn from './FadeIn'
-import { LuMail, LuMessageCircle } from 'react-icons/lu'
-import { SiInstagram } from 'react-icons/si'
+import { LuMail } from 'react-icons/lu'
+import { SiInstagram, SiLinkedin, SiTiktok } from 'react-icons/si'
 
 const INITIAL = { nombre: '', email: '', servicio: '', mensaje: '' }
 
@@ -48,7 +48,22 @@ export default function Contact() {
           <div className="contact-links">
             <a href="mailto:carmela@email.com" className="contact-link-item">
               <span className="contact-link-icon"><LuMail size={18} strokeWidth={1.8} /></span>
-              carmela@email.com
+              <span className="contact-link-info">
+                <span className="contact-link-label">Email</span>
+                <span className="contact-link-text">carmela@email.com</span>
+              </span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/carmela-gil/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link-item"
+            >
+              <span className="contact-link-icon"><SiLinkedin size={17} /></span>
+              <span className="contact-link-info">
+                <span className="contact-link-label">LinkedIn</span>
+                <span className="contact-link-text">Carmela Gil</span>
+              </span>
             </a>
             <a
               href="https://www.instagram.com/carsi_carmela/"
@@ -57,16 +72,22 @@ export default function Contact() {
               className="contact-link-item"
             >
               <span className="contact-link-icon"><SiInstagram size={17} /></span>
-              @carsi_carmela
+              <span className="contact-link-info">
+                <span className="contact-link-label">Instagram</span>
+                <span className="contact-link-text">@carsi_carmela</span>
+              </span>
             </a>
             <a
-              href="https://wa.me/5493416533825"
+              href="https://www.tiktok.com/@carsi_carmela"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-link-item"
             >
-              <span className="contact-link-icon"><LuMessageCircle size={18} strokeWidth={1.8} /></span>
-              +54 9 3416 53-3825
+              <span className="contact-link-icon"><SiTiktok size={16} /></span>
+              <span className="contact-link-info">
+                <span className="contact-link-label">TikTok</span>
+                <span className="contact-link-text">@carsi_carmela</span>
+              </span>
             </a>
           </div>
         </FadeIn>
@@ -132,7 +153,6 @@ export default function Contact() {
                 <button type="submit" className="btn btn-primary">
                   Enviar mensaje →
                 </button>
-                <span className="form-note">Te respondo en &lt; 24 hs</span>
               </div>
             </form>
           )}
