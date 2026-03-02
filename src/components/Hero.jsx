@@ -30,9 +30,9 @@ export default function Hero() {
 
       {/* ── Marco con foto (derecha en desktop) ── */}
       <div className="hero-photo-frame hero-anim-0">
+        <div className="hero-frame-card hero-frame-card-3" aria-hidden="true" />
         <div className="hero-frame-card hero-frame-card-1" aria-hidden="true" />
         <div className="hero-frame-card hero-frame-card-2" aria-hidden="true" />
-        <div className="hero-frame-card hero-frame-card-3" aria-hidden="true" />
         <img
           src="/carme-portfolio-2.png"
           alt="Carmela Gil Pujol"

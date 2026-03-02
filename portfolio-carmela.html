@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carmela — Community Manager & Video Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --surface-2: #1c1c1c;
+            --accent: #e8503e;
+            --accent-soft: rgba(232, 80, 62, 0.12);
+            --text: #f0ece6;
+            --text-muted: #8a8580;
+            --text-dim: #5a5652;
+            --ig-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            --tiktok-cyan: #25f4ee;
+            --tiktok-pink: #fe2c55;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === NOISE OVERLAY === */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 32px; }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 720px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(232, 80, 62, 0.2);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #d14535;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(232, 80, 62, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Hero decorative blob */
+        .hero-blob {
+            position: absolute;
+            right: -5%;
+            top: 15%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(232, 80, 62, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, 20px) scale(1.05); }
+        }
+
+        /* === STATS BAR === */
+        .stats-bar {
+            display: flex;
+            gap: 48px;
+            padding: 48px 60px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-number span { color: var(--accent); }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        /* === SECTION COMMON === */
+        section {
+            padding: 100px 60px;
+        }
+
+        .section-header {
+            margin-bottom: 56px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* === PORTFOLIO GRID === */
+        .portfolio-section {
+            background: var(--surface);
+            border-radius: 0;
+        }
+
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .filter-tab:hover {
+            border-color: rgba(255,255,255,0.2);
+            color: var(--text);
+        }
+
+        .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* === MOCK POST CARDS === */
+        .post-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            background: var(--surface-2);
+            aspect-ratio: auto;
+        }
+
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        /* Thumbnail area */
+        .post-thumb {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .post-thumb.reel { aspect-ratio: 9/16; }
+        .post-thumb.square { aspect-ratio: 1/1; }
+        .post-thumb.landscape { aspect-ratio: 16/9; }
+
+        .post-thumb-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        /* Gradient thumbnails */
+        .thumb-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .thumb-gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .thumb-gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .thumb-gradient-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .thumb-gradient-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .thumb-gradient-6 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .thumb-gradient-7 { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+        .thumb-gradient-8 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .thumb-gradient-9 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+
+        /* Decorative shapes inside thumbnails */
+        .thumb-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .thumb-shape-1 {
+            width: 120px; height: 120px;
+            background: rgba(255,255,255,0.3);
+            top: 10%; left: 15%;
+        }
+
+        .thumb-shape-2 {
+            width: 80px; height: 80px;
+            background: rgba(0,0,0,0.15);
+            bottom: 20%; right: 10%;
+        }
+
+        .thumb-shape-3 {
+            width: 60px; height: 60px;
+            background: rgba(255,255,255,0.2);
+            top: 50%; left: 60%;
+            border-radius: 12px;
+            transform: rotate(45deg);
+        }
+
+        /* Play button for videos */
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+
+        .post-card:hover .play-btn { transform: scale(1.1); }
+
+        .play-btn::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 3px;
+        }
+
+        /* Platform badge */
+        .platform-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(12px);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-ig {
+            background: linear-gradient(45deg, rgba(240, 148, 51, 0.85), rgba(204, 35, 102, 0.85));
+            color: #fff;
+        }
+
+        .badge-tiktok {
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .badge-tiktok::before {
+            content: '♪';
+            color: var(--tiktok-cyan);
+        }
+
+        /* Views overlay */
+        .views-overlay {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #fff;
+            z-index: 3;
+        }
+
+        .views-overlay svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Post info below thumb */
+        .post-info {
+            padding: 16px;
+        }
+
+        .post-client {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .post-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .post-tag {
+            padding: 3px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+        }
+
+        /* === SERVICES === */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            padding: 36px;
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius);
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(232, 80, 62, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-soft);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* === ABOUT === */
+        .about-section {
+            background: var(--surface);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-photo {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--surface-2), rgba(232,80,62,0.1));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.4), transparent);
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .about-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .tool-pill {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* === CTA / CONTACT === */
+        .cta-section {
+            text-align: center;
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232, 80, 62, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        /* === FOOTER === */
+        footer {
+            padding: 32px 60px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+            section, .hero, .stats-bar, .cta-section, footer { padding-left: 24px; padding-right: 24px; }
+            .hero { padding-top: 100px; min-height: auto; padding-bottom: 60px; }
+            .stats-bar { gap: 24px; flex-wrap: wrap; }
+            .about-content { grid-template-columns: 1fr; gap: 32px; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo">carmela<span>.</span></div>
+    <div class="nav-links">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-blob"></div>
+    <div class="hero-content">
+        <div class="hero-tag">Disponible para freelance</div>
+        <h1>Contenido que <em>conecta</em> y convierte</h1>
+        <p class="hero-description">Community Manager y editora de video especializada en Instagram y TikTok. Creo contenido que genera comunidad, engagement y resultados reales para marcas.</p>
+        <div class="hero-ctas">
+            <a href="#portfolio" class="btn btn-primary">Ver portfolio ↓</a>
+            <a href="#contacto" class="btn btn-outline">Hablemos</a>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-number">2<span>M+</span></div>
+        <div class="stat-label">Views totales</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">15<span>+</span></div>
+        <div class="stat-label">Marcas</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">200<span>+</span></div>
+        <div class="stat-label">Piezas creadas</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">8<span>%</span></div>
+        <div class="stat-label">Engagement promedio</div>
+    </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+    <div class="section-header fade-in">
+        <div class="section-label">Portfolio</div>
+        <div class="section-title">Trabajos seleccionados</div>
+    </div>
+
+    <div class="filter-tabs fade-in">
+        <button class="filter-tab active" onclick="filterPosts('all')">Todos</button>
+        <button class="filter-tab" onclick="filterPosts('ig')">Instagram</button>
+        <button class="filter-tab" onclick="filterPosts('tiktok')">TikTok</button>
+        <button class="filter-tab" onclick="filterPosts('reels')">Reels</button>
+        <button class="filter-tab" onclick="filterPosts('feed')">Feed</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid">
+
+        <!-- Post 1: IG Reel -->
+        <div class="post-card fade-in" data-platform="ig" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-2">
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <span class="platform-badge badge-ig">REEL</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        124K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Marca de Skincare</div>
+                <div class="post-title">Rutina de mañana — Tutorial con transiciones</div>
+                <div class="post-tags">
+                    <span class="post-tag">Edición</span>
+                    <span class="post-tag">Guión</span>
+                    <span class="post-tag">Transiciones</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 2: TikTok -->
+        <div class="post-card fade-in" data-platform="tiktok" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-3">
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <span class="platform-badge badge-tiktok">TikTok</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        312K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Restaurante Gourmet</div>
+                <div class="post-title">Behind the scenes — Preparación del menú de temporada</div>
+                <div class="post-tags">
+                    <span class="post-tag">Filmación</span>
+                    <span class="post-tag">Edición</span>
+                    <span class="post-tag">Trending audio</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 3: IG Feed -->
+        <div class="post-card fade-in" data-platform="ig" data-type="feed">
+            <div class="post-thumb square">
+                <div class="post-thumb-inner thumb-gradient-6">
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <span class="platform-badge badge-ig">CARRUSEL</span>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        2,847
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Marca de Ropa</div>
+                <div class="post-title">Carrusel educativo — Guía de tallas y combinaciones</div>
+                <div class="post-tags">
+                    <span class="post-tag">Diseño</span>
+                    <span class="post-tag">Copy</span>
+                    <span class="post-tag">Estrategia</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 4: TikTok -->
+        <div class="post-card fade-in" data-platform="tiktok" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-5">
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <span class="platform-badge badge-tiktok">TikTok</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        89K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Estudio de Yoga</div>
+                <div class="post-title">POV: Tu primera clase de yoga — Storytelling</div>
+                <div class="post-tags">
+                    <span class="post-tag">Concepto</span>
+                    <span class="post-tag">Edición</span>
+                    <span class="post-tag">Storytelling</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 5: IG Reel -->
+        <div class="post-card fade-in" data-platform="ig" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-1">
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <span class="platform-badge badge-ig">REEL</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        56K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Cafetería Artesanal</div>
+                <div class="post-title">Proceso de latte art — Slow motion edit</div>
+                <div class="post-tags">
+                    <span class="post-tag">Edición</span>
+                    <span class="post-tag">Slow-mo</span>
+                    <span class="post-tag">ASMR</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 6: IG Feed -->
+        <div class="post-card fade-in" data-platform="ig" data-type="feed">
+            <div class="post-thumb square">
+                <div class="post-thumb-inner thumb-gradient-8">
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <span class="platform-badge badge-ig">POST</span>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        1,523
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Tienda de Plantas</div>
+                <div class="post-title">Tips de cuidado — Infografía con identidad de marca</div>
+                <div class="post-tags">
+                    <span class="post-tag">Diseño gráfico</span>
+                    <span class="post-tag">Copy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 7: TikTok -->
+        <div class="post-card fade-in" data-platform="tiktok" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-7">
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <span class="platform-badge badge-tiktok">TikTok</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        478K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Marca Personal</div>
+                <div class="post-title">Un día conmigo — Vlog estilo editorial</div>
+                <div class="post-tags">
+                    <span class="post-tag">Vlog</span>
+                    <span class="post-tag">Color grading</span>
+                    <span class="post-tag">Música</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 8: IG Reel -->
+        <div class="post-card fade-in" data-platform="ig" data-type="reels">
+            <div class="post-thumb reel">
+                <div class="post-thumb-inner thumb-gradient-4">
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <div class="thumb-shape thumb-shape-1"></div>
+                    <span class="platform-badge badge-ig">REEL</span>
+                    <div class="play-btn"></div>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        203K
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Peluquería</div>
+                <div class="post-title">Transformación capilar — Before & After con beat sync</div>
+                <div class="post-tags">
+                    <span class="post-tag">Edición</span>
+                    <span class="post-tag">Beat sync</span>
+                    <span class="post-tag">B&A</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 9: IG Feed -->
+        <div class="post-card fade-in" data-platform="ig" data-type="feed">
+            <div class="post-thumb landscape">
+                <div class="post-thumb-inner thumb-gradient-9">
+                    <div class="thumb-shape thumb-shape-2"></div>
+                    <div class="thumb-shape thumb-shape-3"></div>
+                    <span class="platform-badge badge-ig">CARRUSEL</span>
+                    <div class="views-overlay">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        3,291
+                    </div>
+                </div>
+            </div>
+            <div class="post-info">
+                <div class="post-client">Agencia de Viajes</div>
+                <div class="post-title">Destinos de verano — Grilla visual con identidad</div>
+                <div class="post-tags">
+                    <span class="post-tag">Dirección de arte</span>
+                    <span class="post-tag">Grilla</span>
+                    <span class="post-tag">Copy</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servicios">
+    <div class="section-header fade-in">
+        <div class="section-label">Servicios</div>
+        <div class="section-title">Lo que puedo hacer por tu marca</div>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card fade-in">
+            <div class="service-icon">🎬</div>
+            <h3>Edición de video</h3>
+            <p>Reels, TikToks y stories con edición profesional. Transiciones, beat sync, color grading y subtítulos.</p>
+        </div>
+        <div class="service-card fade-in">
+            <div class="service-icon">📱</div>
+            <h3>Community Management</h3>
+            <p>Gestión integral de Instagram y TikTok. Planificación, publicación, interacción con la comunidad y reportes mensuales.</p>
+        </div>
+        <div class="service-card fade-in">
+            <div class="service-icon">📐</div>
+            <h3>Estrategia de contenido</h3>
+            <p>Calendarios editoriales, análisis de tendencias, definición de pilares de contenido y línea visual.</p>
+        </div>
+        <div class="service-card fade-in">
+            <div class="service-icon">✏️</div>
+            <h3>Copywriting</h3>
+            <p>Textos para posts, guiones de video, captions que convierten y calls to action efectivos.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="sobre-mi">
+    <div class="about-content">
+        <div class="about-photo fade-in">
+            <span style="filter: grayscale(0.3); z-index:1; position:relative;">📷</span>
+        </div>
+        <div class="about-text fade-in">
+            <div class="section-label">Sobre mí</div>
+            <h3>Hola, soy Carmela</h3>
+            <p>Soy Community Manager y editora de video con experiencia creando contenido para marcas en Instagram y TikTok. Me apasiona contar historias a través del video y construir comunidades que conecten de verdad con las marcas.</p>
+            <p>Creo en el contenido auténtico que genera conversación. Combino estrategia y creatividad para que cada pieza tenga propósito y cada publicación sume al crecimiento de la marca.</p>
+            <div class="about-tools">
+                <span class="tool-pill">CapCut</span>
+                <span class="tool-pill">Premiere Pro</span>
+                <span class="tool-pill">Canva</span>
+                <span class="tool-pill">Meta Business</span>
+                <span class="tool-pill">Later</span>
+                <span class="tool-pill">Instagram</span>
+                <span class="tool-pill">TikTok</span>
+                <span class="tool-pill">Photoshop</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+    <h2>¿Trabajamos juntos?</h2>
+    <p>Contame sobre tu proyecto y armamos algo increíble.</p>
+    <div class="contact-links">
+        <a href="mailto:carmela@email.com" class="btn btn-primary">✉ carmela@email.com</a>
+        <a href="https://instagram.com/" target="_blank" class="btn btn-outline">Instagram</a>
+        <a href="https://wa.me/" target="_blank" class="btn btn-outline">WhatsApp</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span>© 2025 Carmela — Todos los derechos reservados</span>
+    <span>Hecho con ♥</span>
+</footer>
+
+<script>
+    // Filter functionality
+    function filterPosts(filter) {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+
+        document.querySelectorAll('.post-card').forEach(card => {
+            const platform = card.dataset.platform;
+            const type = card.dataset.type;
+
+            let show = false;
+            if (filter === 'all') show = true;
+            else if (filter === 'ig') show = platform === 'ig';
+            else if (filter === 'tiktok') show = platform === 'tiktok';
+            else if (filter === 'reels') show = type === 'reels';
+            else if (filter === 'feed') show = type === 'feed';
+
+            card.style.display = show ? '' : 'none';
+            if (show) {
+                card.style.animation = 'fadeInUp 0.5s ease both';
+            }
+        });
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

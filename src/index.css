@@ -89,8 +89,8 @@ body::before {
   50%       { transform: rotate(11deg) translate(5px, -4px); }
 }
 @keyframes card-float-3 {
-  0%, 100% { transform: rotate(18deg) translate(0, 0); }
-  50%       { transform: rotate(15deg) translate(6px, 5px); }
+  0%, 100% { transform: rotate(22deg) translate(0, 0); }
+  50%       { transform: rotate(25deg) translate(6px, 5px); }
 }
 
 /* ============================================================
@@ -200,8 +200,8 @@ body::before {
 }
 .hero-frame-card-3 {
   background: var(--teal);
-  transform: rotate(18deg);
-  z-index: -1;
+  transform: rotate(22deg);
+  z-index: 0;
   animation: card-float-3 4s ease-in-out infinite 1.6s;
 }
 
