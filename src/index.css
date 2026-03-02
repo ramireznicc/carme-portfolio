@@ -135,6 +135,7 @@ body::before {
   background: var(--lime);
   color: #1a1a1a;
 }
+.nav-link svg, .nav-mobile-link svg { display: block; flex-shrink: 0; }
 
 /* ============================================================
    HERO — layout vertical centrado
