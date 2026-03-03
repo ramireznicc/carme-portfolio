@@ -1174,6 +1174,7 @@ body::before {
   .portfolio-grid > .fade-in {
     flex: 0 0 100%;
     scroll-snap-align: start;
+    scroll-snap-stop: always; /* impide saltar múltiples cards con un flick fuerte */
     /* padding lateral → espacio para las flechas + card más chica */
     padding: 0 48px;
   }
