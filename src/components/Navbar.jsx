@@ -78,19 +78,19 @@ export default function Navbar() {
             </a>
           ))}
         </div>
-
-        {/* Mobile burger */}
-        <button
-          className={`nav-burger${menuOpen ? ' open' : ''}`}
-          onClick={() => menuOpen ? closeMenu() : setMenuOpen(true)}
-          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={menuOpen}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
       </nav>
+
+      {/* Burger flotante — solo visible en mobile */}
+      <button
+        className={`nav-burger${menuOpen ? ' open' : ''}`}
+        onClick={() => menuOpen ? closeMenu() : setMenuOpen(true)}
+        aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+        aria-expanded={menuOpen}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
 
       {/* Mobile menu panel */}
       {menuOpen && (

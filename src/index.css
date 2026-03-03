@@ -1092,11 +1092,24 @@ body::before {
 @media (max-width: 768px) {
 
   /* ── Nav ── */
-  .nav { padding: 14px 20px; }
-  .nav { justify-content: space-between; }
-  .nav-logo { display: flex; }
-  .nav-links { display: none; }
-  .nav-burger { display: flex; }
+  .nav { display: none; }
+
+  /* Burger flotante arriba derecha */
+  .nav-burger {
+    display: flex;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1001;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+  }
+  .nav-burger:hover { background: var(--surface); }
 
   /* ── Hero ── */
   .hero {
