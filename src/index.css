@@ -1178,12 +1178,13 @@ body::before {
     padding: 0 48px;
   }
 
-  /* Overlay en embeds de IG — permite swipe, al tap abre en Instagram */
-  .embed-swipe-guard {
+  /* Overlay en embeds de IG/TikTok — permite swipe horizontal (carrusel) y vertical (scroll página) */
+  .embed-swipe-guard,
+  .tiktok-swipe-guard {
     position: absolute;
     inset: 0;
     z-index: 5;
-    touch-action: pan-x; /* deja pasar swipes horizontales al carrusel */
+    touch-action: pan-x pan-y;
   }
 
   /* Flechas — solo ícono, sin círculo ni sombra */

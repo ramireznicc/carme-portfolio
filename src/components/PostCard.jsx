@@ -53,6 +53,7 @@ function TikTokEmbed({ src, title }) {
           border: 'none',
         }}
       />
+      <div className="tiktok-swipe-guard" aria-hidden="true" />
     </div>
   )
 }
