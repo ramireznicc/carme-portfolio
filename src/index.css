@@ -1103,7 +1103,7 @@ body::before {
     z-index: 1001;
     background: #fff;
     border: 1.5px solid var(--border);
-    border-radius: 12px;
+    border-radius: 50%;
     box-shadow: 0 2px 16px rgba(0,0,0,0.10);
     padding: 10px;
     width: 44px;
