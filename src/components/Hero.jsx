@@ -20,7 +20,7 @@ export default function Hero() {
 
         <div className="hero-ctas hero-anim-3">
           <button className="btn btn-primary" onClick={() => scrollTo('portfolio')}>
-            Ver portfolio ↓
+            Proyectos ↓
           </button>
           <button className="btn btn-outline" onClick={() => scrollTo('contacto')}>
             Hablemos

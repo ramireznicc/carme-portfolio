@@ -23,7 +23,7 @@ export default function About() {
       <div className="about-layout">
 
         {/* ── Columna izquierda: bio ── */}
-        <FadeIn>
+        <FadeIn from="left">
           <div className="section-label">Sobre mí</div>
           <h3 className="about-heading">Hola, soy Carmela</h3>
           <div className="about-bio">
@@ -41,7 +41,7 @@ export default function About() {
         </FadeIn>
 
         {/* ── Columna derecha: herramientas + disponibilidad ── */}
-        <FadeIn delay={120}>
+        <FadeIn delay={120} from="right">
           <div className="about-right">
             <div>
               <p className="about-tools-label">Herramientas</p>

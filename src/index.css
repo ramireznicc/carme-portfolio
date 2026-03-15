@@ -78,7 +78,30 @@ body::before {
 /* ============================================================
    ANIMATIONS
    ============================================================ */
-.fade-in { opacity: 1; }
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none !important;
+}
+.reveal-up    { transform: translateY(38px); }
+.reveal-left  { transform: translateX(-38px); }
+.reveal-right { transform: translateX(38px); }
+.reveal-scale { transform: scale(0.93) translateY(18px); }
+
+/* ── Hero entry (load animation, mismo estilo que scroll reveal) ── */
+@keyframes reveal-entry {
+  from { opacity: 0; transform: translateY(38px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-anim-0 { animation: reveal-entry 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0ms   both; }
+.hero-anim-1 { animation: reveal-entry 0.6s cubic-bezier(0.22, 1, 0.36, 1) 100ms  both; }
+.hero-anim-2 { animation: reveal-entry 0.6s cubic-bezier(0.22, 1, 0.36, 1) 220ms  both; }
+.hero-anim-3 { animation: reveal-entry 0.6s cubic-bezier(0.22, 1, 0.36, 1) 340ms  both; }
+.hero-anim-4 { animation: reveal-entry 0.6s cubic-bezier(0.22, 1, 0.36, 1) 460ms  both; }
 
 @keyframes card-float-1 {
   0%, 100% { transform: rotate(-10deg) translate(0, 0); }
@@ -148,7 +171,7 @@ body::before {
   justify-content: center;
   text-align: left;
   padding: 90px 8vw 60px;
-  gap: 64px;
+  gap: 48px;
   background-color: var(--bg);
   position: relative;
   overflow: hidden;
@@ -161,7 +184,7 @@ body::before {
   align-items: flex-start;
   gap: 24px;
   flex: 1;
-  max-width: 560px;
+  max-width: 520px;
 }
 
 /* Fila de botones */
@@ -174,7 +197,7 @@ body::before {
 /* ── Marco de foto: tarjetas rotadas ── */
 .hero-photo-frame {
   position: relative;
-  width: clamp(240px, 28vw, 400px);
+  width: clamp(220px, 24vw, 360px);
   aspect-ratio: 3 / 4;
   flex-shrink: 0;
 }
@@ -1111,6 +1134,12 @@ body::before {
   }
   .nav-burger:hover { background: var(--surface); }
 
+  /* ── Reveal: en mobile las variantes laterales se convierten a "up" para evitar overflow ── */
+  .reveal-left  { transform: translateY(28px); }
+  .reveal-right { transform: translateY(28px); }
+  .reveal-up    { transform: translateY(28px); }
+  .reveal-scale { transform: scale(0.95) translateY(14px); }
+
   /* ── Hero ── */
   .hero {
     flex-direction: column;
@@ -1130,7 +1159,8 @@ body::before {
   .hero-photo-img { border-radius: 16px; box-shadow: 0 0 0 5px var(--purple); }
   .hero-name { font-size: clamp(3rem, 13vw, 4.2rem); }
   .hero-description { font-size: 0.92rem; max-width: 100%; }
-  .hero-ctas { justify-content: center; }
+  .hero-ctas { justify-content: center; flex-direction: column; align-items: center; }
+  .hero-ctas .btn { width: 100%; max-width: 260px; justify-content: center; }
 
   /* ── Stats bar — 2×2 grid ── */
   .stats-bar {
@@ -1184,7 +1214,7 @@ body::before {
     gap: 0;
   }
   .portfolio-grid::-webkit-scrollbar { display: none; }
-  .portfolio-grid > .fade-in {
+  .portfolio-grid > .reveal {
     flex: 0 0 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always; /* impide saltar múltiples cards con un flick fuerte */

@@ -37,7 +37,7 @@ export default function Contact() {
       <div className="contact-layout">
 
         {/* ── Encabezado ── */}
-        <FadeIn>
+        <FadeIn from="left">
           <div className="section-label">Contacto</div>
           <h2 className="contact-title">¿Trabajamos juntos?</h2>
           <p className="contact-desc">
@@ -93,7 +93,7 @@ export default function Contact() {
         </FadeIn>
 
         {/* ── Formulario ── */}
-        <FadeIn delay={100}>
+        <FadeIn delay={100} from="right">
           {sent ? (
             <div className="form-success">
               <div className="form-success-icon">🌸</div>

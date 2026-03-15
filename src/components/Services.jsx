@@ -38,7 +38,7 @@ export default function Services() {
 
       <div className="services-grid">
         {services.map(({ Icon, title, description }, i) => (
-          <FadeIn key={title} delay={i * 100}>
+          <FadeIn key={title} delay={i * 100} from="scale">
             <div className="service-card">
               <div className="service-icon" aria-hidden="true">
                 <Icon size={22} strokeWidth={1.5} />
