@@ -35,7 +35,7 @@ export default function Hero() {
         <div className="hero-frame-card hero-frame-card-1" aria-hidden="true" />
         <div className="hero-frame-card hero-frame-card-2" aria-hidden="true" />
         <img
-          src="/carsi-2.PNG"
+          src="/carsi-3.PNG"
           alt="Carmela Gil Pujol"
           className="hero-photo-img"
         />
