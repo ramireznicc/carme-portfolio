@@ -28,14 +28,28 @@ export default function About() {
           <h3 className="about-heading">Hola, soy Carmela</h3>
           <div className="about-bio">
             <p>
-              Soy Community Manager y editora de video con experiencia creando contenido
-              para marcas en Instagram y TikTok. Me apasiona contar historias a través
-              del video y construir comunidades que conecten de verdad con las marcas.
+              Soy comunicadora, creadora de contenido digital y community manager. Disfruto
+              de investigar tendencias, pensar ideas y crear contenido para redes sociales y
+              medios digitales, combinando comunicación, artística, creación audiovisual y
+              entretenimiento para generar contenido que conecte con las audiencias.
             </p>
             <p>
-              Creo en el contenido auténtico que genera conversación. Combino estrategia
-              y creatividad para que cada pieza tenga propósito y cada publicación sume
-              al crecimiento de la marca.
+              Trabajo produciendo y editando contenido para plataformas como Instagram,
+              TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
+            </p>
+            <p>
+              Me dedico a la gestión de redes sociales y community management: planificación
+              de contenido, estrategias para cada plataforma, gestión de comunidades y
+              seguimiento del rendimiento de las publicaciones.
+            </p>
+            <p>
+              Actualmente participo en programas de streaming y televisión como conductora
+              y panelista, combinando comunicación, entretenimiento y actualidad.
+            </p>
+            <p>
+              Me interesa seguir explorando nuevos formatos de comunicación digital y
+              trabajar con marcas creando contenido auténtico para redes, especialmente
+              en formatos UGC (User Generated Content).
             </p>
           </div>
         </FadeIn>
