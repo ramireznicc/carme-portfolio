@@ -272,6 +272,11 @@ body::before {
   max-width: 520px;
   margin: 0;
 }
+.hero-description em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--pink);
+}
 
 /* ============================================================
    BUTTONS
