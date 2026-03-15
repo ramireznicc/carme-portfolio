@@ -172,7 +172,7 @@ body::before {
   text-align: left;
   padding: 90px 8vw 60px;
   gap: 48px;
-  background-color: var(--bg);
+  background-color: #ffffff;
   position: relative;
   overflow: hidden;
 }
@@ -387,7 +387,7 @@ body::before {
    Active tab: purple · hover: lime tint
    ============================================================ */
 .portfolio-section {
-  background: var(--bg);
+  background: #ffffff;
   border-top: 1px solid var(--border);
 }
 
@@ -703,7 +703,7 @@ body::before {
    ABOUT — white · two-column layout
    ============================================================ */
 .about-section {
-  background: var(--bg);
+  background: #f4f4f4;
   border-top: 1px solid var(--border);
 }
 
@@ -792,7 +792,7 @@ body::before {
    Icons: lime · pink · purple · Purple focus ring
    ============================================================ */
 .contact-section {
-  background: #fff8fb;
+  background: #f4f4f4;
   border-top: 1px solid var(--border);
   padding: 100px 60px;
   position: relative;
@@ -1028,7 +1028,7 @@ body::before {
   align-items: center;
   font-size: 0.8rem;
   color: var(--text-dim);
-  background-color: var(--bg);
+  background-color: #ffffff;
 }
 .footer-credit-link {
   color: var(--pink);
