@@ -703,7 +703,7 @@ body::before {
    ABOUT — white · two-column layout
    ============================================================ */
 .about-section {
-  background: #f4f4f4;
+  background: #fdfbf2;
   border-top: 1px solid var(--border);
 }
 
@@ -792,7 +792,7 @@ body::before {
    Icons: lime · pink · purple · Purple focus ring
    ============================================================ */
 .contact-section {
-  background: #f4f4f4;
+  background: #fdfbf2;
   border-top: 1px solid var(--border);
   padding: 100px 60px;
   position: relative;
