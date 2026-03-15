@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import FadeIn from './FadeIn'
 import { LuMail } from 'react-icons/lu'
 import { SiInstagram, SiLinkedin, SiTiktok } from 'react-icons/si'
@@ -9,8 +9,18 @@ const ACCESS_KEY = 'df9853fb-6350-4047-a50e-cae1d9facdcf'
 export default function Contact() {
   const [form, setForm]       = useState(INITIAL)
   const [sent, setSent]       = useState(false)
+  const [exiting, setExiting] = useState(false)
   const [errors, setErrors]   = useState({})
   const [loading, setLoading] = useState(false)
+  const exitTimer = useRef(null)
+
+  const handleReset = () => {
+    setExiting(true)
+    exitTimer.current = setTimeout(() => {
+      setSent(false)
+      setExiting(false)
+    }, 350)
+  }
 
   const validate = () => {
     const e = {}
@@ -108,14 +118,14 @@ export default function Contact() {
         {/* ── Formulario ── */}
         <FadeIn delay={100} from="right">
           {sent ? (
-            <div className="form-success">
-              <div className="form-success-icon">🌸</div>
-              <h4>¡Mensaje enviado!</h4>
-              <p>Te respondo a la brevedad. ¡Gracias por escribirme!</p>
+            <div className={`form-success${exiting ? ' form-success-exit' : ''}`}>
+              <div className="form-success-icon">🫶</div>
+              <h4>¡Gracias por tu mensaje!</h4>
+              <p>Te respondo a la brevedad :)</p>
               <button
-                className="btn btn-outline"
+                className="btn btn-primary"
                 style={{ marginTop: 8 }}
-                onClick={() => { setSent(false); setForm(INITIAL) }}
+                onClick={handleReset}
               >
                 Enviar otro mensaje
               </button>

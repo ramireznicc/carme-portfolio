@@ -14,8 +14,9 @@ export default function Hero() {
         </h1>
 
         <p className="hero-description hero-anim-2">
-          Community Manager y editora de video especializada en Instagram y TikTok.
-          Creo contenido que genera comunidad, engagement y resultados reales para marcas.
+          <mark className="hero-highlight">Creadora de contenido y comunicadora.</mark><br />
+          Community manager. Producción audiovisual.<br />
+          Conductora y panelista en programas de streaming y TV.
         </p>
 
         <div className="hero-ctas hero-anim-3">
@@ -34,7 +35,7 @@ export default function Hero() {
         <div className="hero-frame-card hero-frame-card-1" aria-hidden="true" />
         <div className="hero-frame-card hero-frame-card-2" aria-hidden="true" />
         <img
-          src="/carme-portfolio-2.png"
+          src="/carsi-2.PNG"
           alt="Carmela Gil Pujol"
           className="hero-photo-img"
         />

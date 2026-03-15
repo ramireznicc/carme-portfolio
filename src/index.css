@@ -256,6 +256,14 @@ body::before {
   color: var(--pink);
 }
 
+.hero-highlight {
+  background: var(--lime);
+  color: var(--text);
+  font-weight: 600;
+  padding: 2px 0;
+  border-radius: 4px;
+}
+
 .hero-description {
   font-size: 1rem;
   line-height: 1.75;
@@ -975,6 +983,14 @@ body::before {
 .form-note { font-size: 0.78rem; color: var(--text-dim); }
 
 /* Success message */
+@keyframes success-entry {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes success-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
 .form-success {
   display: flex;
   flex-direction: column;
@@ -986,8 +1002,12 @@ body::before {
   border: 2px solid var(--lime);
   border-radius: var(--radius);
   text-align: center;
+  animation: success-entry 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.form-success-icon { font-size: 2.5rem; }
+.form-success-exit {
+  animation: success-exit 0.35s ease forwards;
+}
+.form-success-icon { font-size: 4rem; }
 .form-success h4 {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
