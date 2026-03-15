@@ -1166,11 +1166,10 @@ body::before {
     text-align: center;
     align-items: center;
     justify-content: center;
-    min-height: 0;
-    height: 100vh;
-    height: 100svh;
+    min-height: 100svh;
+    height: auto;
     overflow: visible;
-    padding: 64px 28px 28px;
+    padding: 80px 28px max(40px, env(safe-area-inset-bottom, 40px));
     gap: 28px;
   }
   .hero-content { flex: none; align-items: center; max-width: 100%; gap: 20px; }
