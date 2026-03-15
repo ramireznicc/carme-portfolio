@@ -197,7 +197,7 @@ body::before {
 /* ── Marco de foto: tarjetas rotadas ── */
 .hero-photo-frame {
   position: relative;
-  width: clamp(220px, 24vw, 360px);
+  width: clamp(200px, 20vw, 320px);
   aspect-ratio: 3 / 4;
   flex-shrink: 0;
 }

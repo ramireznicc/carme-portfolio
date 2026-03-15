@@ -4,11 +4,13 @@ import { LuMail } from 'react-icons/lu'
 import { SiInstagram, SiLinkedin, SiTiktok } from 'react-icons/si'
 
 const INITIAL = { nombre: '', email: '', servicio: '', mensaje: '' }
+const ACCESS_KEY = 'df9853fb-6350-4047-a50e-cae1d9facdcf'
 
 export default function Contact() {
-  const [form, setForm]     = useState(INITIAL)
-  const [sent, setSent]     = useState(false)
-  const [errors, setErrors] = useState({})
+  const [form, setForm]       = useState(INITIAL)
+  const [sent, setSent]       = useState(false)
+  const [errors, setErrors]   = useState({})
+  const [loading, setLoading] = useState(false)
 
   const validate = () => {
     const e = {}
@@ -25,11 +27,22 @@ export default function Contact() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const e2 = validate()
     if (Object.keys(e2).length) { setErrors(e2); return }
-    setSent(true)
+
+    setLoading(true)
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: ACCESS_KEY, ...form }),
+      })
+      if (res.ok) setSent(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -150,8 +163,8 @@ export default function Contact() {
               />
 
               <div className="form-submit">
-                <button type="submit" className="btn btn-primary">
-                  Enviar mensaje →
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                  {loading ? 'Enviando…' : 'Enviar mensaje →'}
                 </button>
               </div>
             </form>
