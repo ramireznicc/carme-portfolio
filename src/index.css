@@ -707,12 +707,8 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
-/* Two-column layout */
 .about-layout {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 80px;
-  align-items: start;
+  max-width: 760px;
 }
 
 .about-heading {

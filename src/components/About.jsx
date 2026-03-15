@@ -22,7 +22,6 @@ export default function About() {
     <section className="about-section section" id="sobre-mi">
       <div className="about-layout">
 
-        {/* ── Columna izquierda: bio ── */}
         <FadeIn from="left">
           <div className="section-label">Sobre mí</div>
           <h3 className="about-heading">Hola, soy Carmela</h3>
@@ -52,23 +51,15 @@ export default function About() {
               en formatos UGC (User Generated Content).
             </p>
           </div>
-        </FadeIn>
 
-        {/* ── Columna derecha: herramientas + disponibilidad ── */}
-        <FadeIn delay={120} from="right">
-          <div className="about-right">
-            <div>
-              <p className="about-tools-label">Herramientas</p>
-              <div className="about-tools">
-                {tools.map(({ name, Icon, color }) => (
-                  <div key={name} className="tool-item">
-                    <Icon size={26} color={color} />
-                    <span className="tool-item-name">{name}</span>
-                  </div>
-                ))}
+          <p className="about-tools-label" style={{ marginTop: '32px' }}>Herramientas</p>
+          <div className="about-tools">
+            {tools.map(({ name, Icon, color }) => (
+              <div key={name} className="tool-item">
+                <Icon size={26} color={color} />
+                <span className="tool-item-name">{name}</span>
               </div>
-            </div>
-
+            ))}
           </div>
         </FadeIn>
 
