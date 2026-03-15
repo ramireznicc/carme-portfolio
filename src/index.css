@@ -275,7 +275,7 @@ body::before {
 .hero-description em {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  color: var(--pink);
+  color: #c0207a;
 }
 
 /* ============================================================
