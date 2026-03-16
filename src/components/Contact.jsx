@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import FadeIn from './FadeIn'
-import { LuMail } from 'react-icons/lu'
-import { SiInstagram, SiLinkedin, SiTiktok } from 'react-icons/si'
+import { SiInstagram, SiLinkedin } from 'react-icons/si'
 
 const INITIAL = { nombre: '', email: '', servicio: '', mensaje: '' }
 const ACCESS_KEY = 'df9853fb-6350-4047-a50e-cae1d9facdcf'
@@ -64,18 +63,11 @@ export default function Contact() {
           <div className="section-label">Contacto</div>
           <h2 className="contact-title">¿Trabajamos juntos?</h2>
           <p className="contact-desc">
-            Contame sobre tu proyecto y te respondo en menos de 24 horas.
-            Estoy disponible para colaboraciones freelance y proyectos de larga duración.
+            Contame sobre tu proyecto o idea!<br />
+            Estoy disponible para colaboraciones freelance y contrataciones a largo plazo.
           </p>
 
           <div className="contact-links">
-            <a href="mailto:carmela@email.com" className="contact-link-item">
-              <span className="contact-link-icon"><LuMail size={18} strokeWidth={1.8} /></span>
-              <span className="contact-link-info">
-                <span className="contact-link-label">Email</span>
-                <span className="contact-link-text">carmela@email.com</span>
-              </span>
-            </a>
             <a
               href="https://www.linkedin.com/in/carmela-gil/"
               target="_blank"
@@ -97,18 +89,6 @@ export default function Contact() {
               <span className="contact-link-icon"><SiInstagram size={17} /></span>
               <span className="contact-link-info">
                 <span className="contact-link-label">Instagram</span>
-                <span className="contact-link-text">@carsi_carmela</span>
-              </span>
-            </a>
-            <a
-              href="https://www.tiktok.com/@carsi_carmela"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-link-item"
-            >
-              <span className="contact-link-icon"><SiTiktok size={16} /></span>
-              <span className="contact-link-info">
-                <span className="contact-link-label">TikTok</span>
                 <span className="contact-link-text">@carsi_carmela</span>
               </span>
             </a>
@@ -155,18 +135,20 @@ export default function Contact() {
 
               <Field label="¿En qué puedo ayudarte?" name="servicio" as="select" value={form.servicio} onChange={handleChange}>
                 <option value="">Seleccioná un servicio</option>
-                <option value="video">Edición de video</option>
-                <option value="cm">Community Management</option>
-                <option value="estrategia">Estrategia de contenido</option>
-                <option value="copy">Copywriting</option>
-                <option value="otro">Otro</option>
+                <option value="cm">Community Manager</option>
+                <option value="video">Edición de Video</option>
+                <option value="contenido">Creación de Contenido</option>
+                <option value="ugc">UGC y Colaboraciones</option>
+                <option value="conduccion">Conducción/Medios</option>
+                <option value="actuacion">Actuación</option>
+                <option value="otro">Otros</option>
               </Field>
 
               <Field
                 label="Mensaje"
                 name="mensaje"
                 as="textarea"
-                placeholder="Contame sobre tu proyecto, marca y lo que buscás…"
+                placeholder="Proyecto, idea o propuesta..."
                 value={form.mensaje}
                 onChange={handleChange}
                 error={errors.mensaje}

@@ -37,6 +37,7 @@ export const posts = [
     title: 'Rutina de mañana — Tutorial con transiciones',
     tags: ['Edición', 'Guión', 'Transiciones'],
     embedUrl: 'https://www.instagram.com/p/DSnIfqPDrlH/embed/',
+    postUrl:  'https://www.instagram.com/p/DSnIfqPDrlH/',
   },
   {
     id: 2,
@@ -53,6 +54,7 @@ export const posts = [
     title: 'Behind the scenes — Preparación del menú de temporada',
     tags: ['Filmación', 'Edición', 'Trending audio'],
     embedUrl: 'https://www.instagram.com/reel/DEDuqiUvQvW/embed/',
+    postUrl:  'https://www.instagram.com/reel/DEDuqiUvQvW/',
   },
   {
     id: 3,
@@ -84,6 +86,7 @@ export const posts = [
     title: 'POV: Tu primera clase de yoga — Storytelling',
     tags: ['Concepto', 'Edición', 'Storytelling'],
     embedUrl: 'https://www.tiktok.com/embed/v2/7522254044040105222',
+    postUrl:  null, // añadir URL real cuando se tenga el handle de la cuenta
   },
   {
     id: 5,

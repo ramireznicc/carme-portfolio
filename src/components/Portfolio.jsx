@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import FadeIn from './FadeIn'
-import PostCard from './PostCard'
+import PhoneCard from './PhoneCard'
 import { posts } from '../data/posts'
 
 const filters = [
@@ -21,10 +21,12 @@ function matchesFilter(post, active) {
 }
 
 export default function Portfolio() {
-  const [active, setActive]         = useState('all')
-  const [canPrev, setCanPrev]       = useState(false)
-  const [canNext, setCanNext]       = useState(true)
-  const gridRef = useRef(null)
+  const [active, setActive]     = useState('all')
+  const [canPrev, setCanPrev]   = useState(false)
+  const [canNext, setCanNext]   = useState(true)
+  const [isDragging, setIsDragging] = useState(false)
+  const gridRef  = useRef(null)
+  const dragRef  = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false })
 
   const visible = posts.filter((p) => matchesFilter(p, active))
 
@@ -35,23 +37,47 @@ export default function Portfolio() {
     setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8)
   }, [])
 
-  useEffect(() => {
-    updateArrows()
-  }, [visible, updateArrows])
+  useEffect(() => { updateArrows() }, [visible, updateArrows])
 
   const scrollStep = (dir) => {
     const el = gridRef.current
     if (!el) return
-    const card = el.querySelector('.fade-in')
-    const step = (card?.offsetWidth ?? el.clientWidth) + 14
+    const card = el.querySelector('.reveal')
+    const step = (card?.offsetWidth ?? 230) + 20
     el.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
+  // ── Drag-to-scroll (desktop only) ──
+  const onMouseDown = (e) => {
+    if (e.button !== 0) return
+    const el = gridRef.current
+    dragRef.current = { active: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, moved: false }
+    setIsDragging(false)
+  }
+  const onMouseMove = (e) => {
+    const d = dragRef.current
+    if (!d.active) return
+    e.preventDefault()
+    const x    = e.pageX - gridRef.current.offsetLeft
+    const walk = (x - d.startX) * 1.2
+    if (Math.abs(walk) > 4) { d.moved = true; setIsDragging(true) }
+    gridRef.current.scrollLeft = d.scrollLeft - walk
+  }
+  const onMouseUp = () => {
+    dragRef.current.active = false
+    setTimeout(() => setIsDragging(false), 0)
+  }
+
+  // Prevent click-through on cards after a drag
+  const onClickCapture = (e) => {
+    if (dragRef.current.moved) { e.stopPropagation(); dragRef.current.moved = false }
   }
 
   return (
     <section className="portfolio-section section" id="portfolio">
       <FadeIn className="section-header">
         <div className="section-label">Portfolio</div>
-        <h2 className="section-title">Trabajos seleccionados</h2>
+        <h2 className="section-title">Trabajos y Proyectos</h2>
       </FadeIn>
 
       {/* Filter tabs */}
@@ -70,13 +96,18 @@ export default function Portfolio() {
       {/* Grid / Carousel */}
       <div className="portfolio-carousel-wrap">
         <div
-          className="portfolio-grid"
+          className={`portfolio-grid${isDragging ? ' is-dragging' : ''}`}
           ref={gridRef}
           onScroll={updateArrows}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+          onClickCapture={onClickCapture}
         >
           {visible.map((post, i) => (
             <FadeIn key={post.id} delay={i * 80}>
-              <PostCard post={post} />
+              <PhoneCard post={post} />
             </FadeIn>
           ))}
         </div>
