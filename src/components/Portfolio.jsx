@@ -181,7 +181,6 @@ export default function Portfolio() {
             </FadeIn>
 
             <div className={`cat-rows${cat.rows.length === 2 ? ' cat-rows--two-col' : ''}`}>
-              {cat.rows.length === 2 && <CrayonDivider />}
               {cat.rows.map((row) => (
                 <div key={row.id} className="cat-row">
                   <FadeIn>
@@ -207,6 +206,7 @@ export default function Portfolio() {
                   <ScrollRow posts={row.posts} />
                 </div>
               ))}
+              {cat.rows.length === 2 && <CrayonDivider />}
             </div>
           </div>
         ))}
