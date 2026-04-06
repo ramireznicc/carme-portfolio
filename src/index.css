@@ -238,8 +238,6 @@ body::before {
   object-position: center 10%;
   border-radius: 24px;
   z-index: 2;
-  /* clip to stay inside the crayon frame stroke */
-  clip-path: inset(4% round 20px);
 }
 
 /* Crayon frame SVG overlay */

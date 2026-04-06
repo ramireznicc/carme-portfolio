@@ -61,12 +61,12 @@ export default function Hero() {
             </filter>
           </defs>
           <rect
-            x="7" y="7" width="286" height="386"
+            x="0" y="0" width="300" height="400"
             stroke="#c02dd7"
-            strokeWidth="9"
+            strokeWidth="12"
             strokeLinecap="round"
             strokeLinejoin="round"
-            rx="22"
+            rx="26"
             filter="url(#hero-crayon)"
           />
         </svg>
