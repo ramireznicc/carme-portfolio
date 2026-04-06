@@ -8,6 +8,7 @@
 
 import { useState } from 'react'
 import VideoModal from './VideoModal'
+import IGSketchFrame from './IGSketchFrame'
 
 const PlayIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -58,7 +59,7 @@ export default function PhoneCard({ post }) {
           {/* Screen content */}
           <div className="phone-screen">
             {hasVideoUrl ? (
-              /* Direct video URL → true autoplay muted preview */
+              /* Direct video URL → autoplay muted + sketch IG frame overlay */
               <div className="phone-embed-preview">
                 <video
                   src={post.videoUrl}
@@ -67,6 +68,11 @@ export default function PhoneCard({ post }) {
                   loop
                   playsInline
                   style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
+                />
+                <IGSketchFrame
+                  avatarUrl={post.owner?.avatar ?? '/lucilaPerfil.jpg'}
+                  name={post.owner?.name ?? 'Lucila De Ponti'}
+                  handle={post.owner?.handle ?? '@luciladepont1'}
                 />
                 <div className="phone-tap-hint" aria-hidden="true"><PlayIcon /></div>
               </div>
