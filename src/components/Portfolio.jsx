@@ -1,49 +1,117 @@
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import FadeIn from './FadeIn'
 import PhoneCard from './PhoneCard'
 import { categories } from '../data/posts'
 
-/* ── Horizontal drag-to-scroll row ── */
-function ScrollRow({ posts }) {
-  const rowRef  = useRef(null)
-  const dragRef = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false })
-  const [dragging, setDragging] = useState(false)
+const ChevronLeft = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+)
+const ChevronRight = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+)
 
-  const onMouseDown = (e) => {
-    if (e.button !== 0) return
-    const el = rowRef.current
-    dragRef.current = { active: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, moved: false }
-    setDragging(false)
-  }
-  const onMouseMove = (e) => {
-    const d = dragRef.current
-    if (!d.active) return
-    e.preventDefault()
-    const x    = e.pageX - rowRef.current.offsetLeft
-    const walk = (x - d.startX) * 1.2
-    if (Math.abs(walk) > 4) { d.moved = true; setDragging(true) }
-    rowRef.current.scrollLeft = d.scrollLeft - walk
-  }
-  const onMouseUp = () => { dragRef.current.active = false; setTimeout(() => setDragging(false), 0) }
-  const onClickCapture = (e) => {
-    if (dragRef.current.moved) { e.stopPropagation(); dragRef.current.moved = false }
+/* ── 3-up carousel row ── */
+function ScrollRow({ posts }) {
+  const wrapRef  = useRef(null)
+  // active = index of the center card; starts at 1 so cards [0,1,2] are visible
+  const [active, setActive] = useState(Math.min(1, posts.length - 1))
+  const [tx, setTx] = useState(0)
+
+  const GAP = 16
+
+  const calcTx = useCallback((idx) => {
+    const wrap = wrapRef.current
+    if (!wrap) return 0
+    const w = wrap.offsetWidth
+    // step = width of one card slot (card + gap)
+    const step = (w + GAP) / 3
+    return -(idx - 1) * step
+  }, [])
+
+  const moveTo = useCallback((idx) => {
+    const clamped = Math.max(1, Math.min(posts.length - 2, idx))
+    setActive(clamped)
+    setTx(calcTx(clamped))
+  }, [posts.length, calcTx])
+
+  // Initialize translate on mount and on resize
+  useEffect(() => {
+    setTx(calcTx(active))
+  }, []) // eslint-disable-line
+
+  useEffect(() => {
+    const onResize = () => setTx(calcTx(active))
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [active, calcTx])
+
+  const canPrev = active > 1
+  const canNext = active < posts.length - 2
+
+  // Handle edge case: fewer than 3 posts → just show them all without arrows
+  if (posts.length <= 3) {
+    return (
+      <div className="cat-scroll-row-wrap">
+        <div className="cat-scroll-row cat-scroll-row--static">
+          {posts.map((post, i) => (
+            <FadeIn key={post.id} delay={i * 70}>
+              <PhoneCard post={post} />
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div
-      className={`cat-scroll-row${dragging ? ' is-dragging' : ''}`}
-      ref={rowRef}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-      onClickCapture={onClickCapture}
-    >
-      {posts.map((post, i) => (
-        <FadeIn key={post.id} delay={i * 70}>
-          <PhoneCard post={post} />
-        </FadeIn>
-      ))}
+    <div ref={wrapRef} className="cat-scroll-row-wrap">
+      <button
+        className={`scroll-arrow scroll-arrow--prev${!canPrev ? ' scroll-arrow--hidden' : ''}`}
+        onClick={() => moveTo(active - 1)}
+        aria-label="Anterior"
+        tabIndex={-1}
+      >
+        <ChevronLeft />
+      </button>
+
+      <div
+        className="cat-scroll-row"
+        style={{ transform: `translateX(${tx}px)` }}
+      >
+        {posts.map((post, i) => (
+          <FadeIn key={post.id} delay={i * 70}>
+            <PhoneCard post={post} />
+          </FadeIn>
+        ))}
+      </div>
+
+      <button
+        className={`scroll-arrow scroll-arrow--next${!canNext ? ' scroll-arrow--hidden' : ''}`}
+        onClick={() => moveTo(active + 1)}
+        aria-label="Siguiente"
+        tabIndex={-1}
+      >
+        <ChevronRight />
+      </button>
+
+      {/* Dot indicators */}
+      <div className="scroll-dots">
+        {posts.map((_, i) => (
+          i > 0 && i < posts.length - 1 && (
+            <button
+              key={i}
+              className={`scroll-dot${i === active ? ' scroll-dot--active' : ''}`}
+              onClick={() => moveTo(i)}
+              aria-label={`Ir al video ${i}`}
+              tabIndex={-1}
+            />
+          )
+        ))}
+      </div>
     </div>
   )
 }
