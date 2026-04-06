@@ -45,7 +45,7 @@ function ModalTikTokEmbed({ src, title }) {
   )
 }
 
-// IG embed: clip the profile header (~62px) and footer
+// IG embed: clip the profile header and show likes/comments below
 function ModalIgEmbed({ src, title }) {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -56,10 +56,10 @@ function ModalIgEmbed({ src, title }) {
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
         style={{
           position: 'absolute',
-          top: '-62px',
-          left: 0,
-          width: '100%',
-          height: 'calc(100% + 182px)',
+          top: '-48px',
+          left: '-1px',
+          width: 'calc(100% + 2px)',
+          height: 'calc(100% + 260px)',
           border: 'none',
         }}
         scrolling="no"
@@ -111,7 +111,7 @@ const ExternalIcon = () => (
 export default function VideoModal({ post, onClose }) {
   const {
     platform, title, embedUrl, postUrl,
-    thumbClass, shapes,
+    thumbClass, shapes, videoUrl,
   } = post
 
   // Lock body scroll + hide burger + ESC to close
@@ -153,13 +153,19 @@ export default function VideoModal({ post, onClose }) {
           <div className="modal-phone-island" />
 
           <div className="modal-phone-screen">
-            {embedUrl && isIg && (
+            {videoUrl ? (
+              <video
+                src={videoUrl}
+                autoPlay
+                controls
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000' }}
+              />
+            ) : embedUrl && isIg ? (
               <ModalIgEmbed src={embedUrl} title={title} />
-            )}
-            {embedUrl && isTk && (
+            ) : embedUrl && isTk ? (
               <ModalTikTokEmbed src={embedUrl} title={title} />
-            )}
-            {!embedUrl && (
+            ) : (
               <NoEmbedPlaceholder thumbClass={thumbClass} shapes={shapes} />
             )}
           </div>

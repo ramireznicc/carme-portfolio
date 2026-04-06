@@ -1,78 +1,54 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import FadeIn from './FadeIn'
 import PhoneCard from './PhoneCard'
-import { posts } from '../data/posts'
+import { categories } from '../data/posts'
 
-const filters = [
-  { key: 'all',    label: 'Todos' },
-  { key: 'ig',     label: 'Instagram' },
-  { key: 'tiktok', label: 'TikTok' },
-  { key: 'reel',   label: 'Reels' },
-  { key: 'feed',   label: 'Feed' },
-]
+/* ── Horizontal drag-to-scroll row ── */
+function ScrollRow({ posts }) {
+  const rowRef  = useRef(null)
+  const dragRef = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false })
+  const [dragging, setDragging] = useState(false)
 
-function matchesFilter(post, active) {
-  if (active === 'all')    return true
-  if (active === 'ig')     return post.platform === 'ig'
-  if (active === 'tiktok') return post.platform === 'tiktok'
-  if (active === 'reel')   return post.type === 'reel'
-  if (active === 'feed')   return post.type === 'feed'
-  return true
-}
-
-export default function Portfolio() {
-  const [active, setActive]     = useState('all')
-  const [canPrev, setCanPrev]   = useState(false)
-  const [canNext, setCanNext]   = useState(true)
-  const [isDragging, setIsDragging] = useState(false)
-  const gridRef  = useRef(null)
-  const dragRef  = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false })
-
-  const visible = posts.filter((p) => matchesFilter(p, active))
-
-  const updateArrows = useCallback(() => {
-    const el = gridRef.current
-    if (!el) return
-    setCanPrev(el.scrollLeft > 8)
-    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8)
-  }, [])
-
-  useEffect(() => { updateArrows() }, [visible, updateArrows])
-
-  const scrollStep = (dir) => {
-    const el = gridRef.current
-    if (!el) return
-    const card = el.querySelector('.reveal')
-    const step = (card?.offsetWidth ?? 230) + 20
-    el.scrollBy({ left: dir * step, behavior: 'smooth' })
-  }
-
-  // ── Drag-to-scroll (desktop only) ──
   const onMouseDown = (e) => {
     if (e.button !== 0) return
-    const el = gridRef.current
+    const el = rowRef.current
     dragRef.current = { active: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, moved: false }
-    setIsDragging(false)
+    setDragging(false)
   }
   const onMouseMove = (e) => {
     const d = dragRef.current
     if (!d.active) return
     e.preventDefault()
-    const x    = e.pageX - gridRef.current.offsetLeft
+    const x    = e.pageX - rowRef.current.offsetLeft
     const walk = (x - d.startX) * 1.2
-    if (Math.abs(walk) > 4) { d.moved = true; setIsDragging(true) }
-    gridRef.current.scrollLeft = d.scrollLeft - walk
+    if (Math.abs(walk) > 4) { d.moved = true; setDragging(true) }
+    rowRef.current.scrollLeft = d.scrollLeft - walk
   }
-  const onMouseUp = () => {
-    dragRef.current.active = false
-    setTimeout(() => setIsDragging(false), 0)
-  }
-
-  // Prevent click-through on cards after a drag
+  const onMouseUp = () => { dragRef.current.active = false; setTimeout(() => setDragging(false), 0) }
   const onClickCapture = (e) => {
     if (dragRef.current.moved) { e.stopPropagation(); dragRef.current.moved = false }
   }
 
+  return (
+    <div
+      className={`cat-scroll-row${dragging ? ' is-dragging' : ''}`}
+      ref={rowRef}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+      onClickCapture={onClickCapture}
+    >
+      {posts.map((post, i) => (
+        <FadeIn key={post.id} delay={i * 70}>
+          <PhoneCard post={post} />
+        </FadeIn>
+      ))}
+    </div>
+  )
+}
+
+export default function Portfolio() {
   return (
     <section className="portfolio-section section" id="portfolio">
       <FadeIn className="section-header">
@@ -80,57 +56,69 @@ export default function Portfolio() {
         <h2 className="section-title">Trabajos y Proyectos</h2>
       </FadeIn>
 
-      {/* Filter tabs */}
-      <FadeIn className="filter-tabs" delay={80}>
-        {filters.map(({ key, label }) => (
-          <button
-            key={key}
-            className={`filter-tab${active === key ? ' active' : ''}`}
-            onClick={() => setActive(key)}
-          >
-            {label}
-          </button>
-        ))}
-      </FadeIn>
-
-      {/* Grid / Carousel */}
-      <div className="portfolio-carousel-wrap">
-        <div
-          className={`portfolio-grid${isDragging ? ' is-dragging' : ''}`}
-          ref={gridRef}
-          onScroll={updateArrows}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-          onClickCapture={onClickCapture}
-        >
-          {visible.map((post, i) => (
-            <FadeIn key={post.id} delay={i * 80}>
-              <PhoneCard post={post} />
-            </FadeIn>
+      {/* Category shortcuts */}
+      <FadeIn delay={80}>
+        <div className="cat-nav">
+          {categories.map((cat, idx) => (
+            <a
+              key={cat.id}
+              href={`#cat-${cat.id}`}
+              className="cat-nav-item"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
+            >
+              <span className="cat-nav-num" style={{ color: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent }}>
+                {String(idx + 1).padStart(2, '0')}
+              </span>
+              <span className="cat-nav-label">{cat.title}</span>
+            </a>
           ))}
         </div>
+      </FadeIn>
 
-        {/* Flechas — solo visibles en mobile via CSS */}
-        <button
-          className={`carousel-arrow carousel-arrow-prev${canPrev ? '' : ' carousel-arrow--hidden'}`}
-          onClick={() => scrollStep(-1)}
-          aria-label="Anterior"
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-        <button
-          className={`carousel-arrow carousel-arrow-next${canNext ? '' : ' carousel-arrow--hidden'}`}
-          onClick={() => scrollStep(1)}
-          aria-label="Siguiente"
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
+      <div className="portfolio-categories">
+        {categories.map((cat, idx) => (
+          <div key={cat.id} id={`cat-${cat.id}`} className="portfolio-category">
+            <FadeIn>
+              <div className="cat-header">
+                <span className="cat-number" style={{ color: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent }}>
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <h3 className="cat-title">{cat.title}</h3>
+              </div>
+            </FadeIn>
+
+            <div className="cat-rows">
+              {cat.rows.map((row) => (
+                <div key={row.id} className="cat-row">
+                  <FadeIn>
+                    <div className="cat-row-meta">
+                      {row.platform && (
+                        <span
+                          className="cat-platform-pill"
+                          style={{
+                            background: row.platform === 'TikTok' ? '#010101' : 'linear-gradient(135deg,#f9a, #f96)',
+                            color: '#fff',
+                          }}
+                        >
+                          {row.platform === 'TikTok' && <span aria-hidden="true">♪ </span>}
+                          {row.platform === 'Instagram' && <span aria-hidden="true">◈ </span>}
+                          {row.platform}
+                        </span>
+                      )}
+                      {row.description && (
+                        <p className="cat-row-desc">{row.description}</p>
+                      )}
+                    </div>
+                  </FadeIn>
+                  <ScrollRow posts={row.posts} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   )

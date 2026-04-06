@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import FadeIn from './FadeIn'
 import { SiInstagram, SiLinkedin } from 'react-icons/si'
 
@@ -11,7 +11,19 @@ export default function Contact() {
   const [exiting, setExiting] = useState(false)
   const [errors, setErrors]   = useState({})
   const [loading, setLoading] = useState(false)
-  const exitTimer = useRef(null)
+  const exitTimer  = useRef(null)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add('contact-visible'); observer.disconnect() } },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const handleReset = () => {
     setExiting(true)
@@ -55,7 +67,9 @@ export default function Contact() {
   }
 
   return (
-    <section className="contact-section" id="contacto">
+    <section className="contact-section" id="contacto" ref={sectionRef}>
+      <img src="/call-me-sticker.png" alt="" aria-hidden="true" className="contact-deco contact-deco--left" />
+      <img src="/call-me-sticker.png" alt="" aria-hidden="true" className="contact-deco contact-deco--right" />
       <div className="contact-layout">
 
         {/* ── Encabezado ── */}
@@ -93,6 +107,7 @@ export default function Contact() {
               </span>
             </a>
           </div>
+
         </FadeIn>
 
         {/* ── Formulario ── */}

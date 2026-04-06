@@ -1,166 +1,140 @@
 /**
- * Portfolio posts data.
- *
- * Fields:
- *  id          – unique identifier
- *  platform    – 'ig' | 'tiktok'
- *  type        – 'reel' | 'feed'
- *  thumbClass  – CSS gradient class (thumb-g1 … thumb-g9)
- *  shapes      – array of shape classes inside the thumbnail
- *  aspectRatio – 'reel' | 'square' | 'landscape'
- *  badgeLabel  – text shown in the platform badge
- *  hasPlay     – show play button?
- *  countIcon   – 'play' | 'heart'
- *  count       – display string for views / likes
- *  client      – client name
- *  title       – post title
- *  tags        – skill tags
- *
- * To replace placeholders with real embeds in the future:
- *  - Add an `embedUrl` field (Instagram post URL or TikTok URL)
- *  - Update PostCard to render the embed when `embedUrl` is present
+ * Portfolio categories.
+ * Each category has one or more rows (sub-sections).
+ * Each row has a platform label (optional), description, and posts.
+ * Replace thumbClass/shapes with real embedUrl when available.
  */
 
-export const posts = [
+const ph = (id, g, s1, s2, platform = 'ig') => ({
+  id,
+  platform,
+  thumbClass: `thumb-g${g}`,
+  shapes: [`thumb-shape-${s1}`, `thumb-shape-${s2}`],
+  aspectRatio: 'reel',
+  badgeLabel: platform === 'tiktok' ? 'TikTok' : 'REEL',
+  hasPlay: true,
+  countIcon: 'play',
+  count: '—',
+  client: '',
+  title: '',
+  tags: [],
+})
+
+export const categories = [
   {
-    id: 1,
-    platform: 'ig',
-    type: 'reel',
-    thumbClass: 'thumb-g2',
-    shapes: ['thumb-shape-1', 'thumb-shape-2'],
-    aspectRatio: 'reel',
-    badgeLabel: 'REEL',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '124K',
-    client: 'Marca de Skincare',
-    title: 'Rutina de mañana — Tutorial con transiciones',
-    tags: ['Edición', 'Guión', 'Transiciones'],
-    embedUrl: 'https://www.instagram.com/p/DSnIfqPDrlH/embed/',
-    postUrl:  'https://www.instagram.com/p/DSnIfqPDrlH/',
+    id: 'cm',
+    title: 'Community Manager / Edición',
+    accent: '#f962b2',
+    rows: [
+      {
+        id: 'cm-ig',
+        platform: 'Instagram',
+        description:
+          'Trabajé como cm del perfil de la diputada Lucila De Ponti, escribiendo copys, produciendo y editando videos, creando guiones, planificando estrategias de contenido y evaluando las métricas y el rendimiento de las diferentes redes sociales según el lenguaje de cada una. Trabajos pre producidos y guionados y edición de notas o entrevistas en vivo, o de intervenciones políticas.',
+        posts: [
+          { ...ph('cm-ig-1',  2, 1, 2), embedUrl: 'https://www.instagram.com/reel/DUyvjkrjt4t/embed/', postUrl: 'https://www.instagram.com/reel/DUyvjkrjt4t/' },
+          { ...ph('cm-ig-2',  3, 2, 3), embedUrl: 'https://www.instagram.com/p/DWZRBknjyAr/embed/',    postUrl: 'https://www.instagram.com/p/DWZRBknjyAr/' },
+          { ...ph('cm-ig-3',  6, 1, 3), embedUrl: 'https://www.instagram.com/p/DGO50UXShMG/embed/',    postUrl: 'https://www.instagram.com/p/DGO50UXShMG/' },
+          { ...ph('cm-ig-4',  1, 3, 2), embedUrl: 'https://www.instagram.com/p/DQC5XZbEmAy/embed/',    postUrl: 'https://www.instagram.com/p/DQC5XZbEmAy/' },
+          { ...ph('cm-ig-5',  8, 2, 1), embedUrl: 'https://www.instagram.com/p/DLFsM95OtQ_/embed/',    postUrl: 'https://www.instagram.com/p/DLFsM95OtQ_/' },
+          { ...ph('cm-ig-6',  5, 1, 2), embedUrl: 'https://www.instagram.com/p/DFxVb5wOW9m/embed/',    postUrl: 'https://www.instagram.com/p/DFxVb5wOW9m/' },
+          { ...ph('cm-ig-7',  7, 3, 1), embedUrl: 'https://www.instagram.com/p/DPCrFgugScl/embed/',    postUrl: 'https://www.instagram.com/p/DPCrFgugScl/' },
+          { ...ph('cm-ig-8',  4, 2, 3), embedUrl: 'https://www.instagram.com/p/DD5bV5gPGs4/embed/',    postUrl: 'https://www.instagram.com/p/DD5bV5gPGs4/' },
+          { ...ph('cm-ig-9',  9, 1, 3), embedUrl: 'https://www.instagram.com/p/DVGxfQXjm7J/embed/',    postUrl: 'https://www.instagram.com/p/DVGxfQXjm7J/' },
+          { ...ph('cm-ig-10', 2, 3, 1), embedUrl: 'https://www.instagram.com/p/DQZVOy9Dr_D/embed/',    postUrl: 'https://www.instagram.com/p/DQZVOy9Dr_D/' },
+          { ...ph('cm-ig-11', 6, 2, 3), embedUrl: 'https://www.instagram.com/p/DOBaigfjggp/embed/',    postUrl: 'https://www.instagram.com/p/DOBaigfjggp/' },
+          { ...ph('cm-ig-12', 3, 1, 2), embedUrl: 'https://www.instagram.com/p/DOld5GRjpA1/embed/',    postUrl: 'https://www.instagram.com/p/DOld5GRjpA1/' },
+          { ...ph('cm-ig-13', 8, 3, 2), embedUrl: 'https://www.instagram.com/p/DJKHBNvOyZS/embed/',    postUrl: 'https://www.instagram.com/p/DJKHBNvOyZS/' },
+          { ...ph('cm-ig-14', 1, 2, 1), embedUrl: 'https://www.instagram.com/p/DShsL1aDpRD/embed/',    postUrl: 'https://www.instagram.com/p/DShsL1aDpRD/' },
+        ],
+      },
+      {
+        id: 'cm-tt',
+        platform: 'TikTok',
+        description:
+          'Contenido más informal, muestra un lado más cercano de la persona y permitiendo el chiste sin descuidar la imagen.',
+        posts: [
+          ph('cm-tt-1', 5, 1, 2, 'tiktok'),
+          ph('cm-tt-2', 7, 2, 3, 'tiktok'),
+          ph('cm-tt-3', 9, 3, 1, 'tiktok'),
+          ph('cm-tt-4', 4, 1, 3, 'tiktok'),
+        ],
+      },
+    ],
   },
   {
-    id: 2,
-    platform: 'ig',
-    type: 'reel',
-    thumbClass: 'thumb-g3',
-    shapes: ['thumb-shape-1', 'thumb-shape-3'],
-    aspectRatio: 'reel',
-    badgeLabel: 'REEL',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '312K',
-    client: 'Restaurante Gourmet',
-    title: 'Behind the scenes — Preparación del menú de temporada',
-    tags: ['Filmación', 'Edición', 'Trending audio'],
-    embedUrl: 'https://www.instagram.com/reel/DEDuqiUvQvW/embed/',
-    postUrl:  'https://www.instagram.com/reel/DEDuqiUvQvW/',
+    id: 'medios',
+    title: 'Comunicación en medios',
+    accent: '#c02dd7',
+    rows: [
+      {
+        id: 'medios-1',
+        platform: null,
+        description: 'Perfiles de brindis y moda.',
+        posts: [
+          ph('med-1', 4, 1, 2),
+          ph('med-2', 9, 2, 3),
+          ph('med-3', 2, 3, 1),
+          ph('med-4', 6, 1, 3),
+        ],
+      },
+    ],
   },
   {
-    id: 3,
-    platform: 'ig',
-    type: 'feed',
-    thumbClass: 'thumb-g6',
-    shapes: ['thumb-shape-2', 'thumb-shape-3'],
-    aspectRatio: 'square',
-    badgeLabel: 'CARRUSEL',
-    hasPlay: false,
-    countIcon: 'heart',
-    count: '2,847',
-    client: 'Marca de Ropa',
-    title: 'Carrusel educativo — Guía de tallas y combinaciones',
-    tags: ['Diseño', 'Copy', 'Estrategia'],
+    id: 'marcas',
+    title: 'Reseñas / Contenido para marcas',
+    accent: '#00d4aa',
+    rows: [
+      {
+        id: 'marcas-1',
+        platform: null,
+        description: '',
+        posts: [
+          ph('mar-1', 1, 2, 1),
+          ph('mar-2', 6, 1, 2),
+          ph('mar-3', 3, 3, 2),
+          ph('mar-4', 8, 2, 3),
+        ],
+      },
+    ],
   },
   {
-    id: 4,
-    platform: 'tiktok',
-    type: 'reel',
-    thumbClass: 'thumb-g5',
-    shapes: ['thumb-shape-1', 'thumb-shape-2'],
-    aspectRatio: 'reel',
-    badgeLabel: 'TikTok',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '89K',
-    client: 'Estudio de Yoga',
-    title: 'POV: Tu primera clase de yoga — Storytelling',
-    tags: ['Concepto', 'Edición', 'Storytelling'],
-    embedUrl: 'https://www.tiktok.com/embed/v2/7522254044040105222',
-    postUrl:  null, // añadir URL real cuando se tenga el handle de la cuenta
+    id: 'propio',
+    title: 'Contenido propio',
+    accent: '#e7fe71',
+    rows: [
+      {
+        id: 'propio-1',
+        platform: null,
+        description: '',
+        posts: [
+          ph('pro-1', 7, 1, 3),
+          ph('pro-2', 5, 2, 1),
+          ph('pro-3', 2, 3, 2),
+          ph('pro-4', 9, 1, 2),
+        ],
+      },
+    ],
   },
   {
-    id: 5,
-    platform: 'ig',
-    type: 'reel',
-    thumbClass: 'thumb-g1',
-    shapes: ['thumb-shape-3', 'thumb-shape-2'],
-    aspectRatio: 'reel',
-    badgeLabel: 'REEL',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '56K',
-    client: 'Cafetería Artesanal',
-    title: 'Proceso de latte art — Slow motion edit',
-    tags: ['Edición', 'Slow-mo', 'ASMR'],
-  },
-  {
-    id: 6,
-    platform: 'ig',
-    type: 'feed',
-    thumbClass: 'thumb-g8',
-    shapes: ['thumb-shape-1', 'thumb-shape-3'],
-    aspectRatio: 'square',
-    badgeLabel: 'POST',
-    hasPlay: false,
-    countIcon: 'heart',
-    count: '1,523',
-    client: 'Tienda de Plantas',
-    title: 'Tips de cuidado — Infografía con identidad de marca',
-    tags: ['Diseño gráfico', 'Copy'],
-  },
-  {
-    id: 7,
-    platform: 'tiktok',
-    type: 'reel',
-    thumbClass: 'thumb-g7',
-    shapes: ['thumb-shape-2', 'thumb-shape-1'],
-    aspectRatio: 'reel',
-    badgeLabel: 'TikTok',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '478K',
-    client: 'Marca Personal',
-    title: 'Un día conmigo — Vlog estilo editorial',
-    tags: ['Vlog', 'Color grading', 'Música'],
-  },
-  {
-    id: 8,
-    platform: 'ig',
-    type: 'reel',
-    thumbClass: 'thumb-g4',
-    shapes: ['thumb-shape-3', 'thumb-shape-1'],
-    aspectRatio: 'reel',
-    badgeLabel: 'REEL',
-    hasPlay: true,
-    countIcon: 'play',
-    count: '203K',
-    client: 'Peluquería',
-    title: 'Transformación capilar — Before & After con beat sync',
-    tags: ['Edición', 'Beat sync', 'B&A'],
-  },
-  {
-    id: 9,
-    platform: 'ig',
-    type: 'feed',
-    thumbClass: 'thumb-g9',
-    shapes: ['thumb-shape-2', 'thumb-shape-3'],
-    aspectRatio: 'landscape',
-    badgeLabel: 'CARRUSEL',
-    hasPlay: false,
-    countIcon: 'heart',
-    count: '3,291',
-    client: 'Agencia de Viajes',
-    title: 'Destinos de verano — Grilla visual con identidad',
-    tags: ['Dirección de arte', 'Grilla', 'Copy'],
+    id: 'actuacion',
+    title: 'Actuación',
+    accent: '#ff3562',
+    rows: [
+      {
+        id: 'act-1',
+        platform: null,
+        description: '',
+        posts: [
+          ph('act-1', 4, 2, 3),
+          ph('act-2', 1, 1, 2),
+          ph('act-3', 8, 3, 1),
+          ph('act-4', 6, 2, 1),
+        ],
+      },
+    ],
   },
 ]
+
+/* ── Legacy export (used nowhere after portfolio rewrite) ── */
+export const posts = []

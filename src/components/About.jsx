@@ -6,12 +6,12 @@ import {
 import { LuScissors, LuArrowUpRight } from 'react-icons/lu'
 
 const tools = [
-  { name: 'Premiere Pro',  Icon: SiAdobepremierepro,  color: '#9999FF' },
-  { name: 'Photoshop',     Icon: SiAdobephotoshop,    color: '#31A8FF' },
-  { name: 'CapCut',        Icon: LuScissors,          color: '#1C1C1C' },
-  { name: 'Canva',         Icon: SiCanva,             color: '#00C4CC' },
-  { name: 'Instagram',     Icon: SiInstagram,         color: '#E4405F' },
-  { name: 'TikTok',        Icon: SiTiktok,            color: '#010101' },
+  { name: 'Premiere Pro',  Icon: SiAdobepremierepro,  color: '#7b6ef6', bg: '#edeaff' },
+  { name: 'Photoshop',     Icon: SiAdobephotoshop,    color: '#1e90d4', bg: '#dff0ff' },
+  { name: 'CapCut',        Icon: LuScissors,          color: '#333',    bg: '#efefef' },
+  { name: 'Canva',         Icon: SiCanva,             color: '#00aaaf', bg: '#d6f5f6' },
+  { name: 'Instagram',     Icon: SiInstagram,         color: '#d63060', bg: '#fde3eb' },
+  { name: 'TikTok',        Icon: SiTiktok,            color: '#111',    bg: '#f0f0f0' },
 ]
 
 const socials = [
@@ -84,40 +84,45 @@ export default function About() {
         {/* Columna izquierda: bio */}
         <FadeIn from="left" className="about-col-bio">
           <div className="section-label">Sobre mí</div>
-          <h3 className="about-heading">Hola, soy Carmela</h3>
+          <h3 className="about-heading">Hola! Me llamo Carmela, pero me dicen Carsi...</h3>
           <div className="about-bio">
             <p>
-              Soy comunicadora, creadora de contenido digital y community manager. Disfruto
-              de investigar tendencias, pensar ideas y crear contenido para redes sociales y
-              medios digitales, combinando comunicación, artística, creación audiovisual y
-              entretenimiento para generar contenido que conecte con las audiencias.
+              Soy <strong>comunicadora, creadora de contenido y community manager</strong>. Me encanta investigar
+              las redes y tendencias, planificar estrategias, pensar ideas y crear contenido, fusionando
+              comunicación, creación audiovisual y entretenimiento para generar contenido que conecte con
+              las audiencias. También tengo experiencia en <strong>comunicación política</strong>.
             </p>
             <p>
-              Trabajo produciendo y editando contenido para plataformas como Instagram,
+              Actualmente participo en programas de <strong>streaming y televisión</strong> como{' '}
+              <strong>conductora y panelista.</strong> Disfruto de entretener, informar, hacer reir,
+              generar algo distintivo en el oyente/espectador.
+            </p>
+            <p>
+              También tengo mi lado artístico: <strong>soy actriz y bailarina.</strong> Amo poder
+              explotarlo y combinarlo con el de comunicación y redes para potenciar mis ideas lo más que pueda.
+            </p>
+            <p>
+              Trabajo <strong>produciendo y editando</strong> contenido para plataformas como Instagram,
               TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
             </p>
             <p>
-              Me dedico a la gestión de redes sociales y community management: planificación
-              de contenido, estrategias para cada plataforma, gestión de comunidades y
-              seguimiento del rendimiento de las publicaciones.
+              Algo en lo que me interesa seguir explorando son los nuevos formatos de comunicación digital
+              y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
+              conocemos como <strong>formatos UGC</strong> (User Generated Content).
             </p>
             <p>
-              Actualmente participo en programas de streaming y televisión como conductora
-              y panelista, combinando comunicación, entretenimiento y actualidad.
-            </p>
-            <p>
-              Me interesa seguir explorando nuevos formatos de comunicación digital y
-              trabajar con marcas creando contenido auténtico para redes, especialmente
-              en formatos UGC (User Generated Content).
+              Seguí deslizando para ver más sobre mis trabajos ↓
             </p>
           </div>
 
           <div className="about-tools-row">
             <p className="about-tools-label">Herramientas</p>
             <div className="about-tools">
-              {tools.map(({ name, Icon, color }) => (
-                <div key={name} className="tool-item">
-                  <Icon size={26} color={color} />
+              {tools.map(({ name, Icon, color, bg }) => (
+                <div key={name} className="tool-item" style={{ background: bg }}>
+                  <span className="tool-icon-wrap">
+                    <Icon size={22} color={color} />
+                  </span>
                   <span className="tool-item-name">{name}</span>
                 </div>
               ))}

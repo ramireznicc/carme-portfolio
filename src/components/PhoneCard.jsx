@@ -27,19 +27,28 @@ const SmallPlayIcon = () => (
   </svg>
 )
 
+/* Scale constants for the IG embed preview inside the small phone screen */
+const IG_EMBED_W = 326
+const PHONE_SCREEN_W = 164
+const IG_SCALE = PHONE_SCREEN_W / IG_EMBED_W
+const IG_EMBED_H = Math.round((PHONE_SCREEN_W * 17 / 9 + 50) / IG_SCALE)
+
 export default function PhoneCard({ post }) {
   const [modalOpen, setModalOpen] = useState(false)
   const {
     platform, thumbClass, shapes,
     badgeLabel, hasPlay, countIcon, count,
-    client, title, tags,
+    client, title, tags, embedUrl,
   } = post
+
+  const hasVideoUrl = !!post.videoUrl
+  const hasIgEmbed  = embedUrl && platform === 'ig' && !hasVideoUrl
 
   return (
     <>
       <article className="phone-card" onClick={() => setModalOpen(true)} role="button" tabIndex={0}
         onKeyDown={(e) => e.key === 'Enter' && setModalOpen(true)}
-        aria-label={`Ver ${title}`}
+        aria-label={`Ver ${title || 'post'}`}
       >
         {/* ── Phone mockup ── */}
         <div className="phone-mockup">
@@ -48,28 +57,63 @@ export default function PhoneCard({ post }) {
 
           {/* Screen content */}
           <div className="phone-screen">
-            <div className={`post-thumb-inner phone-screen-inner ${thumbClass}`}>
-              {shapes.map((s) => (
-                <div key={s} className={`thumb-shape ${s}`} aria-hidden="true" />
-              ))}
-
-              {/* Platform badge */}
-              <span className={`platform-badge ${platform === 'ig' ? 'badge-ig' : 'badge-tiktok'}`}>
-                {platform === 'tiktok' && <span aria-hidden="true">♪</span>}
-                {badgeLabel}
-              </span>
-
-              {/* Stats overlay */}
-              <div className="views-overlay" aria-label={`${count} ${countIcon === 'play' ? 'views' : 'likes'}`}>
-                {countIcon === 'play' ? <SmallPlayIcon /> : <HeartIcon />}
-                {count}
+            {hasVideoUrl ? (
+              /* Direct video URL → true autoplay muted preview */
+              <div className="phone-embed-preview">
+                <video
+                  src={post.videoUrl}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
+                />
+                <div className="phone-tap-hint" aria-hidden="true"><PlayIcon /></div>
               </div>
-
-              {/* Tap hint — visible on hover */}
-              <div className="phone-tap-hint" aria-hidden="true">
-                {hasPlay ? <PlayIcon /> : <span style={{ fontSize: '1.5rem' }}>👆</span>}
+            ) : hasIgEmbed ? (
+              /* Instagram embed preview — scaled down, non-interactive */
+              <div className="phone-embed-preview">
+                <iframe
+                  src={embedUrl}
+                  loading="lazy"
+                  scrolling="no"
+                  tabIndex={-1}
+                  title={title || 'Instagram post'}
+                  style={{
+                    position: 'absolute',
+                    top: '-44px',
+                    left: 0,
+                    width: IG_EMBED_W,
+                    height: IG_EMBED_H,
+                    transform: `scale(${IG_SCALE})`,
+                    transformOrigin: 'top left',
+                    border: 'none',
+                    pointerEvents: 'none',
+                  }}
+                />
+                <div className="phone-tap-hint" aria-hidden="true">
+                  <PlayIcon />
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Gradient placeholder */
+              <div className={`post-thumb-inner phone-screen-inner ${thumbClass}`}>
+                {shapes.map((s) => (
+                  <div key={s} className={`thumb-shape ${s}`} aria-hidden="true" />
+                ))}
+                <span className={`platform-badge ${platform === 'ig' ? 'badge-ig' : 'badge-tiktok'}`}>
+                  {platform === 'tiktok' && <span aria-hidden="true">♪</span>}
+                  {badgeLabel}
+                </span>
+                <div className="views-overlay" aria-label={`${count} ${countIcon === 'play' ? 'views' : 'likes'}`}>
+                  {countIcon === 'play' ? <SmallPlayIcon /> : <HeartIcon />}
+                  {count}
+                </div>
+                <div className="phone-tap-hint" aria-hidden="true">
+                  {hasPlay ? <PlayIcon /> : <span style={{ fontSize: '1.5rem' }}>👆</span>}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Home indicator */}
