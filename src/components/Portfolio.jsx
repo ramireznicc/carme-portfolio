@@ -3,6 +3,28 @@ import FadeIn from './FadeIn'
 import PhoneCard from './PhoneCard'
 import { categories } from '../data/posts'
 
+function CrayonDivider() {
+  return (
+    <span className="cat-col-divider" aria-hidden="true">
+      <svg viewBox="0 0 14 100" preserveAspectRatio="xMidYMid none">
+        <defs>
+          <filter id="crayon-vline" x="-200%" y="-2%" width="500%" height="104%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.09 0.006" numOctaves="4" seed="17" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+        <line
+          x1="7" y1="2" x2="7" y2="98"
+          stroke="#dda0b8"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          filter="url(#crayon-vline)"
+        />
+      </svg>
+    </span>
+  )
+}
+
 const ChevronLeft = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="15 18 9 12 15 6" />
@@ -159,6 +181,7 @@ export default function Portfolio() {
             </FadeIn>
 
             <div className={`cat-rows${cat.rows.length === 2 ? ' cat-rows--two-col' : ''}`}>
+              {cat.rows.length === 2 && <CrayonDivider />}
               {cat.rows.map((row) => (
                 <div key={row.id} className="cat-row">
                   <FadeIn>
