@@ -52,7 +52,7 @@ export const categories = [
         id: 'cm-tt',
         platform: 'TikTok',
         description:
-          'Contenido más informal, muestra un lado más cercano de la persona y permitiendo el chiste sin descuidar la imagen.',
+          'Contenido más informal, muestra un lado más cercano de la persona dando lugar al humor siempre cuidando la imagen y contextos.',
         posts: [
           ph('cm-tt-1', 5, 1, 2, 'tiktok'),
           ph('cm-tt-2', 7, 2, 3, 'tiktok'),
