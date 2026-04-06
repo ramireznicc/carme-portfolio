@@ -46,6 +46,30 @@ export default function Hero() {
           alt="Carmela Gil Pujol"
           className="hero-photo-img"
         />
+        {/* Crayon-style purple frame overlay */}
+        <svg
+          className="hero-photo-frame-svg"
+          viewBox="0 0 300 400"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <filter id="hero-crayon" x="-8%" y="-8%" width="116%" height="116%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="9" result="n" />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+          <rect
+            x="7" y="7" width="286" height="386"
+            stroke="#c02dd7"
+            strokeWidth="9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            rx="22"
+            filter="url(#hero-crayon)"
+          />
+        </svg>
       </div>
 
     </section>

@@ -228,7 +228,7 @@ body::before {
   animation: card-float-3 4s ease-in-out infinite 1.6s;
 }
 
-/* Foto encima — borde recto en purple */
+/* Foto encima */
 .hero-photo-img {
   position: absolute;
   inset: 0;
@@ -238,7 +238,17 @@ body::before {
   object-position: center 10%;
   border-radius: 24px;
   z-index: 2;
-  box-shadow: 0 0 0 7px var(--purple);
+}
+
+/* Crayon frame SVG overlay */
+.hero-photo-frame-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
 }
 
 .hero-name {
@@ -1604,7 +1614,7 @@ body::before {
   .hero-content { flex: none; align-items: center; max-width: 100%; gap: 20px; }
   .hero-photo-frame { order: -1; width: clamp(170px, 52vw, 240px); }
   .hero-frame-card { border-radius: 20px; transition: none; }
-  .hero-photo-img { border-radius: 16px; box-shadow: 0 0 0 5px var(--purple); }
+  .hero-photo-img { border-radius: 16px; }
   .hero-name { font-size: clamp(3rem, 13vw, 4.2rem); }
   .hero-description { font-size: 0.78rem; max-width: 100%; line-height: 1.6; }
   .hero-ctas { justify-content: center; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 12px; }
