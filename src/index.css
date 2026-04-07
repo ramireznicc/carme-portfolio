@@ -1663,7 +1663,16 @@ body::before {
   .scroll-arrow--prev { left: -4px; }
   .scroll-arrow--next { right: -4px; }
   .cat-rows { gap: 32px; }
-  .cat-rows--two-col { flex-direction: column; }
+  .cat-rows--two-col {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 40px;
+  }
+  .cat-rows--two-col .cat-row {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    grid-template-rows: auto auto;
+  }
 
 
   .post-info { padding: 10px 12px 12px; }
@@ -2064,23 +2073,23 @@ body::before {
 
 /* ── Mobile adjustments for phone card + modal ── */
 @media (max-width: 640px) {
-  /* Phone card: más grande en mobile */
-  .phone-card { max-width: 220px; }
+  /* Phone card: fill carousel slot width */
+  .phone-card { max-width: none; width: 100%; }
   .phone-mockup {
-    width: 200px;
-    border-radius: 40px;
+    width: 100%;
+    border-radius: 24px;
     box-shadow:
-      0 0 0 1.5px #2a2a2a,
-      0 0 0 3px #1e1e1e,
-      inset 0 1px 0 rgba(255,255,255,0.08),
-      0 12px 28px rgba(0,0,0,0.4); /* sombra más corta → cabe en 48px padding */
+      0 0 0 1px #c4a49c,
+      0 0 0 2px #bfa09a,
+      inset 0 1px 0 rgba(255,255,255,0.18),
+      0 8px 20px rgba(0,0,0,0.18);
   }
-  .phone-mockup::before { top: 76px; }
-  .phone-mockup::after  { top: 96px; }
-  .phone-island { width: 64px; height: 13px; margin-bottom: 4px; }  /* 8+13+4=25 */
-  .phone-screen { border-radius: 22px; }
-  .phone-screen-inner { border-radius: 22px; }
-  .phone-home-bar { width: 56px; margin-top: 13px; }                /* 13+4+8=25 */
+  .phone-mockup::before { top: 40px; height: 14px; box-shadow: 0 20px 0 #c4a49c; }
+  .phone-mockup::after  { top: 55px; height: 22px; }
+  .phone-island { width: 40%; max-width: 64px; height: 10px; margin-bottom: 3px; }
+  .phone-screen { border-radius: 16px; }
+  .phone-screen-inner { border-radius: 16px; }
+  .phone-home-bar { width: 40%; max-width: 56px; margin-top: 8px; }
 
   /* Modal phone */
   .modal-phone-mockup {
