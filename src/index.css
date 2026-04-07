@@ -449,9 +449,13 @@ body::before {
 .cat-nav {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
   margin-bottom: 20px;
 }
+.cat-nav::-webkit-scrollbar { display: none; }
+.cat-nav .cat-nav-item { flex-shrink: 0; }
 
 .cat-nav-item {
   display: flex;
