@@ -1159,6 +1159,8 @@ body::before {
   width: 60px;
   height: 68px;
   border-radius: 15px;
+  user-select: none;
+  -webkit-user-select: none;
   /* sticker cut border: white outline + soft shadow */
   box-shadow:
     0 0 0 3.5px #fff,
