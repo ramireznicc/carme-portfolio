@@ -463,9 +463,6 @@ body::before {
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
   background: transparent;
-  flex: 1 1 0;
-  min-width: 0;
-  justify-content: center;
 }
 .cat-nav-item:hover {
   background: var(--surface);
@@ -1646,7 +1643,7 @@ body::before {
     gap: 6px;
     margin-bottom: 8px;
   }
-  .cat-nav-item { padding: 5px 7px; }
+  .cat-nav-item { padding: 5px 7px; flex: 1 1 0; min-width: 0; justify-content: center; }
   .cat-nav-label { font-size: 0.58rem; }
   .portfolio-category { padding: 36px 0 44px; }
   .cat-header { margin-bottom: 24px; gap: 10px; }
