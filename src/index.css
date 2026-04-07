@@ -2097,27 +2097,26 @@ body::before {
   .modal-backdrop {
     padding: 0;
     align-items: stretch;
-    justify-content: stretch;
     overflow: hidden;
   }
-  /* modal-inner fills the full screen as a column */
   .modal-inner {
     width: 100%;
     height: 100dvh;
     max-height: 100dvh;
-    padding: 64px 16px 20px;
-    gap: 16px;
+    padding: 0;
+    gap: 0;
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
-  /* Strip phone frame — video fills remaining height */
+  /* Strip phone frame — video fills full screen */
   .modal-phone-mockup {
+    position: relative;
     width: 100%;
     flex: 1;
     min-height: 0;
-    background: transparent;
+    background: #000;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
@@ -2131,15 +2130,21 @@ body::before {
   .modal-phone-screen {
     flex: 1;
     min-height: 0;
-    border-radius: 14px;
+    border-radius: 0;
     aspect-ratio: unset;
     overflow: hidden;
   }
-  .modal-cta-btn {
-    flex-shrink: 0;
-    font-size: 0.88rem;
-    padding: 14px 24px;
-    width: 100%;
-    justify-content: center;
+  /* CTA button: small pill overlaid at bottom of video */
+  .modal-phone-mockup .modal-cta-btn {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 0.78rem;
+    padding: 9px 18px;
+    white-space: nowrap;
+    width: auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   }
 }

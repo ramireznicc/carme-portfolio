@@ -134,10 +134,11 @@ export default function VideoModal({ post, onClose }) {
     requestAnimationFrame(fade)
   }
 
-  // Autoplay as soon as the video element mounts (required on iOS)
+  // Autoplay — set muted via property (React prop doesn't always work on iOS)
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
+    v.muted = true
     v.play().catch(() => {})
   }, [])
 
@@ -195,7 +196,7 @@ export default function VideoModal({ post, onClose }) {
                 muted
                 controls
                 playsInline
-                onCanPlay={(e) => e.target.play().catch(() => {})}
+                onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000', display: 'block' }}
               />
             ) : embedUrl && isIg ? (
@@ -207,26 +208,23 @@ export default function VideoModal({ post, onClose }) {
             )}
           </div>
 
+          {/* CTA overlay — on mobile sits on top of the video, desktop stays below */}
+          {postUrl ? (
+            <a
+              href={postUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="modal-cta-btn"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {isIg ? <IgIcon /> : <TkIcon />}
+              {isIg ? 'Ver en Instagram' : 'Ver en TikTok'}
+              <ExternalIcon />
+            </a>
+          ) : null}
+
           <div className="modal-phone-home-bar" />
         </div>
-
-        {/* CTA */}
-        {postUrl ? (
-          <a
-            href={postUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="modal-cta-btn"
-          >
-            {isIg ? <IgIcon /> : <TkIcon />}
-            {isIg ? 'Ver en Instagram' : 'Ver en TikTok'}
-            <ExternalIcon />
-          </a>
-        ) : (
-          <span className="modal-cta-btn modal-cta-btn--disabled" aria-disabled="true">
-            Link no disponible aún
-          </span>
-        )}
 
       </div>
     </div>,
