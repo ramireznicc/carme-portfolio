@@ -117,6 +117,23 @@ export default function VideoModal({ post, onClose }) {
 
   const videoRef = useRef(null)
 
+  // Fade audio out over ~350ms then close
+  const handleClose = () => {
+    const v = videoRef.current
+    if (!v || v.muted || v.volume === 0) { onClose(); return }
+    const start = v.volume
+    const duration = 350
+    const startTime = performance.now()
+    const fade = (now) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      v.volume = start * (1 - progress)
+      if (progress < 1) requestAnimationFrame(fade)
+      else onClose()
+    }
+    requestAnimationFrame(fade)
+  }
+
   // Autoplay as soon as the video element mounts (required on iOS)
   useEffect(() => {
     const v = videoRef.current
@@ -126,7 +143,7 @@ export default function VideoModal({ post, onClose }) {
 
   // Lock body scroll (iOS-safe) + ESC to close
   useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose() }
+    const handler = (e) => { if (e.key === 'Escape') handleClose() }
     document.addEventListener('keydown', handler)
     // iOS-safe scroll lock: fix body at current scroll position
     const scrollY = window.scrollY
@@ -150,13 +167,13 @@ export default function VideoModal({ post, onClose }) {
   return createPortal(
     <div
       className="modal-backdrop"
-      onClick={onClose}
+      onClick={handleClose}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
       {/* Cruz fuera de modal-inner para que position:fixed no sea afectado por el transform de la animación */}
-      <button className="modal-close-btn" onClick={onClose} aria-label="Cerrar">
+      <button className="modal-close-btn" onClick={handleClose} aria-label="Cerrar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
           <line x1="18" y1="6" x2="6" y2="18" />
           <line x1="6" y1="6" x2="18" y2="18" />
