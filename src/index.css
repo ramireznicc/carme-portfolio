@@ -2096,33 +2096,50 @@ body::before {
   /* Modal — full screen on mobile, no phone frame */
   .modal-backdrop {
     padding: 0;
-    align-items: flex-start;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+    justify-content: stretch;
+    overflow: hidden;
   }
+  /* modal-inner fills the full screen as a column */
   .modal-inner {
     width: 100%;
-    min-height: 100dvh;
-    max-height: none;
-    padding: 70px 20px 36px;
+    height: 100dvh;
+    max-height: 100dvh;
+    padding: 64px 16px 20px;
+    gap: 16px;
     justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
-  /* Strip phone frame on mobile — just show the video */
+  /* Strip phone frame — video fills remaining height */
   .modal-phone-mockup {
     width: 100%;
+    flex: 1;
+    min-height: 0;
     background: transparent;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
+    display: flex;
+    flex-direction: column;
   }
   .modal-phone-mockup::before,
   .modal-phone-mockup::after { display: none; }
   .modal-phone-island,
   .modal-phone-home-bar { display: none; }
   .modal-phone-screen {
+    flex: 1;
+    min-height: 0;
     border-radius: 14px;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: unset;
     overflow: hidden;
   }
-  .modal-cta-btn { font-size: 0.88rem; padding: 12px 24px; width: 100%; justify-content: center; }
+  .modal-cta-btn {
+    flex-shrink: 0;
+    font-size: 0.88rem;
+    padding: 14px 24px;
+    width: 100%;
+    justify-content: center;
+  }
 }
