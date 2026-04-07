@@ -1797,7 +1797,7 @@ body::before {
 
 /* Screen area */
 .phone-screen {
-  border-radius: 22px;
+  border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 9 / 17;
   position: relative;
@@ -1805,7 +1805,7 @@ body::before {
 }
 
 .phone-screen-inner {
-  border-radius: 22px;
+  border-radius: 12px;
 }
 
 .phone-embed-preview {
@@ -2082,8 +2082,8 @@ body::before {
   .phone-mockup::before { top: 40px; height: 14px; box-shadow: 0 20px 0 #c4a49c; }
   .phone-mockup::after  { top: 55px; height: 22px; }
   .phone-island { width: 40%; max-width: 64px; height: 10px; margin-bottom: 3px; }
-  .phone-screen { border-radius: 16px; }
-  .phone-screen-inner { border-radius: 16px; }
+  .phone-screen { border-radius: 10px; }
+  .phone-screen-inner { border-radius: 10px; }
   .phone-home-bar { width: 40%; max-width: 56px; margin-top: 8px; }
 
   /* Modal phone */
