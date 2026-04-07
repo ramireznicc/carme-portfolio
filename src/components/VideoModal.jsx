@@ -115,16 +115,32 @@ export default function VideoModal({ post, onClose }) {
     thumbClass, shapes, videoUrl,
   } = post
 
-  // Lock body scroll + hide burger + ESC to close
+  const videoRef = useRef(null)
+
+  // Autoplay as soon as the video element mounts (required on iOS)
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    v.play().catch(() => {})
+  }, [])
+
+  // Lock body scroll (iOS-safe) + ESC to close
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handler)
-    document.body.style.overflow = 'hidden'
+    // iOS-safe scroll lock: fix body at current scroll position
+    const scrollY = window.scrollY
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.width = '100%'
     document.body.classList.add('modal-open')
     return () => {
       document.removeEventListener('keydown', handler)
-      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
       document.body.classList.remove('modal-open')
+      window.scrollTo(0, scrollY)
     }
   }, [onClose])
 
@@ -156,8 +172,10 @@ export default function VideoModal({ post, onClose }) {
           <div className="modal-phone-screen">
             {videoUrl ? (
               <video
+                ref={videoRef}
                 src={videoUrl}
                 autoPlay
+                muted
                 controls
                 playsInline
                 style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000' }}

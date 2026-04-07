@@ -2090,14 +2090,14 @@ body::before {
   .modal-backdrop {
     padding: 0;
     align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .modal-inner {
     width: 100%;
     min-height: 100dvh;
     max-height: none;
     padding: 70px 20px 36px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     justify-content: flex-start;
   }
   /* Strip phone frame on mobile — just show the video */
