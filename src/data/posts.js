@@ -66,6 +66,7 @@ export const categories = [
   {
     id: 'medios',
     title: 'Comunicación en medios',
+    navLabel: 'Medios',
     accent: '#c02dd7',
     rows: [
       {
