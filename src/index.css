@@ -1813,8 +1813,8 @@ body::before {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #000;
-  border-radius: 22px;
+  background: #fff;
+  border-radius: 0;
 }
 /* Heart pulse animation for IGSketchFrame */
 @keyframes ig-sk-pulse {
