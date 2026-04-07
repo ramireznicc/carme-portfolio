@@ -141,7 +141,8 @@ export default function Portfolio() {
               href={`#cat-${cat.id}`}
               className="cat-nav-item"
               style={{
-                borderColor: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
+                '--accent': cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
+                borderColor: 'var(--accent)',
                 background: hexToRgba(cat.accent, 0.1),
               }}
               onClick={(e) => {

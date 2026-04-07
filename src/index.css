@@ -465,9 +465,11 @@ body::before {
   background: transparent;
 }
 .cat-nav-item:hover {
-  background: var(--surface);
+  background: var(--accent);
   transform: translateY(-2px);
-  opacity: 0.85;
+}
+.cat-nav-item:hover .cat-nav-label {
+  color: #fff;
 }
 .cat-nav-label {
   font-size: 0.68rem;
