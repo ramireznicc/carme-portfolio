@@ -37,6 +37,16 @@ export default function Hero() {
       </div>
 
       {/* ── Marco con foto (derecha en desktop) ── */}
+      {/* Hidden SVG filter for wobbly card edges */}
+      <svg style={{ display: 'none' }} aria-hidden="true">
+        <defs>
+          <filter id="card-wobble" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="4" seed="4" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
       <div className="hero-photo-frame hero-anim-0">
         <div className="hero-frame-card hero-frame-card-3" aria-hidden="true" />
         <div className="hero-frame-card hero-frame-card-1" aria-hidden="true" />
