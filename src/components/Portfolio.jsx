@@ -79,14 +79,16 @@ function ScrollRow({ posts }) {
       t.style.transform = `translateX(${x}px)`
     }
 
+    let lastX = null, lastT = null
+
     const onStart = (e) => {
       startX = e.touches[0].clientX
       startY = e.touches[0].clientY
+      lastX = startX
+      lastT = Date.now()
       locked = null
-      // capture current translate as base
       const w = wrap.offsetWidth
-      const GAP = 16
-      const step = (w + GAP) / 3
+      const step = (w + 16) / 3
       baseTx = -(activeRef.current - 1) * step
     }
     const onMove = (e) => {
@@ -96,27 +98,33 @@ function ScrollRow({ posts }) {
       if (locked === null) locked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'
       if (locked !== 'h') return
       e.preventDefault()
-      // follow finger with slight resistance at edges
+      lastX = e.touches[0].clientX
+      lastT = Date.now()
+      // 1:1 follow with soft rubber-band at edges
       const w = wrap.offsetWidth
-      const GAP = 16
-      const step = (w + GAP) / 3
-      const maxShift = step * 0.6
-      const raw = baseTx + dx
-      const clamped = baseTx + Math.max(-maxShift, Math.min(maxShift, dx))
+      const step = (w + 16) / 3
+      const maxSteps = posts.length - 3  // how many steps can move
+      const minTx = -(maxSteps) * step
+      const target = baseTx + dx
+      const rubber = (v, limit) => limit + (v - limit) * 0.25
+      const clamped = target < minTx ? rubber(target, minTx)
+                    : target > 0     ? rubber(target, 0)
+                    : target
       setTrackTx(clamped, false)
     }
     const onEnd = (e) => {
       if (startX === null || locked !== 'h') { startX = null; return }
       const dx = startX - e.changedTouches[0].clientX
+      const dt = Date.now() - lastT
+      const velocity = (lastX - e.changedTouches[0].clientX) / Math.max(dt, 1) // px/ms
       const w = wrap.offsetWidth
-      const GAP = 16
-      const step = (w + GAP) / 3
-      const threshold = step * 0.2  // 20% of a card width
+      const step = (w + 16) / 3
+      // trigger on either distance (10%) OR flick velocity (0.3px/ms)
+      const threshold = step * 0.10
       const cur = activeRef.current
       let next = cur
-      if (dx > threshold) next = Math.min(posts.length - 2, cur + 1)
-      else if (dx < -threshold) next = Math.max(1, cur - 1)
-      // snap with animation
+      if (dx > threshold || velocity > 0.3)  next = Math.min(posts.length - 2, cur + 1)
+      else if (dx < -threshold || velocity < -0.3) next = Math.max(1, cur - 1)
       const snapTx = -(next - 1) * step
       setTrackTx(snapTx, true)
       if (next !== cur) moveTo(next)
