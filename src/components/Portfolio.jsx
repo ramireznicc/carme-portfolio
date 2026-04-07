@@ -74,7 +74,7 @@ function ScrollRow({ posts }) {
       const t = getTrack()
       if (!t) return
       t.style.transition = animated
-        ? 'transform 0.28s cubic-bezier(0.2, 1, 0.3, 1)'
+        ? 'transform 0.35s cubic-bezier(0.33, 1, 0.68, 1)'
         : 'none'
       t.style.transform = `translateX(${x}px)`
     }
