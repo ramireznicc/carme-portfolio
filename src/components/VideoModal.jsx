@@ -134,12 +134,18 @@ export default function VideoModal({ post, onClose }) {
     requestAnimationFrame(fade)
   }
 
-  // Autoplay — set muted via property (React prop doesn't always work on iOS)
+  // Autoplay — set muted via DOM property (React prop unreliable on iOS/Chrome)
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    v.play().catch(() => {})
+    v.setAttribute('playsinline', '')
+    v.setAttribute('webkit-playsinline', '')
+    const tryPlay = () => v.play().catch(() => {})
+    tryPlay()
+    // second attempt after a tick in case element wasn't ready
+    const t = setTimeout(tryPlay, 100)
+    return () => clearTimeout(t)
   }, [])
 
   // Lock body scroll (iOS-safe) + ESC to close

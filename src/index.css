@@ -2110,7 +2110,7 @@ body::before {
     flex-direction: column;
     overflow: hidden;
   }
-  /* Strip phone frame — video fills full screen */
+  /* Strip phone frame — video fills full screen, centered 9:16 */
   .modal-phone-mockup {
     position: relative;
     width: 100%;
@@ -2121,18 +2121,21 @@ body::before {
     padding: 0;
     box-shadow: none;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .modal-phone-mockup::before,
   .modal-phone-mockup::after { display: none; }
   .modal-phone-island,
   .modal-phone-home-bar { display: none; }
   .modal-phone-screen {
-    flex: 1;
-    min-height: 0;
+    width: min(100%, calc(100dvh * 9 / 16));
+    height: 100%;
+    flex: none;
     border-radius: 0;
-    aspect-ratio: unset;
+    aspect-ratio: 9 / 16;
     overflow: hidden;
+    background: #000;
   }
   /* CTA button: small pill overlaid at bottom of video */
   .modal-phone-mockup .modal-cta-btn {
