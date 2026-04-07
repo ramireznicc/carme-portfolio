@@ -462,7 +462,7 @@ body::before {
   border: 1.5px solid var(--border-med);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
-  background: transparent;
+  background: var(--accent-tint, transparent);
 }
 .cat-nav-item:hover {
   background: var(--accent);
