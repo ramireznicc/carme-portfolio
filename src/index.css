@@ -450,7 +450,7 @@ body::before {
   display: flex;
   gap: 8px;
   flex-wrap: nowrap;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .cat-nav-item {
@@ -1644,7 +1644,7 @@ body::before {
   /* ── Portfolio ── */
   .cat-nav {
     gap: 6px;
-    margin-bottom: 36px;
+    margin-bottom: 8px;
   }
   .cat-nav-item { padding: 5px 7px; }
   .cat-nav-label { font-size: 0.58rem; }
