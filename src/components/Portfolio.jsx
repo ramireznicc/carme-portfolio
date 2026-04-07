@@ -60,15 +60,40 @@ function ScrollRow({ posts }) {
   const canPrev = active > 1
   const canNext = active < posts.length - 2
 
-  // Touch swipe support
-  const touchStartX = useRef(null)
-  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX }
-  const onTouchEnd = (e) => {
-    if (touchStartX.current === null) return
-    const dx = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(dx) > 40) moveTo(active + (dx > 0 ? 1 : -1))
-    touchStartX.current = null
-  }
+  // Touch swipe — native listeners with passive:false so we can prevent page scroll
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    let startX = null, startY = null, locked = null
+
+    const onStart = (e) => {
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+      locked = null
+    }
+    const onMove = (e) => {
+      if (startX === null) return
+      const dx = e.touches[0].clientX - startX
+      const dy = e.touches[0].clientY - startY
+      if (locked === null) locked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'
+      if (locked === 'h') e.preventDefault()
+    }
+    const onEnd = (e) => {
+      if (startX === null || locked !== 'h') { startX = null; return }
+      const dx = startX - e.changedTouches[0].clientX
+      if (Math.abs(dx) > 40) moveTo(active + (dx > 0 ? 1 : -1))
+      startX = null
+    }
+
+    el.addEventListener('touchstart', onStart, { passive: true })
+    el.addEventListener('touchmove',  onMove,  { passive: false })
+    el.addEventListener('touchend',   onEnd,   { passive: true })
+    return () => {
+      el.removeEventListener('touchstart', onStart)
+      el.removeEventListener('touchmove',  onMove)
+      el.removeEventListener('touchend',   onEnd)
+    }
+  }, [active, moveTo])
 
   // Handle edge case: fewer than 3 posts → just show them all without arrows
   if (posts.length <= 3) {
@@ -86,7 +111,7 @@ function ScrollRow({ posts }) {
   }
 
   return (
-    <div ref={wrapRef} className="cat-scroll-row-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <div ref={wrapRef} className="cat-scroll-row-wrap">
       <button
         className={`scroll-arrow scroll-arrow--prev${!canPrev ? ' scroll-arrow--hidden' : ''}`}
         onClick={() => moveTo(active - 1)}
