@@ -1682,7 +1682,7 @@ body::before {
 
   /* ── About ── */
   .about-layout { gap: 28px; }
-  .about-col-socials { flex-direction: column; }
+  .about-col-socials { flex-direction: row; gap: 10px; }
   .about-heading { font-size: 1.7rem; }
   .about-tools { flex-wrap: nowrap; gap: 8px; overflow: visible; }
   .tool-item {
