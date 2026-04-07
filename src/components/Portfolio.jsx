@@ -138,7 +138,7 @@ export default function Portfolio() {
                 document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }}
             >
-              <span className="cat-nav-label">{cat.title}</span>
+              <span className="cat-nav-label">{cat.navLabel ?? cat.title}</span>
             </a>
           ))}
         </div>

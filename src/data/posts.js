@@ -23,7 +23,8 @@ const ph = (id, g, s1, s2, platform = 'ig') => ({
 export const categories = [
   {
     id: 'cm',
-    title: 'CM/Edición',
+    title: 'Community Manager / Edición',
+    navLabel: 'CM/Edición',
     accent: '#f962b2',
     rows: [
       {
