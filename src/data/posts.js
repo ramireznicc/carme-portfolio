@@ -85,6 +85,7 @@ export const categories = [
   {
     id: 'marcas',
     title: 'Reseñas / Contenido para marcas',
+    navLabel: 'Reseñas/marcas',
     accent: '#00d4aa',
     rows: [
       {
