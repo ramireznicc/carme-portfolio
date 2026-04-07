@@ -60,6 +60,16 @@ function ScrollRow({ posts }) {
   const canPrev = active > 1
   const canNext = active < posts.length - 2
 
+  // Touch swipe support
+  const touchStartX = useRef(null)
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return
+    const dx = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(dx) > 40) moveTo(active + (dx > 0 ? 1 : -1))
+    touchStartX.current = null
+  }
+
   // Handle edge case: fewer than 3 posts → just show them all without arrows
   if (posts.length <= 3) {
     return (
@@ -76,7 +86,7 @@ function ScrollRow({ posts }) {
   }
 
   return (
-    <div ref={wrapRef} className="cat-scroll-row-wrap">
+    <div ref={wrapRef} className="cat-scroll-row-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
       <button
         className={`scroll-arrow scroll-arrow--prev${!canPrev ? ' scroll-arrow--hidden' : ''}`}
         onClick={() => moveTo(active - 1)}
