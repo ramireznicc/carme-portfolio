@@ -448,25 +448,24 @@ body::before {
 /* ── Category nav shortcuts ── */
 .cat-nav {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
   margin-bottom: 20px;
 }
-.cat-nav::-webkit-scrollbar { display: none; }
-.cat-nav .cat-nav-item { flex-shrink: 0; }
 
 .cat-nav-item {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 6px 12px;
   border-radius: 100px;
   border: 1.5px solid var(--border-med);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
   background: transparent;
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
 }
 .cat-nav-item:hover {
   background: var(--surface);
@@ -474,15 +473,19 @@ body::before {
   transform: translateY(-2px);
 }
 .cat-nav-num {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  flex-shrink: 0;
 }
 .cat-nav-label {
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--text);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .portfolio-categories {
@@ -1646,17 +1649,11 @@ body::before {
 
   /* ── Portfolio ── */
   .cat-nav {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    gap: 6px;
     margin-bottom: 36px;
   }
-  .cat-nav::-webkit-scrollbar { display: none; }
-  .cat-nav-item { flex-shrink: 0; }
+  .cat-nav-item { padding: 6px 8px; }
+  .cat-nav-label { display: none; }
   .portfolio-category { padding: 36px 0 44px; }
   .cat-header { margin-bottom: 24px; gap: 10px; }
   .cat-scroll-row {
