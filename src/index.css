@@ -995,7 +995,7 @@ body::before {
 
 .about-col-bio { display: flex; flex-direction: column; gap: 0; }
 
-.about-tools-row { margin-top: 20px; }
+.about-tools-row { margin-top: 20px; overflow: visible; }
 
 /* Social profile cards row */
 .about-col-socials {
@@ -1684,9 +1684,15 @@ body::before {
   .about-layout { gap: 28px; }
   .about-col-socials { flex-direction: column; }
   .about-heading { font-size: 1.7rem; }
-  .about-tools { flex-wrap: wrap; gap: 14px; justify-content: flex-start; }
-  .tool-item { width: 64px; height: 72px; }
-  .tool-item-name { font-size: 0.58rem; }
+  .about-tools { flex-wrap: nowrap; gap: 8px; justify-content: flex-start; overflow: visible; }
+  .tool-item {
+    width: 46px;
+    height: 52px;
+    border-radius: 11px;
+    box-shadow: 0 0 0 2.5px #fff, 0 0 0 4px rgba(0,0,0,0.13), 0 3px 10px rgba(0,0,0,0.08);
+  }
+  .tool-icon-wrap svg { width: 18px !important; height: 18px !important; }
+  .tool-item-name { font-size: 0.50rem; }
 
   /* ── Contact ── */
   .contact-section { padding: 52px 20px; }
