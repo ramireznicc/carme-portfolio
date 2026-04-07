@@ -475,6 +475,7 @@ body::before {
 .cat-nav-label {
   font-size: 0.68rem;
   font-weight: 500;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -3,6 +3,13 @@ import FadeIn from './FadeIn'
 import PhoneCard from './PhoneCard'
 import { categories } from '../data/posts'
 
+const hexToRgba = (hex, alpha) => {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r},${g},${b},${alpha})`
+}
+
 
 const ChevronLeft = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -135,7 +142,7 @@ export default function Portfolio() {
               className="cat-nav-item"
               style={{
                 borderColor: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
-                color: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
+                background: hexToRgba(cat.accent, 0.1),
               }}
               onClick={(e) => {
                 e.preventDefault()
