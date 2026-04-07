@@ -74,7 +74,7 @@ function ScrollRow({ posts }) {
       const t = getTrack()
       if (!t) return
       t.style.transition = animated
-        ? 'transform 0.38s cubic-bezier(0.25, 1, 0.35, 1)'
+        ? 'transform 0.28s cubic-bezier(0.2, 1, 0.3, 1)'
         : 'none'
       t.style.transform = `translateX(${x}px)`
     }
@@ -106,7 +106,7 @@ function ScrollRow({ posts }) {
       const maxSteps = posts.length - 3  // how many steps can move
       const minTx = -(maxSteps) * step
       const target = baseTx + dx
-      const rubber = (v, limit) => limit + (v - limit) * 0.25
+      const rubber = (v, limit) => limit + (v - limit) * 0.35
       const clamped = target < minTx ? rubber(target, minTx)
                     : target > 0     ? rubber(target, 0)
                     : target
@@ -119,12 +119,12 @@ function ScrollRow({ posts }) {
       const velocity = (lastX - e.changedTouches[0].clientX) / Math.max(dt, 1) // px/ms
       const w = wrap.offsetWidth
       const step = (w + 16) / 3
-      // trigger on either distance (10%) OR flick velocity (0.3px/ms)
-      const threshold = step * 0.10
+      // trigger on either distance (6%) OR flick velocity (0.15px/ms)
+      const threshold = step * 0.06
       const cur = activeRef.current
       let next = cur
-      if (dx > threshold || velocity > 0.3)  next = Math.min(posts.length - 2, cur + 1)
-      else if (dx < -threshold || velocity < -0.3) next = Math.max(1, cur - 1)
+      if (dx > threshold || velocity > 0.15)  next = Math.min(posts.length - 2, cur + 1)
+      else if (dx < -threshold || velocity < -0.15) next = Math.max(1, cur - 1)
       const snapTx = -(next - 1) * step
       setTrackTx(snapTx, true)
       if (next !== cur) moveTo(next)
