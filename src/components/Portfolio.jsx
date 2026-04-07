@@ -59,41 +59,79 @@ function ScrollRow({ posts }) {
 
   const canPrev = active > 1
   const canNext = active < posts.length - 2
+  const trackRef = useRef(null)
+  const activeRef = useRef(active)
+  useEffect(() => { activeRef.current = active }, [active])
 
-  // Touch swipe — native listeners with passive:false so we can prevent page scroll
+  // Touch swipe — finger follows in real time, snaps on release
   useEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    let startX = null, startY = null, locked = null
+    const wrap = wrapRef.current
+    if (!wrap) return
+    let startX = null, startY = null, locked = null, baseTx = 0
+
+    const getTrack = () => wrap.querySelector('.cat-scroll-row')
+    const setTrackTx = (x, animated) => {
+      const t = getTrack()
+      if (!t) return
+      t.style.transition = animated
+        ? 'transform 0.38s cubic-bezier(0.25, 1, 0.35, 1)'
+        : 'none'
+      t.style.transform = `translateX(${x}px)`
+    }
 
     const onStart = (e) => {
       startX = e.touches[0].clientX
       startY = e.touches[0].clientY
       locked = null
+      // capture current translate as base
+      const w = wrap.offsetWidth
+      const GAP = 16
+      const step = (w + GAP) / 3
+      baseTx = -(activeRef.current - 1) * step
     }
     const onMove = (e) => {
       if (startX === null) return
       const dx = e.touches[0].clientX - startX
       const dy = e.touches[0].clientY - startY
       if (locked === null) locked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'
-      if (locked === 'h') e.preventDefault()
+      if (locked !== 'h') return
+      e.preventDefault()
+      // follow finger with slight resistance at edges
+      const w = wrap.offsetWidth
+      const GAP = 16
+      const step = (w + GAP) / 3
+      const maxShift = step * 0.6
+      const raw = baseTx + dx
+      const clamped = baseTx + Math.max(-maxShift, Math.min(maxShift, dx))
+      setTrackTx(clamped, false)
     }
     const onEnd = (e) => {
       if (startX === null || locked !== 'h') { startX = null; return }
       const dx = startX - e.changedTouches[0].clientX
-      if (Math.abs(dx) > 40) moveTo(active + (dx > 0 ? 1 : -1))
+      const w = wrap.offsetWidth
+      const GAP = 16
+      const step = (w + GAP) / 3
+      const threshold = step * 0.2  // 20% of a card width
+      const cur = activeRef.current
+      let next = cur
+      if (dx > threshold) next = Math.min(posts.length - 2, cur + 1)
+      else if (dx < -threshold) next = Math.max(1, cur - 1)
+      // snap with animation
+      const snapTx = -(next - 1) * step
+      setTrackTx(snapTx, true)
+      if (next !== cur) moveTo(next)
       startX = null
     }
 
-    el.addEventListener('touchstart', onStart, { passive: true })
-    el.addEventListener('touchmove',  onMove,  { passive: false })
-    el.addEventListener('touchend',   onEnd,   { passive: true })
+    wrap.addEventListener('touchstart', onStart, { passive: true })
+    wrap.addEventListener('touchmove',  onMove,  { passive: false })
+    wrap.addEventListener('touchend',   onEnd,   { passive: true })
     return () => {
-      el.removeEventListener('touchstart', onStart)
-      el.removeEventListener('touchmove',  onMove)
-      el.removeEventListener('touchend',   onEnd)
+      wrap.removeEventListener('touchstart', onStart)
+      wrap.removeEventListener('touchmove',  onMove)
+      wrap.removeEventListener('touchend',   onEnd)
     }
-  }, [active, moveTo])
+  }, [posts.length, moveTo])
 
   // Handle edge case: fewer than 3 posts → just show them all without arrows
   if (posts.length <= 3) {
