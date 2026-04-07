@@ -55,16 +55,30 @@
 /* ============================================================
    BASE
    ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent; /* remove blue flash on Android tap */
+}
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%; /* prevent font scaling on iOS rotation */
+  text-size-adjust: 100%;
+}
 
 body {
   font-family: 'DM Sans', sans-serif;
   background-color: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  overscroll-behavior-x: none; /* prevent horizontal overscroll */
   -webkit-font-smoothing: antialiased;
 }
+
+/* Remove 300ms tap delay on all interactive elements */
+button, a, [role="button"] { touch-action: manipulation; }
 
 body::before {
   content: '';
@@ -576,6 +590,9 @@ body::before {
   /* leave room for arrows protruding on each side */
   margin: 0 -4px;
   padding: 0 4px;
+  touch-action: pan-y; /* allow vertical scroll, let JS handle horizontal */
+  user-select: none;   /* prevent text selection during swipe */
+  -webkit-user-select: none;
 }
 
 .cat-scroll-row {
@@ -1585,8 +1602,8 @@ body::before {
   .nav-burger {
     display: flex;
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: max(16px, env(safe-area-inset-top, 16px));
+    right: max(16px, env(safe-area-inset-right, 16px));
     z-index: 1001;
     background: #fff;
     border: 1.5px solid var(--border);
@@ -1610,6 +1627,7 @@ body::before {
     text-align: center;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
     min-height: 100svh;
     height: auto;
     overflow: hidden;
@@ -1697,6 +1715,11 @@ body::before {
   }
   .tool-icon-wrap svg { width: 20px !important; height: 20px !important; }
   .tool-item-name { display: none; }
+
+  /* ── Forms: prevent iOS zoom on input focus (requires font-size >= 16px) ── */
+  .form-field input,
+  .form-field select,
+  .form-field textarea { font-size: 1rem; }
 
   /* ── Contact ── */
   .contact-section { padding: 52px 20px; }
@@ -1923,6 +1946,7 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overscroll-behavior: none; /* prevent pull-to-refresh bleeding through */
   animation: modal-bg-in 0.25s ease;
 }
 
@@ -1949,8 +1973,8 @@ body::before {
 /* Close button — siempre fixed, misma posición que el burger en mobile */
 .modal-close-btn {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: max(16px, env(safe-area-inset-top, 16px));
+  right: max(16px, env(safe-area-inset-right, 16px));
   width: 44px;
   height: 44px;
   background: #fff;
@@ -2104,9 +2128,12 @@ body::before {
   }
   .modal-inner {
     width: 100%;
+    height: 100vh;
     height: 100dvh;
+    max-height: 100vh;
     max-height: 100dvh;
     padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     gap: 0;
     justify-content: flex-start;
     display: flex;
@@ -2153,4 +2180,23 @@ body::before {
     width: auto;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   }
+}
+
+/* ── Very narrow screens (iPhone SE 1st gen, 320px) ── */
+@media (max-width: 360px) {
+  .section { padding: 40px 16px; }
+  .hero { padding: 56px 16px max(32px, env(safe-area-inset-bottom, 32px)); }
+  .hero-name { font-size: clamp(2.6rem, 14vw, 3.2rem); }
+  .hero-description { font-size: 0.72rem; }
+  .hero-ctas .btn { min-width: 100px; font-size: 0.78rem; padding: 9px 12px; }
+
+  .cat-nav-label { font-size: 0.52rem; }
+  .cat-nav-item { padding: 4px 5px; }
+
+  /* Stack social cards vertically on very small screens */
+  .about-col-socials { flex-direction: column; }
+  .social-profile-cta { display: flex; }
+
+  .stats-bar { padding: 24px 16px; gap: 16px 12px; }
+  .stat-number { font-size: 1.6rem; }
 }
