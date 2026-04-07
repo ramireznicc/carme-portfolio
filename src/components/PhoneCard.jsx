@@ -87,9 +87,9 @@ export default function PhoneCard({ post }) {
                   title={title || 'Instagram post'}
                   style={{
                     position: 'absolute',
-                    top: '-44px',
-                    left: 0,
-                    width: IG_EMBED_W,
+                    top: '-62px',
+                    left: '-1px',
+                    width: IG_EMBED_W + 2,
                     height: IG_EMBED_H,
                     transform: `scale(${IG_SCALE})`,
                     transformOrigin: 'top left',
