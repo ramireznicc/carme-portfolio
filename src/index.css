@@ -1684,6 +1684,9 @@ body::before {
   .about-layout { gap: 28px; }
   .about-col-socials { flex-direction: row; gap: 10px; }
   .about-heading { font-size: 1.7rem; }
+  .social-profile-card { padding: 12px 14px; gap: 10px; }
+  .social-profile-top { width: 36px; height: 36px; border-radius: 10px; }
+  .social-profile-cta { display: none; }
   .about-tools { flex-wrap: nowrap; gap: 8px; overflow: visible; }
   .tool-item {
     width: 42px;
