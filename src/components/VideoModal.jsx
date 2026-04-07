@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const TK_W = 325
 const TK_H = 740
@@ -130,7 +131,7 @@ export default function VideoModal({ post, onClose }) {
   const isIg = platform === 'ig'
   const isTk = platform === 'tiktok'
 
-  return (
+  return createPortal(
     <div
       className="modal-backdrop"
       onClick={onClose}
@@ -192,6 +193,7 @@ export default function VideoModal({ post, onClose }) {
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
