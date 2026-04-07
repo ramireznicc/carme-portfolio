@@ -472,14 +472,8 @@ body::before {
   border-color: var(--border-med);
   transform: translateY(-2px);
 }
-.cat-nav-num {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
 .cat-nav-label {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--text);
   white-space: nowrap;
@@ -1652,8 +1646,8 @@ body::before {
     gap: 6px;
     margin-bottom: 36px;
   }
-  .cat-nav-item { padding: 6px 8px; }
-  .cat-nav-label { display: none; }
+  .cat-nav-item { padding: 5px 7px; }
+  .cat-nav-label { font-size: 0.58rem; }
   .portfolio-category { padding: 36px 0 44px; }
   .cat-header { margin-bottom: 24px; gap: 10px; }
   .cat-scroll-row {

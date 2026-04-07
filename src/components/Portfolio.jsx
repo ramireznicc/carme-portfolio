@@ -138,9 +138,6 @@ export default function Portfolio() {
                 document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }}
             >
-              <span className="cat-nav-num" style={{ color: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent }}>
-                {String(idx + 1).padStart(2, '0')}
-              </span>
               <span className="cat-nav-label">{cat.title}</span>
             </a>
           ))}
