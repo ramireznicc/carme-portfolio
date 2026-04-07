@@ -197,7 +197,7 @@ export default function VideoModal({ post, onClose }) {
                 controls
                 playsInline
                 onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000', display: 'block' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000', display: 'block' }}
               />
             ) : embedUrl && isIg ? (
               <ModalIgEmbed src={embedUrl} title={title} />
