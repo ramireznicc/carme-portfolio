@@ -469,13 +469,12 @@ body::before {
 }
 .cat-nav-item:hover {
   background: var(--surface);
-  border-color: var(--border-med);
   transform: translateY(-2px);
+  opacity: 0.85;
 }
 .cat-nav-label {
   font-size: 0.68rem;
   font-weight: 500;
-  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

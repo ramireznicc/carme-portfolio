@@ -133,6 +133,10 @@ export default function Portfolio() {
               key={cat.id}
               href={`#cat-${cat.id}`}
               className="cat-nav-item"
+              style={{
+                borderColor: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
+                color: cat.accent === '#e7fe71' ? '#8a9400' : cat.accent,
+              }}
               onClick={(e) => {
                 e.preventDefault()
                 document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
