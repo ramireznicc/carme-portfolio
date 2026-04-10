@@ -1756,6 +1756,136 @@ body::before {
 }
 
 /* ============================================================
+   VIDEO CARD — plain rounded card, no phone mockup
+   ============================================================ */
+
+.video-card {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video-card-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111;
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.20),
+    0 1px 4px rgba(0,0,0,0.12);
+  transition: box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.video-card:hover .video-card-screen {
+  box-shadow:
+    0 12px 36px rgba(0,0,0,0.28),
+    0 2px 8px rgba(0,0,0,0.14);
+}
+
+/* Play icon — hidden by default, revealed on hover */
+.video-card-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  transition: background 0.22s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+.video-card-play svg {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+}
+.video-card:hover .video-card-play {
+  background: rgba(0,0,0,0.28);
+}
+.video-card:hover .video-card-play svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Swiper coverflow row ── */
+.swiper-row-wrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;       /* prevent grid/flex item from expanding beyond cell */
+  overflow: hidden;   /* clip coverflow to column bounds */
+  padding: 10px 0 20px;
+}
+
+/* Secciones con pocos videos — centradas y más compactas */
+#cat-marcas .swiper-row-wrap,
+#cat-propio .swiper-row-wrap,
+#cat-actuacion .swiper-row-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+}
+#cat-marcas .portfolio-swiper .swiper-slide,
+#cat-propio .portfolio-swiper .swiper-slide,
+#cat-actuacion .portfolio-swiper .swiper-slide {
+  width: 160px;
+}
+
+.portfolio-swiper {
+  width: 100%;
+  padding-bottom: 44px !important; /* space for pagination dots */
+}
+
+.portfolio-swiper .swiper-slide {
+  width: 200px;
+  aspect-ratio: 9 / 16;
+}
+
+/* Pagination dots — match palette */
+.portfolio-swiper .swiper-pagination-bullet {
+  background: rgba(0,0,0,0.25) !important;
+  opacity: 1;
+  width: 7px;
+  height: 7px;
+}
+.portfolio-swiper .swiper-pagination-bullet-active {
+  background: var(--purple) !important;
+  width: 20px;
+  border-radius: 4px;
+  transition: width 0.25s ease;
+}
+
+/* Sketch crayon nav buttons */
+.swiper-sketch-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 11px)); /* -11px nudge above pagination dots */
+  z-index: 10;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 2px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.swiper-sketch-btn--prev { left: 4px; }
+.swiper-sketch-btn--next { right: 4px; }
+.swiper-sketch-btn:hover {
+  opacity: 1;
+  transform: translateY(calc(-50% - 11px)) scale(1.12);
+}
+
+@media (max-width: 640px) {
+  .portfolio-swiper .swiper-slide { width: 160px; }
+  .swiper-sketch-btn { display: none; }
+}
+
+/* ============================================================
    PHONE CARD — phone mockup portfolio cards
    ============================================================ */
 
@@ -1960,11 +2090,35 @@ body::before {
 .modal-inner {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
   animation: modal-slide-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  max-height: 90vh;
+}
+
+/* Modal navigation arrows */
+.modal-nav-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+.modal-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.08);
+}
+.modal-nav-btn--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes modal-slide-in {
@@ -2000,106 +2154,44 @@ body::before {
   .modal-open .nav-burger { display: none; }
 }
 
-/* Large phone frame inside modal */
-.modal-phone-mockup {
+/* Clean video container inside modal — no phone mockup */
+.modal-video-wrap {
   position: relative;
-  width: 280px;
-  background: #111;
-  border-radius: 50px;
-  padding: 8px 10px;  /* top = bottom = 8px → 8+14+6 = 28px arriba, 14+5+9 = 28px abajo */
-  box-shadow:
-    0 0 0 2px #2a2a2a,
-    0 0 0 4px #1e1e1e,
-    inset 0 1px 0 rgba(255,255,255,0.08),
-    0 40px 100px rgba(0,0,0,0.6);
-  flex-shrink: 0;
-  max-height: calc(90vh - 130px);
-}
-
-/* Side buttons on modal phone */
-.modal-phone-mockup::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: 88px;
-  width: 3px;
-  height: 28px;
-  background: #2a2a2a;
-  border-radius: 2px 0 0 2px;
-  box-shadow: 0 40px 0 #2a2a2a;
-}
-.modal-phone-mockup::after {
-  content: '';
-  position: absolute;
-  right: -4px;
-  top: 110px;
-  width: 3px;
-  height: 44px;
-  background: #2a2a2a;
-  border-radius: 0 2px 2px 0;
-}
-
-.modal-phone-island {
-  width: 76px;
-  height: 14px;
-  background: #000;
-  border-radius: 10px;
-  margin: 0 auto 6px;  /* 8+14+6 = 28px */
-}
-
-.modal-phone-screen {
-  border-radius: 28px;
+  height: min(92vh, 92dvh);
+  width: calc(min(92vh, 92dvh) * 9 / 16);
+  border-radius: 20px;
   overflow: hidden;
-  aspect-ratio: 9 / 19;
-  position: relative;
   background: #000;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  flex-shrink: 0;
 }
 
-.modal-phone-home-bar {
-  width: 70px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-  margin: 15px auto 0;  /* 15+5+8 = 28px = top */
-}
-
-/* CTA button */
+/* CTA button — overlaid at top of video */
 .modal-cta-btn {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 10px 22px;
   background: var(--red);
   color: #fff;
   border-radius: 100px;
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
-  transition: background 0.25s, transform 0.25s;
-  box-shadow: 0 4px 20px rgba(255, 53, 98, 0.35);
   white-space: nowrap;
+  transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
 .modal-cta-btn:hover {
   background: var(--purple);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(192, 45, 215, 0.4);
-}
-.modal-cta-btn--disabled {
-  background: #555;
-  box-shadow: none;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Post title inside modal */
-.modal-title {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.8rem;
-  text-align: center;
-  max-width: 260px;
-  line-height: 1.4;
-  margin: 0;
+  transform: translateX(-50%) translateY(2px);
+  box-shadow: 0 6px 22px rgba(192, 45, 215, 0.45);
 }
 
 /* ── Mobile adjustments for phone card + modal ── */
@@ -2122,7 +2214,7 @@ body::before {
   .phone-screen-inner { border-radius: 12px; }
   .phone-home-bar { width: 40%; max-width: 56px; margin-top: 8px; }
 
-  /* Modal — full screen on mobile, no phone frame */
+  /* Modal — full screen on mobile */
   .modal-backdrop {
     padding: 0;
     align-items: stretch;
@@ -2142,46 +2234,15 @@ body::before {
     flex-direction: column;
     overflow: hidden;
   }
-  /* Strip phone frame — video fills full screen, centered 9:16 */
-  .modal-phone-mockup {
-    position: relative;
+  .modal-video-wrap {
     width: 100%;
     flex: 1;
     min-height: 0;
-    background: #000;
+    aspect-ratio: unset;
     border-radius: 0;
-    padding: 0;
     box-shadow: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .modal-phone-mockup::before,
-  .modal-phone-mockup::after { display: none; }
-  .modal-phone-island,
-  .modal-phone-home-bar { display: none; }
-  .modal-phone-screen {
-    width: min(100%, calc(100dvh * 9 / 16));
-    height: 100%;
-    flex: none;
-    border-radius: 0;
-    aspect-ratio: 9 / 16;
-    overflow: hidden;
-    background: #000;
-  }
-  /* CTA button: small pill overlaid at bottom of video */
-  .modal-phone-mockup .modal-cta-btn {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    font-size: 0.78rem;
-    padding: 9px 18px;
-    white-space: nowrap;
-    width: auto;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-  }
+  .modal-nav-btn { display: none; }
 }
 
 /* ── Very narrow screens (iPhone SE 1st gen, 320px) ── */

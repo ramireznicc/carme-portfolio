@@ -75,7 +75,7 @@ export default function Contact() {
         {/* ── Encabezado ── */}
         <FadeIn from="left">
           <div className="section-label">Contacto</div>
-          <h2 className="contact-title">¿Trabajamos juntos?</h2>
+          <h2 className="contact-title">¿Trabajamos junt@s?</h2>
           <p className="contact-desc">
             Contame sobre tu proyecto o idea!<br />
             Estoy disponible para colaboraciones freelance y contrataciones a largo plazo.

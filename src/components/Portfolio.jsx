@@ -1,7 +1,52 @@
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import FadeIn from './FadeIn'
-import PhoneCard from './PhoneCard'
+import VideoCard from './VideoCard'
+import VideoModal from './VideoModal'
 import { categories } from '../data/posts'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectCoverflow, Pagination, Mousewheel } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
+
+/* ── Sketch crayon arrows ── */
+const SketchArrowRight = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#f962b2" strokeLinecap="round" strokeLinejoin="round">
+      {/* shaft — 3 lines with visible offset */}
+      <line x1="6"  y1="24"   x2="30"  y2="23"   strokeWidth="2.8"/>
+      <line x1="5"  y1="26.5" x2="30"  y2="25.5" strokeWidth="2.0"/>
+      <line x1="7"  y1="21.5" x2="30"  y2="22"   strokeWidth="1.5"/>
+      {/* arrowhead upper — 3 lines fanning out */}
+      <line x1="29" y1="23"   x2="43"  y2="12"   strokeWidth="2.8"/>
+      <line x1="28" y1="21"   x2="44"  y2="9"    strokeWidth="2.0"/>
+      <line x1="30" y1="24"   x2="45"  y2="13"   strokeWidth="1.5"/>
+      {/* arrowhead lower — 3 lines fanning out */}
+      <line x1="29" y1="24"   x2="43"  y2="35"   strokeWidth="2.8"/>
+      <line x1="28" y1="26"   x2="44"  y2="38"   strokeWidth="2.0"/>
+      <line x1="30" y1="23"   x2="45"  y2="34"   strokeWidth="1.5"/>
+    </g>
+  </svg>
+)
+
+const SketchArrowLeft = () => (
+  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#f962b2" strokeLinecap="round" strokeLinejoin="round">
+      {/* shaft */}
+      <line x1="42" y1="24"   x2="18"  y2="23"   strokeWidth="2.8"/>
+      <line x1="43" y1="26.5" x2="18"  y2="25.5" strokeWidth="2.0"/>
+      <line x1="41" y1="21.5" x2="18"  y2="22"   strokeWidth="1.5"/>
+      {/* arrowhead upper */}
+      <line x1="19" y1="23"   x2="5"   y2="12"   strokeWidth="2.8"/>
+      <line x1="20" y1="21"   x2="4"   y2="9"    strokeWidth="2.0"/>
+      <line x1="18" y1="24"   x2="3"   y2="13"   strokeWidth="1.5"/>
+      {/* arrowhead lower */}
+      <line x1="19" y1="24"   x2="5"   y2="35"   strokeWidth="2.8"/>
+      <line x1="20" y1="26"   x2="4"   y2="38"   strokeWidth="2.0"/>
+      <line x1="18" y1="23"   x2="3"   y2="34"   strokeWidth="1.5"/>
+    </g>
+  </svg>
+)
 
 const hexToRgba = (hex, alpha) => {
   const r = parseInt(hex.slice(1, 3), 16)
@@ -10,197 +55,76 @@ const hexToRgba = (hex, alpha) => {
   return `rgba(${r},${g},${b},${alpha})`
 }
 
+/* ── Coverflow carousel row ── */
+function SwiperRow({ posts }) {
+  const [modalIdx, setModalIdx] = useState(null)
+  const [swiperInst, setSwiperInst] = useState(null)
+  const [loadEmbeds, setLoadEmbeds] = useState(false)
+  const rowRef = useRef(null)
 
-const ChevronLeft = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-)
-const ChevronRight = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6" />
-  </svg>
-)
-
-/* ── 3-up carousel row ── */
-function ScrollRow({ posts }) {
-  const wrapRef  = useRef(null)
-  // active = index of the center card; starts at 1 so cards [0,1,2] are visible
-  const [active, setActive] = useState(Math.min(1, posts.length - 1))
-  const [tx, setTx] = useState(0)
-
-  const GAP = 16
-
-  const calcTx = useCallback((idx) => {
-    const wrap = wrapRef.current
-    if (!wrap) return 0
-    const w = wrap.offsetWidth
-    // step = width of one card slot (card + gap)
-    const step = (w + GAP) / 3
-    return -(idx - 1) * step
+  useEffect(() => {
+    const el = rowRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setLoadEmbeds(true)
+        io.disconnect()
+      }
+    }, { threshold: 0.1 })
+    io.observe(el)
+    return () => io.disconnect()
   }, [])
 
-  const moveTo = useCallback((idx) => {
-    const clamped = Math.max(1, Math.min(posts.length - 2, idx))
-    setActive(clamped)
-    setTx(calcTx(clamped))
-  }, [posts.length, calcTx])
-
-  // Initialize translate on mount and on resize
-  useEffect(() => {
-    setTx(calcTx(active))
-  }, []) // eslint-disable-line
-
-  useEffect(() => {
-    const onResize = () => setTx(calcTx(active))
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [active, calcTx])
-
-  const canPrev = active > 1
-  const canNext = active < posts.length - 2
-  const trackRef = useRef(null)
-  const activeRef = useRef(active)
-  useEffect(() => { activeRef.current = active }, [active])
-
-  // Touch swipe — finger follows in real time, snaps on release
-  useEffect(() => {
-    const wrap = wrapRef.current
-    if (!wrap) return
-    let startX = null, startY = null, locked = null, baseTx = 0
-
-    const getTrack = () => wrap.querySelector('.cat-scroll-row')
-    const setTrackTx = (x, animated) => {
-      const t = getTrack()
-      if (!t) return
-      t.style.transition = animated
-        ? 'transform 0.35s cubic-bezier(0.33, 1, 0.68, 1)'
-        : 'none'
-      t.style.transform = `translateX(${x}px)`
-    }
-
-    let lastX = null, lastT = null
-
-    const onStart = (e) => {
-      startX = e.touches[0].clientX
-      startY = e.touches[0].clientY
-      lastX = startX
-      lastT = Date.now()
-      locked = null
-      const w = wrap.offsetWidth
-      const step = (w + 16) / 3
-      baseTx = -(activeRef.current - 1) * step
-    }
-    const onMove = (e) => {
-      if (startX === null) return
-      const dx = e.touches[0].clientX - startX
-      const dy = e.touches[0].clientY - startY
-      if (locked === null) locked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'
-      if (locked !== 'h') return
-      e.preventDefault()
-      lastX = e.touches[0].clientX
-      lastT = Date.now()
-      // 1:1 follow with soft rubber-band at edges
-      const w = wrap.offsetWidth
-      const step = (w + 16) / 3
-      const maxSteps = posts.length - 3  // how many steps can move
-      const minTx = -(maxSteps) * step
-      const target = baseTx + dx
-      const rubber = (v, limit) => limit + (v - limit) * 0.35
-      const clamped = target < minTx ? rubber(target, minTx)
-                    : target > 0     ? rubber(target, 0)
-                    : target
-      setTrackTx(clamped, false)
-    }
-    const onEnd = (e) => {
-      if (startX === null || locked !== 'h') { startX = null; return }
-      const dx = startX - e.changedTouches[0].clientX
-      const dt = Date.now() - lastT
-      const velocity = (lastX - e.changedTouches[0].clientX) / Math.max(dt, 1) // px/ms
-      const w = wrap.offsetWidth
-      const step = (w + 16) / 3
-      // trigger on either distance (6%) OR flick velocity (0.15px/ms)
-      const threshold = step * 0.06
-      const cur = activeRef.current
-      let next = cur
-      if (dx > threshold || velocity > 0.15)  next = Math.min(posts.length - 2, cur + 1)
-      else if (dx < -threshold || velocity < -0.15) next = Math.max(1, cur - 1)
-      const snapTx = -(next - 1) * step
-      setTrackTx(snapTx, true)
-      if (next !== cur) moveTo(next)
-      startX = null
-    }
-
-    wrap.addEventListener('touchstart', onStart, { passive: true })
-    wrap.addEventListener('touchmove',  onMove,  { passive: false })
-    wrap.addEventListener('touchend',   onEnd,   { passive: true })
-    return () => {
-      wrap.removeEventListener('touchstart', onStart)
-      wrap.removeEventListener('touchmove',  onMove)
-      wrap.removeEventListener('touchend',   onEnd)
-    }
-  }, [posts.length, moveTo])
-
-  // Handle edge case: fewer than 3 posts → just show them all without arrows
-  if (posts.length <= 3) {
-    return (
-      <div className="cat-scroll-row-wrap">
-        <div className="cat-scroll-row cat-scroll-row--static">
-          {posts.map((post, i) => (
-            <FadeIn key={post.id} delay={i * 70}>
-              <PhoneCard post={post} />
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div ref={wrapRef} className="cat-scroll-row-wrap">
+    <div ref={rowRef} className="swiper-row-wrap">
       <button
-        className={`scroll-arrow scroll-arrow--prev${!canPrev ? ' scroll-arrow--hidden' : ''}`}
-        onClick={() => moveTo(active - 1)}
+        className="swiper-sketch-btn swiper-sketch-btn--prev"
+        onClick={() => swiperInst?.slidePrev()}
         aria-label="Anterior"
-        tabIndex={-1}
       >
-        <ChevronLeft />
+        <SketchArrowLeft />
       </button>
-
-      <div
-        className="cat-scroll-row"
-        style={{ transform: `translateX(${tx}px)` }}
+      <Swiper
+        effect="coverflow"
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView="auto"
+        loop={posts.length >= 3}
+        coverflowEffect={{
+          rotate: 35,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={{ clickable: true }}
+        mousewheel={{ releaseOnEdges: true, sensitivity: 1 }}
+        onSwiper={setSwiperInst}
+        modules={[EffectCoverflow, Pagination, Mousewheel]}
+        className="portfolio-swiper"
       >
         {posts.map((post, i) => (
-          <FadeIn key={post.id} delay={i * 70}>
-            <PhoneCard post={post} />
-          </FadeIn>
+          <SwiperSlide key={post.id}>
+            <VideoCard post={post} onOpen={() => setModalIdx(i)} loadEmbed={loadEmbeds} />
+          </SwiperSlide>
         ))}
-      </div>
-
+      </Swiper>
       <button
-        className={`scroll-arrow scroll-arrow--next${!canNext ? ' scroll-arrow--hidden' : ''}`}
-        onClick={() => moveTo(active + 1)}
+        className="swiper-sketch-btn swiper-sketch-btn--next"
+        onClick={() => swiperInst?.slideNext()}
         aria-label="Siguiente"
-        tabIndex={-1}
       >
-        <ChevronRight />
+        <SketchArrowRight />
       </button>
 
-      {/* Dot indicators */}
-      <div className="scroll-dots">
-        {posts.map((_, i) => (
-          i > 0 && i < posts.length - 1 && (
-            <button
-              key={i}
-              className={`scroll-dot${i === active ? ' scroll-dot--active' : ''}`}
-              onClick={() => moveTo(i)}
-              aria-label={`Ir al video ${i}`}
-              tabIndex={-1}
-            />
-          )
-        ))}
-      </div>
+      {modalIdx !== null && (
+        <VideoModal
+          posts={posts}
+          index={modalIdx}
+          onNavigate={setModalIdx}
+          onClose={() => setModalIdx(null)}
+        />
+      )}
     </div>
   )
 }
@@ -272,7 +196,7 @@ export default function Portfolio() {
                       )}
                     </div>
                   </FadeIn>
-                  <ScrollRow posts={row.posts} />
+                  <SwiperRow posts={row.posts} />
                 </div>
               ))}
 

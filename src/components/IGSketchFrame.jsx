@@ -2,15 +2,16 @@
  * IGSketchFrame
  * Hand-drawn / illustrated Instagram-style overlay for video previews.
  * Sits on top of the video — header with profile info + bottom action icons.
- * Clearly animated so it reads as illustration, not a real screenshot.
+ * viewBox is 180×320 (exactly 9:16) so it fills the VideoCard without gaps.
  */
 
 export default function IGSketchFrame({ avatarUrl, name, handle }) {
   return (
     <svg
-      viewBox="0 0 164 310"
+      viewBox="0 0 180 320"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      preserveAspectRatio="none"
       style={{
         position: 'absolute',
         inset: 0,
@@ -36,7 +37,7 @@ export default function IGSketchFrame({ avatarUrl, name, handle }) {
       </defs>
 
       {/* ── Top bar ── */}
-      <rect x="0" y="0" width="164" height="38" fill="rgba(255,255,255,0.95)" />
+      <rect x="0" y="0" width="180" height="38" fill="rgba(255,255,255,0.95)" />
 
       {/* Avatar */}
       {avatarUrl
@@ -59,12 +60,12 @@ export default function IGSketchFrame({ avatarUrl, name, handle }) {
       </text>
 
       {/* ── Bottom bar ── */}
-      <rect x="0" y="274" width="164" height="36" fill="rgba(255,255,255,0.95)" />
+      <rect x="0" y="284" width="180" height="36" fill="rgba(255,255,255,0.95)" />
 
       {/* Heart — animated pulse */}
       <g className="ig-sk-heart" filter="url(#igsk)">
         <path
-          d="M18,290 C18,286 13,284 11,287 C9,290 13,295 18,300 C23,295 27,290 25,287 C23,284 18,286 18,290 Z"
+          d="M18,300 C18,296 13,294 11,297 C9,300 13,305 18,310 C23,305 27,300 25,297 C23,294 18,296 18,300 Z"
           fill="#ff4060" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8"
         />
       </g>
@@ -72,7 +73,7 @@ export default function IGSketchFrame({ avatarUrl, name, handle }) {
       {/* Comment bubble */}
       <g filter="url(#igsk)">
         <path
-          d="M36,284 Q36,281 39,281 L52,281 Q55,281 55,284 L55,294 Q55,297 52,297 L42,297 L37,301 L38,297 Q36,297 36,294 Z"
+          d="M36,294 Q36,291 39,291 L52,291 Q55,291 55,294 L55,304 Q55,307 52,307 L42,307 L37,311 L38,307 Q36,307 36,304 Z"
           fill="none" stroke="rgba(0,0,0,0.75)" strokeWidth="1.6"
           strokeLinecap="round" strokeLinejoin="round"
         />
@@ -81,7 +82,7 @@ export default function IGSketchFrame({ avatarUrl, name, handle }) {
       {/* Bookmark */}
       <g filter="url(#igsk)">
         <path
-          d="M140,282 L151,282 L151,300 L145.5,296 L140,300 Z"
+          d="M155,292 L166,292 L166,310 L160.5,306 L155,310 Z"
           fill="none" stroke="rgba(0,0,0,0.75)" strokeWidth="1.7"
           strokeLinecap="round" strokeLinejoin="round"
         />

@@ -17,7 +17,8 @@ export default function Hero() {
           <mark className="hero-highlight">Creadora de contenido y comunicadora.</mark><br />
           <em>Pienso, produzco y edito contenido para internet.</em><br />
           Community manager. Producción audiovisual.<br />
-          Conductora y panelista en programas de streaming y TV.
+          Conductora y panelista en programas de streaming y TV.<br />
+          Actriz.
         </p>
 
         <div className="hero-ctas hero-anim-3">
