@@ -2414,7 +2414,7 @@ body::before {
   /* Agenda y Flor (cat-row decos) — dentro del área visible */
   .portfolio-cat-deco {
     width: 70px;
-    top: -4px;
+    top: -30px;
     right: 0;
     left: auto;
   }
@@ -2423,28 +2423,70 @@ body::before {
     right: auto;
   }
 
-  /* Marcas, Medios, Propio — esquina superior */
+  /* Evitar que la imagen agenda tape el texto de descripción */
+  #cat-cm .cat-row:first-child .cat-row-desc {
+    padding-right: 78px;
+    margin-top: 10px;
+  }
+
+  /* Marcas, Medios, Propio */
   .marcas-deco { width: 65px !important; }
 
-  .marcas-deco--left,
-  #cat-marcas .marcas-deco--left,
-  #cat-medios .marcas-deco--left,
-  #cat-propio .marcas-deco--left {
+  /* Base: esquina superior izquierda / derecha */
+  .marcas-deco--left {
     left: 6px !important;
     top: 16px !important;
     bottom: auto !important;
     translate: none !important;
     right: auto !important;
   }
-
-  .marcas-deco--right,
-  #cat-marcas .marcas-deco--right,
-  #cat-medios .marcas-deco--right,
-  #cat-propio .marcas-deco--right {
+  .marcas-deco--right {
     right: 6px !important;
     top: 16px !important;
     translate: none !important;
     left: auto !important;
     bottom: auto !important;
+  }
+
+  /* Medios: tv y notebook bajan a la zona del TikTok */
+  #cat-medios .marcas-deco--left {
+    top: auto !important;
+    bottom: 80px !important;
+    left: 6px !important;
+    right: auto !important;
+  }
+  #cat-medios .marcas-deco--right {
+    top: auto !important;
+    bottom: 20px !important;
+    right: 6px !important;
+    left: auto !important;
+  }
+
+  /* Marcas: cine a esquina inferior izquierda, like baja un poco */
+  #cat-marcas .marcas-deco--left {
+    top: auto !important;
+    bottom: 20px !important;
+    left: 6px !important;
+    right: auto !important;
+  }
+  #cat-marcas .marcas-deco--right {
+    top: 55px !important;
+    bottom: auto !important;
+    right: 6px !important;
+    left: auto !important;
+  }
+
+  /* Propio: lisa baja bastante, sad baja un poco */
+  #cat-propio .marcas-deco--left {
+    top: auto !important;
+    bottom: 60px !important;
+    left: 6px !important;
+    right: auto !important;
+  }
+  #cat-propio .marcas-deco--right {
+    top: 55px !important;
+    bottom: auto !important;
+    right: 6px !important;
+    left: auto !important;
   }
 }
