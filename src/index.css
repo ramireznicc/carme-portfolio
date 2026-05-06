@@ -2385,7 +2385,8 @@ body::before {
 /* ── About: columnas laterales → tira horizontal ── */
 /* Bio inline decos: ocultos en desktop */
 .about-bio-deco,
-.about-bio-deco-pair { display: none; }
+.about-bio-deco-pair,
+.about-bio-deco-strip { display: none; }
 
 @media (max-width: 899px) {
   .about-outer { flex-direction: column; }
@@ -2400,6 +2401,12 @@ body::before {
     float: right;
     margin: 0 0 8px 12px;
     rotate: 6deg;
+  }
+  .about-bio-deco--float-l {
+    width: 74px;
+    float: left;
+    margin: 0 12px 8px 0;
+    rotate: -7deg;
   }
 
   /* Par de imágenes centradas entre párrafos */
@@ -2418,6 +2425,22 @@ body::before {
   }
   .about-bio-deco-pair img:first-child { rotate: -8deg; margin-right: -10px; }
   .about-bio-deco-pair img:last-child  { rotate:  6deg; }
+
+  /* Tira final: cine2 + calendar */
+  .about-bio-deco-strip {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 14px 0 4px;
+    clear: both;
+  }
+  .about-bio-deco-strip img {
+    width: 68px;
+    pointer-events: none;
+    display: block;
+  }
+  .about-bio-deco-strip img:first-child { rotate: -6deg; }
+  .about-bio-deco-strip img:last-child  { rotate:  5deg; }
 }
 
 /* ── Portfolio: imágenes en las esquinas, más pequeñas ── */

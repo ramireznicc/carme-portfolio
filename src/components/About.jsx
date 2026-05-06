@@ -82,6 +82,7 @@ export default function About() {
               <img src="/dibujos/radio.png" alt="" />
               <img src="/dibujos/diario.png" alt="" />
             </div>
+            <img src="/dibujos/smile.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
             <p>
               Actualmente participo en programas de <strong>streaming y televisión</strong> como{' '}
               <strong>conductora y panelista.</strong> Disfruto de entretener, informar, hacer reir,
@@ -97,6 +98,7 @@ export default function About() {
               Trabajo <strong>produciendo y editando</strong> contenido para plataformas como Instagram,
               TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
             </p>
+            <img src="/dibujos/celu.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
             <p>
               Algo en lo que me interesa seguir explorando son los nuevos formatos de comunicación digital
               y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
@@ -105,6 +107,11 @@ export default function About() {
             <p>
               Seguí deslizando para ver más sobre mis trabajos ↓
             </p>
+            {/* tira final: cine2 + calendar — solo mobile */}
+            <div className="about-bio-deco-strip" aria-hidden="true">
+              <img src="/dibujos/cine2.png" alt="" />
+              <img src="/dibujos/calendar.png" alt="" />
+            </div>
           </div>
 
           <div className="about-tools-row">
