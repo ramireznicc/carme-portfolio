@@ -8,18 +8,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-const TK_W = 325
-const TK_H = 740
+const TK_W = 325          // iframe's native pixel width
+const TK_H = 740          // iframe's native pixel height
+const TK_VIRTUAL_W = 400  // virtual reference width — larger → smaller UI elements on screen
 
 function ModalTikTokEmbed({ src, title }) {
   const wrapRef = useRef(null)
-  const [scale, setScale] = useState(1)
+  const [layout, setLayout] = useState({ scale: 1, offsetX: 0 })
 
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
     const ro = new ResizeObserver(([entry]) => {
-      setScale(entry.contentRect.width / TK_W)
+      const { width, height } = entry.contentRect
+      // Scale to fill height OR virtual width, whichever is larger — prevents black gaps
+      const scale = Math.max(width / TK_VIRTUAL_W, height / TK_H)
+      const scaledW = TK_W * scale
+      const offsetX = Math.max(0, (width - scaledW) / 2)
+      setLayout({ scale, offsetX })
     })
     ro.observe(el)
     return () => ro.disconnect()
@@ -33,9 +39,12 @@ function ModalTikTokEmbed({ src, title }) {
         loading="lazy"
         allow="autoplay; clipboard-write; encrypted-media"
         style={{
+          position: 'absolute',
+          top: 0,
+          left: layout.offsetX,
           width: TK_W,
           height: TK_H,
-          transform: `scale(${scale})`,
+          transform: `scale(${layout.scale})`,
           transformOrigin: 'top left',
           border: 'none',
         }}
@@ -79,6 +88,129 @@ function NoEmbedPlaceholder({ thumbClass, shapes }) {
       }}>
         Vista previa no disponible
       </p>
+    </div>
+  )
+}
+
+/* ── Icons for custom video controls ── */
+const PauseIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <rect x="6" y="4" width="4" height="16" rx="1"/>
+    <rect x="14" y="4" width="4" height="16" rx="1"/>
+  </svg>
+)
+const PlayIconSm = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </svg>
+)
+const MuteIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+)
+const SoundIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+  </svg>
+)
+
+/* ── Custom timeline + play/pause + mute for local videos ── */
+function VideoControls({ videoRef }) {
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration,    setDuration]    = useState(0)
+  const [playing,     setPlaying]     = useState(true)
+  const [muted,       setMuted]       = useState(true)
+  const barRef      = useRef(null)
+  const scrubbing   = useRef(false)
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    const onTime  = () => setCurrentTime(v.currentTime)
+    const onMeta  = () => setDuration(v.duration || 0)
+    const onPlay  = () => setPlaying(true)
+    const onPause = () => setPlaying(false)
+    const onVol   = () => setMuted(v.muted)
+    v.addEventListener('timeupdate',     onTime)
+    v.addEventListener('loadedmetadata', onMeta)
+    v.addEventListener('play',           onPlay)
+    v.addEventListener('pause',          onPause)
+    v.addEventListener('volumechange',   onVol)
+    if (v.duration) setDuration(v.duration)
+    setMuted(v.muted)
+    setPlaying(!v.paused)
+    return () => {
+      v.removeEventListener('timeupdate',     onTime)
+      v.removeEventListener('loadedmetadata', onMeta)
+      v.removeEventListener('play',           onPlay)
+      v.removeEventListener('pause',          onPause)
+      v.removeEventListener('volumechange',   onVol)
+    }
+  }, [])
+
+  const fmt = (s) => {
+    if (!isFinite(s) || s < 0) return '0:00'
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
+  }
+
+  const seekFrom = (e) => {
+    const bar = barRef.current
+    const v   = videoRef.current
+    if (!bar || !v || !duration) return
+    const rect  = bar.getBoundingClientRect()
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+    v.currentTime = ratio * duration
+    setCurrentTime(ratio * duration)
+  }
+
+  const onPointerDown = (e) => {
+    scrubbing.current = true
+    e.currentTarget.setPointerCapture(e.pointerId)
+    seekFrom(e)
+  }
+  const onPointerMove = (e) => { if (scrubbing.current) seekFrom(e) }
+  const onPointerUp   = ()  => { scrubbing.current = false }
+
+  const togglePlay = (e) => {
+    e.stopPropagation()
+    const v = videoRef.current
+    if (!v) return
+    v.paused ? v.play().catch(() => {}) : v.pause()
+  }
+
+  const toggleMute = (e) => {
+    e.stopPropagation()
+    const v = videoRef.current
+    if (!v) return
+    v.muted = !v.muted
+    if (!v.muted && v.volume === 0) v.volume = 0.8
+  }
+
+  const pct = duration > 0 ? (currentTime / duration) * 100 : 0
+
+  return (
+    <div className="modal-controls" onClick={(e) => e.stopPropagation()}>
+      <button className="modal-ctrl-btn" onClick={togglePlay} aria-label={playing ? 'Pausar' : 'Reproducir'}>
+        {playing ? <PauseIcon /> : <PlayIconSm />}
+      </button>
+      <span className="modal-time">{fmt(currentTime)}</span>
+      <div
+        ref={barRef}
+        className="modal-progress-bar"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+      >
+        <div className="modal-progress-fill" style={{ width: `${pct}%` }} />
+        <div className="modal-progress-thumb" style={{ left: `${pct}%` }} />
+      </div>
+      <span className="modal-time">{fmt(duration)}</span>
+      <button className="modal-ctrl-btn" onClick={toggleMute} aria-label={muted ? 'Activar sonido' : 'Silenciar'}>
+        {muted ? <MuteIcon /> : <SoundIcon />}
+      </button>
     </div>
   )
 }
@@ -205,17 +337,19 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
 
         <div className="modal-video-wrap">
           {videoUrl ? (
-            <video
-              key={index}
-              ref={videoRef}
-              src={videoUrl}
-              autoPlay
-              muted
-              controls
-              playsInline
-              onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
-              style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000', display: 'block' }}
-            />
+            <>
+              <video
+                key={index}
+                ref={videoRef}
+                src={videoUrl}
+                autoPlay
+                muted
+                playsInline
+                onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000', display: 'block' }}
+              />
+              <VideoControls key={`ctrl-${index}`} videoRef={videoRef} />
+            </>
           ) : isTk ? (
             <ModalTikTokEmbed key={index} src={embedUrl} title={title} />
           ) : isIg ? (
@@ -229,7 +363,7 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
               href={postUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="modal-cta-btn"
+              className={`modal-cta-btn${isTk ? ' modal-cta-btn--tiktok' : ''}`}
               onClick={(e) => e.stopPropagation()}
             >
               {isIg ? <IgIcon /> : <TkIcon />}

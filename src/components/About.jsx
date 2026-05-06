@@ -69,20 +69,21 @@ export default function About() {
           <div className="section-label">Sobre mí</div>
           <h3 className="about-heading">Hola! Me llamo Carmela, pero me dicen Carsi...</h3>
           <div className="about-bio">
-            {/* imagen 1: top-right, flota junto al primer párrafo — solo mobile */}
-            <img src="/dibujos/teatro.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
+            {/* imagen 1: top-right — solo mobile */}
+            <img src="/dibujos/celu.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
             <p>
               Soy <strong>comunicadora, creadora de contenido y community manager</strong>. Me encanta investigar
               las redes y tendencias, planificar estrategias, pensar ideas y crear contenido, fusionando
               comunicación, creación audiovisual y entretenimiento para generar contenido que conecte con
               las audiencias. También tengo experiencia en <strong>comunicación política</strong>.
             </p>
-            {/* par de imágenes en el medio — solo mobile */}
+            {/* trio de imágenes en el medio — solo mobile */}
             <div className="about-bio-deco-pair" aria-hidden="true">
               <img src="/dibujos/radio.png" alt="" />
-              <img src="/dibujos/diario.png" alt="" />
+              <img src="/dibujos/cine2.png" alt="" />
+              <img src="/dibujos/calendar.png" alt="" />
             </div>
-            <img src="/dibujos/smile.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
+            <img src="/dibujos/cine3.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
             <p>
               Actualmente participo en programas de <strong>streaming y televisión</strong> como{' '}
               <strong>conductora y panelista.</strong> Disfruto de entretener, informar, hacer reir,
@@ -92,26 +93,25 @@ export default function About() {
               También tengo mi lado artístico: <strong>soy actriz y bailarina.</strong> Amo poder
               explotarlo y combinarlo con el de comunicación y redes para potenciar mis ideas lo más que pueda.
             </p>
-            {/* imagen 3: float-right en párrafo de producción — solo mobile */}
-            <img src="/dibujos/idea.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
+            {/* imagen float-right párrafo producción — solo mobile */}
+            <img src="/dibujos/teatro.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
             <p>
               Trabajo <strong>produciendo y editando</strong> contenido para plataformas como Instagram,
               TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
             </p>
-            <img src="/dibujos/celu.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
+            <img src="/dibujos/smile.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
             <p>
               Algo en lo que me interesa seguir explorando son los nuevos formatos de comunicación digital
               y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
               conocemos como <strong>formatos UGC</strong> (User Generated Content).
             </p>
+            {/* idea: entre UGC y "seguí deslizando" — solo mobile */}
+            <div className="about-bio-deco-strip" aria-hidden="true">
+              <img src="/dibujos/idea.png" alt="" />
+            </div>
             <p>
               Seguí deslizando para ver más sobre mis trabajos ↓
             </p>
-            {/* tira final: cine2 + calendar — solo mobile */}
-            <div className="about-bio-deco-strip" aria-hidden="true">
-              <img src="/dibujos/cine2.png" alt="" />
-              <img src="/dibujos/calendar.png" alt="" />
-            </div>
           </div>
 
           <div className="about-tools-row">

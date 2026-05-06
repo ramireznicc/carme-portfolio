@@ -2307,6 +2307,94 @@ body::before {
   transform: translateX(-50%) translateY(2px);
   box-shadow: 0 6px 22px rgba(192, 45, 215, 0.45);
 }
+.modal-cta-btn--tiktok {
+  left: 16px;
+  transform: none;
+}
+.modal-cta-btn--tiktok:hover {
+  transform: translateY(2px);
+}
+
+/* ── Custom video controls (timeline, play/pause, mute) ── */
+.modal-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+  z-index: 5;
+  user-select: none;
+}
+
+.modal-ctrl-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: rgba(255,255,255,0.16);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.modal-ctrl-btn:hover { background: rgba(255,255,255,0.32); }
+
+.modal-time {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.88);
+  min-width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.modal-progress-bar {
+  flex: 1;
+  height: 18px;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+}
+.modal-progress-bar::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%; height: 3px;
+  margin-top: -1.5px;
+  background: rgba(255,255,255,0.28);
+  border-radius: 3px;
+}
+
+.modal-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 50%; height: 3px;
+  margin-top: -1.5px;
+  background: var(--pink);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.modal-progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 12px; height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.45);
+}
 
 /* ── Mobile adjustments for phone card + modal ── */
 @media (max-width: 640px) {
@@ -2423,8 +2511,9 @@ body::before {
     pointer-events: none;
     display: block;
   }
-  .about-bio-deco-pair img:first-child { rotate: -8deg; margin-right: -10px; }
-  .about-bio-deco-pair img:last-child  { rotate:  6deg; }
+  .about-bio-deco-pair img:nth-child(1) { rotate: -8deg; margin-right: -6px; }
+  .about-bio-deco-pair img:nth-child(2) { rotate:  2deg; }
+  .about-bio-deco-pair img:nth-child(3) { rotate:  7deg; margin-left: -6px; }
 
   /* Tira final: cine2 + calendar */
   .about-bio-deco-strip {
@@ -2484,7 +2573,7 @@ body::before {
 
   /* Medios: tv top-right (nivel pill IG), notebook right en zona TikTok */
   #cat-medios .marcas-deco--left {
-    top: 60px !important;
+    top: 100px !important;
     bottom: auto !important;
     right: 6px !important;
     left: auto !important;
@@ -2513,10 +2602,10 @@ body::before {
   /* Propio: lisa baja bastante, sad baja un poco */
   #cat-propio .marcas-deco--left {
     top: auto !important;
-    bottom: 20px !important;
+    bottom: 0px !important;
     left: 6px !important;
     right: auto !important;
-    width: 95px !important;
+    width: 120px !important;
   }
   #cat-propio .marcas-deco--right {
     top: 55px !important;

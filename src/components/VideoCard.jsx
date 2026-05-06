@@ -6,8 +6,6 @@ const IG_EMBED_W = 326
 const CARD_W     = 200
 const IG_SCALE   = CARD_W / IG_EMBED_W
 const IG_EMBED_H = Math.round((CARD_W * 17 / 9 + 50) / IG_SCALE)
-const TK_W = 325
-const TK_H = 740
 
 /* ── Module-level thumbnail cache (fetched once per session) ── */
 const tkThumbCache = {}
@@ -51,63 +49,6 @@ function LocalVideoCard({ post, isActive }) {
         />
       )}
     </>
-  )
-}
-
-/* ─────────────────────────────────────────────────────────────
-   TikTok embed — active card only, tries muted autoplay
-   ───────────────────────────────────────────────────────────── */
-function TikTokEmbed({ src, title }) {
-  const wrapRef   = useRef(null)
-  const iframeRef = useRef(null)
-  const [scale, setScale] = useState(1)
-
-  useEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    const ro = new ResizeObserver(([e]) => setScale(e.contentRect.width / TK_W))
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
-  /* When TikTok player signals ready, send mute + play */
-  useEffect(() => {
-    function onMsg(e) {
-      const iframe = iframeRef.current
-      if (!iframe) return
-      try {
-        const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data
-        if (d && /ready|load/i.test(String(d.type ?? d.message ?? ''))) {
-          const w = iframe.contentWindow
-          w?.postMessage('{"type":"mute"}', '*')
-          w?.postMessage('{"type":"play"}', '*')
-        }
-      } catch {}
-    }
-    window.addEventListener('message', onMsg)
-    return () => window.removeEventListener('message', onMsg)
-  }, [])
-
-  const autoSrc = src.includes('?')
-    ? `${src}&autoplay=1&mute=1&loop=1`
-    : `${src}?autoplay=1&mute=1&loop=1`
-
-  return (
-    <div ref={wrapRef} style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-      <iframe
-        ref={iframeRef}
-        src={autoSrc}
-        title={title || 'TikTok'}
-        allow="autoplay; fullscreen"
-        style={{
-          width: TK_W, height: TK_H,
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          border: 'none',
-          pointerEvents: 'none',
-        }}
-      />
-    </div>
   )
 }
 
@@ -212,18 +153,14 @@ export default function VideoCard({ post, onOpen, loadEmbed = true, isActive = f
             }}
           />
 
-        /* ── TikTok: embed with autoplay (active) / oEmbed img (inactive) ── */
+        /* ── TikTok: static thumbnail (embed only in modal) ── */
         ) : hasTkEmbed ? (
-          isActive ? (
-            <TikTokEmbed src={embedUrl} title={title} />
-          ) : (
-            <TikTokStaticThumb
-              postUrl={post.postUrl}
-              thumbClass={thumbClass}
-              shapes={shapes}
-              shouldLoad={loadEmbed}
-            />
-          )
+          <TikTokStaticThumb
+            postUrl={post.postUrl}
+            thumbClass={thumbClass}
+            shapes={shapes}
+            shouldLoad={loadEmbed}
+          />
 
         ) : (
           <StaticThumb thumbClass={thumbClass} shapes={shapes} />
