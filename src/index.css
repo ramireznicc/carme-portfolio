@@ -2383,30 +2383,41 @@ body::before {
    ============================================================ */
 
 /* ── About: columnas laterales → tira horizontal ── */
+/* Bio inline decos: ocultos en desktop */
+.about-bio-deco,
+.about-bio-deco-pair { display: none; }
+
 @media (max-width: 899px) {
   .about-outer { flex-direction: column; }
 
-  .about-deco {
+  /* Ocultar las filas horizontales de decos — reemplazadas por imágenes inline */
+  .about-deco { display: none !important; }
+
+  /* Imagen flotando a la derecha del texto */
+  .about-bio-deco { display: block; pointer-events: none; }
+  .about-bio-deco--float-r {
+    width: 80px;
+    float: right;
+    margin: 0 0 8px 12px;
+    rotate: 6deg;
+  }
+
+  /* Par de imágenes centradas entre párrafos */
+  .about-bio-deco-pair {
     display: flex;
-    flex-direction: row;
-    width: 100%;
     justify-content: center;
-    flex-wrap: nowrap;
-    gap: 14px;
-    padding: 0 0 16px;
-    flex-shrink: 0;
-    overflow: visible;
+    align-items: flex-end;
+    gap: 0;
+    margin: 4px 0 10px;
+    clear: both;
   }
-
-  /* Tamaño fijo en horizontal */
-  .about-deco-img { width: 56px !important; }
-
-  /* Anular el desorden horizontal (era para layout en columna) */
-  .about-deco-left .about-deco-img,
-  .about-deco-right .about-deco-img {
-    translate: 0 !important;
-    filter: none !important;
+  .about-bio-deco-pair img {
+    width: 72px;
+    pointer-events: none;
+    display: block;
   }
+  .about-bio-deco-pair img:first-child { rotate: -8deg; margin-right: -10px; }
+  .about-bio-deco-pair img:last-child  { rotate:  6deg; }
 }
 
 /* ── Portfolio: imágenes en las esquinas, más pequeñas ── */

@@ -69,12 +69,19 @@ export default function About() {
           <div className="section-label">Sobre mí</div>
           <h3 className="about-heading">Hola! Me llamo Carmela, pero me dicen Carsi...</h3>
           <div className="about-bio">
+            {/* imagen 1: top-right, flota junto al primer párrafo — solo mobile */}
+            <img src="/dibujos/teatro.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
             <p>
               Soy <strong>comunicadora, creadora de contenido y community manager</strong>. Me encanta investigar
               las redes y tendencias, planificar estrategias, pensar ideas y crear contenido, fusionando
               comunicación, creación audiovisual y entretenimiento para generar contenido que conecte con
               las audiencias. También tengo experiencia en <strong>comunicación política</strong>.
             </p>
+            {/* par de imágenes en el medio — solo mobile */}
+            <div className="about-bio-deco-pair" aria-hidden="true">
+              <img src="/dibujos/radio.png" alt="" />
+              <img src="/dibujos/diario.png" alt="" />
+            </div>
             <p>
               Actualmente participo en programas de <strong>streaming y televisión</strong> como{' '}
               <strong>conductora y panelista.</strong> Disfruto de entretener, informar, hacer reir,
@@ -84,6 +91,8 @@ export default function About() {
               También tengo mi lado artístico: <strong>soy actriz y bailarina.</strong> Amo poder
               explotarlo y combinarlo con el de comunicación y redes para potenciar mis ideas lo más que pueda.
             </p>
+            {/* imagen 3: float-right en párrafo de producción — solo mobile */}
+            <img src="/dibujos/idea.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
             <p>
               Trabajo <strong>produciendo y editando</strong> contenido para plataformas como Instagram,
               TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
