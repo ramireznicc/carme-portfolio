@@ -1,0 +1,86 @@
+==============================================================
+  PORTFOLIO DE CARMELA — Listado de videos
+  Editá el orden de las líneas para cambiar el orden en el sitio.
+  Para agregar un video nuevo, copiá una línea del mismo formato.
+==============================================================
+
+----------------------------------------------------------------
+CATEGORÍA 1: Community Manager / Edición
+----------------------------------------------------------------
+
+  [Instagram]
+  1.  lucila1.mp4   |  https://www.instagram.com/p/DWZRBknjyAr/
+  2.  lucila2.mp4   |  https://www.instagram.com/p/DVGxfQXjm7J/
+  3.  lucila3.mp4   |  https://www.instagram.com/p/DShsL1aDpRD/
+  4.  lucila4.mp4   |  https://www.instagram.com/p/DLFsM95OtQ_/
+  5.  lucila5.mp4   |  https://www.instagram.com/p/DQC5XZbEmAy/
+  6.  lucila6.mp4   |  https://www.instagram.com/p/DFxVb5wOW9m/
+  7.  lucila9.mp4   |  https://www.instagram.com/p/DOBaigfjggp/
+  8.  lucila10.mp4  |  https://www.instagram.com/p/DD5bV5gPGs4/
+
+
+  [TikTok]
+  1.  https://www.tiktok.com/@luciladeponti/video/7542577738884910341
+  2.  https://www.tiktok.com/@luciladeponti/video/7600894253476220168
+  3.  https://www.tiktok.com/@luciladeponti/video/7605609054257450258
+  4.  https://www.tiktok.com/@luciladeponti/video/7417090306748763398
+  5.  https://www.tiktok.com/@luciladeponti/video/7621933708236410120
+  6.  https://www.tiktok.com/@luciladeponti/video/7484011291586219270
+  7.  https://www.tiktok.com/@luciladeponti/video/7535141953877347589
+  8.  https://www.tiktok.com/@luciladeponti/video/7620995801854053652
+
+----------------------------------------------------------------
+CATEGORÍA 2: Comunicación en medios
+----------------------------------------------------------------
+
+  [Instagram]
+  1.  https://www.instagram.com/p/DV9pyOijgc7/
+  2.  https://www.instagram.com/p/DV1kqS5D-WB/
+  3.  https://www.instagram.com/p/DPUsa9IjzGx/
+  4.  https://www.instagram.com/p/DSIItG7DgdY/
+  5.  https://www.instagram.com/p/DJVGvn-vjsK/
+  6.  https://www.instagram.com/p/DXaC1ruD7w1/
+  7.  https://www.instagram.com/p/DGeIfweSIuL/
+  8.  https://www.instagram.com/p/DJaCq05vIWd/
+  9.  https://www.instagram.com/p/DGqVsbxRVVJ/
+  10. https://www.instagram.com/p/DGBjx1gRMrT/
+
+  [TikTok]
+  1.  https://www.tiktok.com/@carsi_carmela/video/7564771871359503633
+  2.  https://www.tiktok.com/@carsi_carmela/video/7556627096043326776
+  3.  https://www.tiktok.com/@brindistv/video/7511421687150185746
+  4.  https://www.tiktok.com/@brindistv/video/7532297760905645368
+  5.  https://www.tiktok.com/@brindistv/video/7507061115755515141
+  6.  https://www.tiktok.com/@brindistv/video/7536007820513234232
+
+----------------------------------------------------------------
+CATEGORÍA 3: Reseñas / Contenido para marcas
+----------------------------------------------------------------
+
+  1.  https://www.instagram.com/p/DXhvQt7Df_U/                        [Instagram]
+  2.  https://www.tiktok.com/@carsi_carmela/video/7615726114677296401  [TikTok]
+  3.  https://www.tiktok.com/@carsi_carmela/video/7571647934668819728  [TikTok]
+  4.  https://www.tiktok.com/@carsi_carmela/video/7338151024949038342  [TikTok]
+  5.  https://www.tiktok.com/@carsi_carmela/video/7602412619282107665  [TikTok]
+  6.  https://www.tiktok.com/@carsi_carmela/video/7510406919639567621  [TikTok]
+
+
+----------------------------------------------------------------
+CATEGORÍA 4: Contenido propio
+----------------------------------------------------------------
+
+  [TikTok]
+  1.  https://www.tiktok.com/@carsi_carmela/video/7602374461920251152
+  2.  https://www.tiktok.com/@carsi_carmela/video/7567882978697727249
+  3.  https://www.tiktok.com/@carsi_carmela/video/7558093028368469260
+  4.  https://www.tiktok.com/@carsi_carmela/video/7415015123552570630
+  5.  https://www.tiktok.com/@carsi_carmela/video/7523371998160981253
+
+==============================================================
+  INSTRUCCIONES
+  - Para cambiar el orden: mové la línea entera arriba o abajo.
+  - Para agregar un video nuevo: copiá el formato de la línea
+    de la misma plataforma y pegala donde quieras que aparezca.
+  - Para quitar un video: borrá la línea.
+  - Luego avisame y sincronizo el archivo con el código.
+==============================================================

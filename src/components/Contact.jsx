@@ -155,7 +155,6 @@ export default function Contact() {
                 <option value="contenido">Creación de Contenido</option>
                 <option value="ugc">UGC y Colaboraciones</option>
                 <option value="conduccion">Conducción/Medios</option>
-                <option value="actuacion">Actuación</option>
                 <option value="otro">Otros</option>
               </Field>
 
