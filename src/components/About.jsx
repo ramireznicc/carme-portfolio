@@ -3,6 +3,7 @@ import FadeIn from './FadeIn'
 import {
   SiAdobepremierepro, SiCanva,
   SiInstagram, SiTiktok, SiAdobephotoshop,
+  SiClaude, SiOpenai,
 } from 'react-icons/si'
 import { LuScissors, LuArrowUpRight } from 'react-icons/lu'
 
@@ -13,6 +14,8 @@ const tools = [
   { name: 'Canva',         Icon: SiCanva,             color: '#00aaaf', bg: '#d6f5f6' },
   { name: 'Instagram',     Icon: SiInstagram,         color: '#d63060', bg: '#fde3eb' },
   { name: 'TikTok',        Icon: SiTiktok,            color: '#111',    bg: '#f0f0f0' },
+  { name: 'Claude',        Icon: SiClaude,            color: '#d97757', bg: '#fdeee8' },
+  { name: 'ChatGPT',       Icon: SiOpenai,            color: '#0ea57a', bg: '#d8f5ed' },
 ]
 
 const socials = [
@@ -70,7 +73,7 @@ export default function About() {
           <h3 className="about-heading">Hola! Me llamo Carmela, pero me dicen Carsi...</h3>
           <div className="about-bio">
             {/* imagen 1: top-right — solo mobile */}
-            <img src="/dibujos/celu.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
+            <img src="/dibujos/celu.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" style={{filter:'saturate(1.35) brightness(0.96)'}} />
             <p>
               Soy <strong>comunicadora, creadora de contenido y community manager</strong>. Me encanta investigar
               las redes y tendencias, planificar estrategias, pensar ideas y crear contenido, fusionando
@@ -79,11 +82,11 @@ export default function About() {
             </p>
             {/* trio de imágenes en el medio — solo mobile */}
             <div className="about-bio-deco-pair" aria-hidden="true">
-              <img src="/dibujos/radio.png" alt="" />
-              <img src="/dibujos/cine2.png" alt="" />
-              <img src="/dibujos/calendar.png" alt="" />
+              <img src="/dibujos/radio.png"    alt="" style={{filter:'saturate(0.75) opacity(0.8)'}} />
+              <img src="/dibujos/diario.png"   alt="" style={{filter:'saturate(0.75) opacity(0.8)'}} />
+              <img src="/dibujos/calendar.png" alt="" style={{filter:'saturate(0.75) opacity(0.8)'}} />
             </div>
-            <img src="/dibujos/cine3.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
+            <img src="/dibujos/cine2.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" style={{filter:'saturate(1.35) brightness(0.96)'}} />
             <p>
               Actualmente participo en programas de <strong>streaming y televisión</strong> como{' '}
               <strong>conductora y panelista.</strong> Disfruto de entretener, informar, hacer reir,
@@ -94,23 +97,20 @@ export default function About() {
               explotarlo y combinarlo con el de comunicación y redes para potenciar mis ideas lo más que pueda.
             </p>
             {/* imagen float-right párrafo producción — solo mobile */}
-            <img src="/dibujos/teatro.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" />
             <p>
+              <img src="/dibujos/teatro.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" style={{width:'100px', marginLeft:'6px', marginTop:'-30px'}} />
               Trabajo <strong>produciendo y editando</strong> contenido para plataformas como Instagram,
               TikTok y YouTube, siempre buscando adaptar cada pieza al lenguaje de cada red.
             </p>
-            <img src="/dibujos/smile.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" />
-            <p>
+            <img src="/dibujos/smile.png" alt="" className="about-bio-deco about-bio-deco--float-l" aria-hidden="true" style={{filter:'saturate(1.35) brightness(0.96)'}} />
+            <img src="/dibujos/idea.png" alt="" className="about-bio-deco about-bio-deco--float-r" aria-hidden="true" style={{marginTop:'28px'}} />
+            <p style={{marginTop:'16px', paddingRight:'6px'}}>
               Algo en lo que me interesa seguir explorando son los nuevos formatos de comunicación digital
               y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
               conocemos como <strong>formatos UGC</strong> (User Generated Content).
             </p>
-            {/* idea: entre UGC y "seguí deslizando" — solo mobile */}
-            <div className="about-bio-deco-strip" aria-hidden="true">
-              <img src="/dibujos/idea.png" alt="" />
-            </div>
-            <p>
-              Seguí deslizando para ver más sobre mis trabajos ↓
+            <p style={{clear:'both', marginTop:'8px'}}>
+              Seguí deslizando para ver más sobre mis <span style={{whiteSpace:'nowrap'}}>trabajos ↓</span>
             </p>
           </div>
 

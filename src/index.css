@@ -1056,20 +1056,34 @@ body::before {
 
 /* Desorden: cada imagen con rotación e interleaving horizontal pronunciado */
 /* Izquierda — translate positivo = hacia el texto (derecha) */
-.about-deco-left .about-deco-img:nth-child(1)  { rotate: -9deg;  translate:  24px 0; }
-.about-deco-left .about-deco-img:nth-child(2)  { rotate:  6deg;  translate:  -8px 0; filter: saturate(0.55) opacity(0.72); }
-.about-deco-left .about-deco-img:nth-child(3)  { rotate: -5deg;  translate:  30px 0; filter: saturate(0.55) opacity(0.72); }
+.about-deco-left .about-deco-img:nth-child(1)  { rotate: -9deg;  translate:  24px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-left .about-deco-img:nth-child(2)  { rotate:  6deg;  translate:  -8px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-left .about-deco-img:nth-child(3)  { rotate: -5deg;  translate:  30px 0; filter: saturate(1.35) brightness(0.96); }
 .about-deco-left .about-deco-img:nth-child(4)  { rotate:  8deg;  translate:  10px 0; }
 /* Derecha — translate negativo = hacia el texto (izquierda) */
-.about-deco-right .about-deco-img:nth-child(1) { rotate:  9deg;  translate: -48px 0; }
-.about-deco-right .about-deco-img:nth-child(2) { rotate: -6deg;  translate:  10px 0; filter: saturate(0.55) opacity(0.72); }
-.about-deco-right .about-deco-img:nth-child(3) { rotate: 11deg;  translate: -56px 0; }
+.about-deco-right .about-deco-img:nth-child(1) { rotate:  9deg;  translate: -48px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-right .about-deco-img:nth-child(2) { rotate: -6deg;  translate:  10px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-right .about-deco-img:nth-child(3) { rotate: 11deg;  translate: -56px 0; filter: saturate(1.35) brightness(0.96); }
 .about-deco-right .about-deco-img:nth-child(4) { rotate: -5deg;  translate: -12px 0; filter: saturate(0.55) opacity(0.72); }
 
 /* Entrada desde arriba */
 @keyframes deco-enter {
   from { opacity: 0; transform: translateY(-24px) scale(0.92); }
   to   { opacity: 1; transform: translateY(0)     scale(1);    }
+}
+
+/* Balanceo pendular para imágenes mobile */
+@keyframes swing-a {
+  0%, 100% { transform: rotate(-10deg) scale(1);    }
+  50%       { transform: rotate( 8deg) scale(1.06); }
+}
+@keyframes swing-b {
+  0%, 100% { transform: rotate( 9deg) scale(1.04); }
+  50%       { transform: rotate(-8deg) scale(1);    }
+}
+@keyframes swing-c {
+  0%, 100% { transform: rotate(-6deg) scale(1);    }
+  50%       { transform: rotate(10deg) scale(1.05); }
 }
 
 /* Flotación continua — tres variantes para que no se sincronicen */
@@ -2482,6 +2496,10 @@ body::before {
   /* Ocultar las filas horizontales de decos — reemplazadas por imágenes inline */
   .about-deco { display: none !important; }
 
+  /* Las bio-deco están dentro del FadeIn — quitar fade de opacidad para que
+     las imágenes no parpadeen; el slide (transform) sigue funcionando */
+  .about-col-bio.reveal { opacity: 1; }
+
   /* Imagen flotando a la derecha del texto */
   .about-bio-deco { display: block; pointer-events: none; }
   .about-bio-deco--float-r {
@@ -2500,7 +2518,9 @@ body::before {
   /* Par de imágenes centradas entre párrafos */
   .about-bio-deco-pair {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    gap: 0;
+    width: 100%;
     align-items: flex-end;
     gap: 0;
     margin: 4px 0 10px;
@@ -2511,25 +2531,10 @@ body::before {
     pointer-events: none;
     display: block;
   }
-  .about-bio-deco-pair img:nth-child(1) { rotate: -8deg; margin-right: -6px; }
-  .about-bio-deco-pair img:nth-child(2) { rotate:  2deg; }
-  .about-bio-deco-pair img:nth-child(3) { rotate:  7deg; margin-left: -6px; }
+  .about-bio-deco-pair img:nth-child(1) { animation: swing-a 3.2s ease-in-out 0s   infinite; }
+  .about-bio-deco-pair img:nth-child(2) { animation: swing-b 3.8s ease-in-out 0.5s infinite; }
+  .about-bio-deco-pair img:nth-child(3) { animation: swing-c 3.5s ease-in-out 1.0s infinite; }
 
-  /* Tira final: cine2 + calendar */
-  .about-bio-deco-strip {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 14px 0 4px;
-    clear: both;
-  }
-  .about-bio-deco-strip img {
-    width: 68px;
-    pointer-events: none;
-    display: block;
-  }
-  .about-bio-deco-strip img:first-child { rotate: -6deg; }
-  .about-bio-deco-strip img:last-child  { rotate:  5deg; }
 }
 
 /* ── Portfolio: imágenes en las esquinas, más pequeñas ── */
