@@ -2516,6 +2516,7 @@ body::before {
     bottom: 20px !important;
     left: 6px !important;
     right: auto !important;
+    width: 95px !important;
   }
   #cat-propio .marcas-deco--right {
     top: 55px !important;
