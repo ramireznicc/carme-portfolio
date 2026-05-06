@@ -2459,16 +2459,16 @@ body::before {
     bottom: auto !important;
   }
 
-  /* Medios: tv y notebook bajan a la zona del TikTok */
+  /* Medios: tv top-right (nivel pill IG), notebook right en zona TikTok */
   #cat-medios .marcas-deco--left {
-    top: auto !important;
-    bottom: 80px !important;
-    left: 6px !important;
-    right: auto !important;
+    top: 60px !important;
+    bottom: auto !important;
+    right: 6px !important;
+    left: auto !important;
   }
   #cat-medios .marcas-deco--right {
-    top: auto !important;
-    bottom: 20px !important;
+    top: 53% !important;
+    bottom: auto !important;
     right: 6px !important;
     left: auto !important;
   }
@@ -2490,7 +2490,7 @@ body::before {
   /* Propio: lisa baja bastante, sad baja un poco */
   #cat-propio .marcas-deco--left {
     top: auto !important;
-    bottom: 60px !important;
+    bottom: 20px !important;
     left: 6px !important;
     right: auto !important;
   }
