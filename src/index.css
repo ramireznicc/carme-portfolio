@@ -2709,7 +2709,7 @@ body::before {
 
   /* Marcas: cine a esquina inferior izquierda, like baja un poco */
   #cat-marcas .marcas-deco--left {
-    top: 305px !important;
+    top: 280px !important;
     bottom: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2724,7 +2724,7 @@ body::before {
 
   /* Propio: sad arriba-derecha (como like en marcas), lisa izq al lado del carrusel (como cine3) */
   #cat-propio .marcas-deco--left {
-    top: 355px !important;
+    top: 330px !important;
     bottom: auto !important;
     left: 4px !important;
     right: auto !important;
