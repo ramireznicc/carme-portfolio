@@ -10,24 +10,18 @@ import { createPortal } from 'react-dom'
 
 const TK_W = 325
 const TK_H = 740
-const TK_VIRTUAL_W = 420
-const TK_CROP_TOP = 72   // oculta header (avatar + botones de TikTok)
-const TK_CROP_BOT = 200  // oculta descripción, hashtags, "Ver ahora" y barra extra
-const TK_VIS_H = TK_H - TK_CROP_TOP - TK_CROP_BOT  // 468px visibles
+const TK_CROP_TOP = 52   // oculta header (avatar + botones de TikTok)
 
 function ModalTikTokEmbed({ src, title }) {
   const wrapRef = useRef(null)
-  const [layout, setLayout] = useState({ scale: 1, offsetX: 0 })
+  const [scale, setScale] = useState(1)
+  const autoSrc = src.includes('?') ? src + '&autoplay=1' : src + '?autoplay=1'
 
   useEffect(() => {
     const el = wrapRef.current
     if (!el) return
     const ro = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect
-      const scale = Math.max(width / TK_VIRTUAL_W, height / TK_VIS_H)
-      const scaledW = TK_W * scale
-      const offsetX = Math.max(0, (width - scaledW) / 2)
-      setLayout({ scale, offsetX })
+      setScale(entry.contentRect.width / TK_W)
     })
     ro.observe(el)
     return () => ro.disconnect()
@@ -36,17 +30,17 @@ function ModalTikTokEmbed({ src, title }) {
   return (
     <div ref={wrapRef} style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
       <iframe
-        src={src}
+        src={autoSrc}
         title={title || 'TikTok'}
         loading="lazy"
         allow="autoplay; clipboard-write; encrypted-media"
         style={{
           position: 'absolute',
           top: 0,
-          left: layout.offsetX,
+          left: 0,
           width: TK_W,
           height: TK_H,
-          transform: `scale(${layout.scale}) translateY(-${TK_CROP_TOP}px)`,
+          transform: `scale(${scale}) translateY(-${TK_CROP_TOP}px)`,
           transformOrigin: 'top left',
           border: 'none',
         }}
@@ -253,6 +247,7 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
   const post = posts[index]
   const { platform, title, embedUrl, postUrl, thumbClass, shapes, videoUrl } = post
   const videoRef = useRef(null)
+  const touchStartX = useRef(null)
   const isIg = platform === 'ig'
   const isTk = platform === 'tiktok'
 
@@ -260,6 +255,16 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
   const canNext = index < posts.length - 1
 
   const goTo = (i) => onNavigate(i)
+
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX }
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) < 50) return
+    if (diff > 0 && canNext) goTo(index + 1)
+    else if (diff < 0 && canPrev) goTo(index - 1)
+    touchStartX.current = null
+  }
 
   // Fade audio out then close
   const handleClose = () => {
@@ -327,7 +332,7 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
         </svg>
       </button>
 
-      <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-inner" onClick={(e) => e.stopPropagation()} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {/* Prev arrow */}
         <button
           className={`modal-nav-btn modal-nav-btn--prev${!canPrev ? ' modal-nav-btn--hidden' : ''}`}
@@ -337,7 +342,7 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
           <ChevronLeft />
         </button>
 
-        <div className="modal-video-wrap">
+        <div className={`modal-video-wrap${isTk ? ' modal-video-wrap--tiktok' : ''}`}>
           {videoUrl ? (
             <>
               <video

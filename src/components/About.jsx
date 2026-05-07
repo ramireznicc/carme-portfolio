@@ -109,7 +109,7 @@ export default function About() {
               y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
               conocemos como <strong>formatos UGC</strong> (User Generated Content).
             </p>
-            <p style={{clear:'both', marginTop:'8px', textAlign:'center'}}>
+            <p style={{clear:'both', marginTop:'8px', textAlign:'center', fontWeight:700, fontSize:'1.05rem'}}>
               Seguí deslizando para ver más sobre mis <span style={{whiteSpace:'nowrap'}}>trabajos ↓</span>
             </p>
           </div>

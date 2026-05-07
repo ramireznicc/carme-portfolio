@@ -572,6 +572,7 @@ body::before {
   pointer-events: none;
   top: 60px;
   opacity: 0;
+  z-index: 3;
 }
 .marcas-deco--left  {
   left: 30px;
@@ -599,15 +600,25 @@ body::before {
 }
 
 /* Marcas y Propio: izquierda abajo, derecha arriba */
-#cat-marcas .marcas-deco--left  { left: 120px; bottom: 20px; top: auto; translate: none; }
+#cat-marcas .marcas-deco--left  { left: 90px; bottom: 20px; top: auto; translate: none; }
 #cat-marcas .marcas-deco--right { top: 40px; translate: none; right: 40px; width: 200px; }
 
-#cat-propio .marcas-deco--left  { rotate: -8deg; left: 70px;  bottom: 20px; top: auto; translate: none; width: 260px; }
+#cat-propio .marcas-deco--left  { rotate: -8deg; left: 20px;  bottom: -10px; top: auto; translate: none; width: 260px; }
 #cat-propio .marcas-deco--right { rotate:  7deg; right: 120px; top: 40px;   translate: none; width: 210px; }
 
 /* Medios: posición y rotación propias */
 #cat-medios .marcas-deco--left  { rotate: -10deg; left: 11%; top: 100px; translate: -50% 0; }
 #cat-medios .marcas-deco--right { rotate:   4deg; top: 230px; right: 120px; }
+
+/* Ocultar deco de marcas/propio en anchos intermedios donde no caben bien */
+@media (min-width: 769px) and (max-width: 1200px) {
+  #cat-marcas .marcas-deco--left,
+  #cat-marcas .marcas-deco--right,
+  #cat-propio .marcas-deco--left,
+  #cat-propio .marcas-deco--right {
+    display: none !important;
+  }
+}
 
 .cat-header {
   display: flex;
@@ -2380,6 +2391,13 @@ body::before {
   flex-shrink: 0;
 }
 
+/* TikTok modal: use the visible content's aspect ratio to prevent over-zoom */
+.modal-video-wrap--tiktok {
+  aspect-ratio: 325 / 510;
+  height: min(84vh, 84dvh);
+  width: auto;
+}
+
 /* CTA button — overlaid at top of video */
 .modal-cta-btn {
   position: absolute;
@@ -2409,7 +2427,7 @@ body::before {
 }
 .modal-cta-btn--tiktok {
   top: auto;
-  bottom: 14px;
+  bottom: 48px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1rem;
@@ -2548,6 +2566,13 @@ body::before {
     border-radius: 0;
     box-shadow: none;
   }
+  .modal-video-wrap--tiktok {
+    width: min(86vw, calc(min(80vh, 80dvh) * 325 / 468));
+    height: auto;
+    flex: 0 0 auto;
+    border-radius: 14px;
+    margin: auto;
+  }
   .modal-nav-btn { display: none; }
 }
 
@@ -2646,7 +2671,7 @@ body::before {
   }
 
   /* Marcas, Medios, Propio */
-  .marcas-deco { width: 65px !important; }
+  .marcas-deco { width: 65px !important; display: block !important; }
 
   /* Base: esquina superior izquierda / derecha */
   .marcas-deco--left {
@@ -2673,7 +2698,7 @@ body::before {
     width: 80px !important;
   }
   #cat-medios .marcas-deco--right {
-    top: 430px !important;
+    top: 270px !important;
     bottom: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2683,7 +2708,7 @@ body::before {
 
   /* Marcas: cine a esquina inferior izquierda, like baja un poco */
   #cat-marcas .marcas-deco--left {
-    top: 240px !important;
+    top: 160px !important;
     bottom: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2698,7 +2723,7 @@ body::before {
 
   /* Propio: sad arriba-derecha (como like en marcas), lisa izq al lado del carrusel (como cine3) */
   #cat-propio .marcas-deco--left {
-    top: 290px !important;
+    top: 230px !important;
     bottom: auto !important;
     left: 4px !important;
     right: auto !important;
