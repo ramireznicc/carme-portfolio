@@ -15,7 +15,7 @@ const TK_CROP_TOP = 52   // oculta header (avatar + botones de TikTok)
 function ModalTikTokEmbed({ src, title }) {
   const wrapRef = useRef(null)
   const [scale, setScale] = useState(1)
-  const autoSrc = src.includes('?') ? src + '&autoplay=1' : src + '?autoplay=1'
+  const autoSrc = src.includes('?') ? src + '&autoplay=1&muted=0' : src + '?autoplay=1&muted=0'
 
   useEffect(() => {
     const el = wrapRef.current
