@@ -49,7 +49,7 @@ export const categories = [
         description:
           'Contenido más *informal,* muestra un lado *más cercano* de la persona dando lugar al *humor* siempre *cuidando la imagen* y contextos.',
         posts: [
-          { ...ph('cm-tt-1',  5, 1, 2, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7542577738884910341', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7542577738884910341' },
+          { ...ph('cm-tt-1',  5, 1, 2, 'tiktok'), videoUrl: '/tiktoklucila.mp4', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7542577738884910341' },
           { ...ph('cm-tt-3',  9, 3, 1, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7600894253476220168', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7600894253476220168' },
           { ...ph('cm-tt-4',  4, 1, 3, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7605609054257450258', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7605609054257450258' },
           { ...ph('cm-tt-5',  2, 2, 1, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7417090306748763398', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7417090306748763398' },
