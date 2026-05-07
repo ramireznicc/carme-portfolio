@@ -8,14 +8,14 @@ import {
 import { LuScissors, LuArrowUpRight } from 'react-icons/lu'
 
 const tools = [
-  { name: 'Premiere Pro',  Icon: SiAdobepremierepro,  color: '#7b6ef6', bg: '#edeaff' },
-  { name: 'Photoshop',     Icon: SiAdobephotoshop,    color: '#1e90d4', bg: '#dff0ff' },
   { name: 'CapCut',        Icon: LuScissors,          color: '#333',    bg: '#efefef' },
   { name: 'Canva',         Icon: SiCanva,             color: '#00aaaf', bg: '#d6f5f6' },
   { name: 'Instagram',     Icon: SiInstagram,         color: '#d63060', bg: '#fde3eb' },
   { name: 'TikTok',        Icon: SiTiktok,            color: '#111',    bg: '#f0f0f0' },
   { name: 'Claude',        Icon: SiClaude,            color: '#d97757', bg: '#fdeee8' },
   { name: 'ChatGPT',       Icon: SiOpenai,            color: '#0ea57a', bg: '#d8f5ed' },
+  { name: 'Premiere Pro',  Icon: SiAdobepremierepro,  color: '#7b6ef6', bg: '#edeaff' },
+  { name: 'Photoshop',     Icon: SiAdobephotoshop,    color: '#1e90d4', bg: '#dff0ff' },
 ]
 
 const socials = [
@@ -109,7 +109,7 @@ export default function About() {
               y <strong>trabajar con marcas</strong> creando contenido auténtico para redes, lo que
               conocemos como <strong>formatos UGC</strong> (User Generated Content).
             </p>
-            <p style={{clear:'both', marginTop:'8px'}}>
+            <p style={{clear:'both', marginTop:'8px', textAlign:'center'}}>
               Seguí deslizando para ver más sobre mis <span style={{whiteSpace:'nowrap'}}>trabajos ↓</span>
             </p>
           </div>

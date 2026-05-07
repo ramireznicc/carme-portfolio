@@ -600,7 +600,7 @@ body::before {
 
 /* Marcas y Propio: izquierda abajo, derecha arriba */
 #cat-marcas .marcas-deco--left  { left: 120px; bottom: 20px; top: auto; translate: none; }
-#cat-marcas .marcas-deco--right { top: 40px; translate: none; right: 120px; width: 200px; }
+#cat-marcas .marcas-deco--right { top: 40px; translate: none; right: 40px; width: 200px; }
 
 #cat-propio .marcas-deco--left  { rotate: -8deg; left: 70px;  bottom: 20px; top: auto; translate: none; width: 260px; }
 #cat-propio .marcas-deco--right { rotate:  7deg; right: 120px; top: 40px;   translate: none; width: 210px; }
@@ -1141,12 +1141,12 @@ body::before {
 /* Desorden: cada imagen con rotación e interleaving horizontal pronunciado */
 /* Izquierda — translate positivo = hacia el texto (derecha) */
 .about-deco-left .about-deco-img:nth-child(1)  { rotate: -9deg;  translate:  24px 0; filter: saturate(1.35) brightness(0.96); }
-.about-deco-left .about-deco-img:nth-child(2)  { rotate:  6deg;  translate:  -8px 0; filter: saturate(1.35) brightness(0.96); }
-.about-deco-left .about-deco-img:nth-child(3)  { rotate: -5deg;  translate:  30px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-left .about-deco-img:nth-child(2)  { rotate:  6deg;  translate:  -8px 0; filter: saturate(0.75) opacity(0.8); }
+.about-deco-left .about-deco-img:nth-child(3)  { rotate: -5deg;  translate:  16px 0; filter: saturate(0.75) opacity(0.8); }
 .about-deco-left .about-deco-img:nth-child(4)  { rotate:  8deg;  translate:  10px 0; }
 /* Derecha — translate negativo = hacia el texto (izquierda) */
-.about-deco-right .about-deco-img:nth-child(1) { rotate:  9deg;  translate: -48px 0; filter: saturate(1.35) brightness(0.96); }
-.about-deco-right .about-deco-img:nth-child(2) { rotate: -6deg;  translate:  10px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-right .about-deco-img:nth-child(1) { rotate:  9deg;  translate: -30px 0; filter: saturate(1.35) brightness(0.96); }
+.about-deco-right .about-deco-img:nth-child(2) { rotate: -6deg;  translate:  10px 0; filter: saturate(0.75) opacity(0.8); }
 .about-deco-right .about-deco-img:nth-child(3) { rotate: 11deg;  translate: -56px 0; filter: saturate(1.35) brightness(0.96); }
 .about-deco-right .about-deco-img:nth-child(4) { rotate: -5deg;  translate: -12px 0; filter: saturate(0.55) opacity(0.72); }
 
@@ -1303,6 +1303,8 @@ body::before {
 
 .about-bio strong {
   font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.06em;
   color: var(--text);
   background-repeat: no-repeat;
   background-size: 0% 0.75em;
@@ -2595,12 +2597,14 @@ body::before {
     float: right;
     margin: 0 0 8px 12px;
     rotate: 6deg;
+    animation: deco-float-a 4.5s ease-in-out 0.2s infinite;
   }
   .about-bio-deco--float-l {
     width: 74px;
     float: left;
     margin: 0 12px 8px 0;
     rotate: -7deg;
+    animation: deco-float-c 5.2s ease-in-out 0.8s infinite;
   }
 
   /* Par de imágenes centradas entre párrafos */
@@ -2627,16 +2631,18 @@ body::before {
 
 /* ── Portfolio: imágenes en las esquinas, más pequeñas ── */
 @media (max-width: 768px) {
-  /* Agenda y Flor en mobile: pequeñas, dentro del área visible */
+  /* Agenda y Flor en mobile: esquinas del área de filas */
   .cm-deco--agenda {
-    width: 80px;
-    top: -10px;
-    left: 8px;
+    width: 70px;
+    top: -22px;
+    right: 6px;
+    left: auto;
   }
   .cm-deco--flor {
-    width: 70px;
-    top: -8px;
-    right: 8px;
+    width: 90px;
+    top: 595px;
+    right: 6px;
+    left: auto;
   }
 
   /* Marcas, Medios, Propio */
@@ -2658,46 +2664,50 @@ body::before {
     bottom: auto !important;
   }
 
-  /* Medios: tv top-right (nivel pill IG), notebook right en zona TikTok */
+  /* Medios: descripción pre-grid agrega ~160px — ajustar TV y notebook */
   #cat-medios .marcas-deco--left {
-    top: 100px !important;
+    top: 10px !important;
     bottom: auto !important;
     right: 6px !important;
     left: auto !important;
+    width: 80px !important;
   }
   #cat-medios .marcas-deco--right {
-    top: 53% !important;
+    top: 430px !important;
     bottom: auto !important;
-    right: 6px !important;
-    left: auto !important;
+    left: 6px !important;
+    right: auto !important;
+    width: 90px !important;
+    scale: -1 1;
   }
 
   /* Marcas: cine a esquina inferior izquierda, like baja un poco */
   #cat-marcas .marcas-deco--left {
-    top: auto !important;
-    bottom: 20px !important;
+    top: 240px !important;
+    bottom: auto !important;
     left: 6px !important;
     right: auto !important;
+    width: 55px !important;
   }
   #cat-marcas .marcas-deco--right {
     top: 55px !important;
     bottom: auto !important;
-    right: 6px !important;
+    right: -30px !important;
     left: auto !important;
   }
 
-  /* Propio: lisa baja bastante, sad baja un poco */
+  /* Propio: sad arriba-derecha (como like en marcas), lisa izq al lado del carrusel (como cine3) */
   #cat-propio .marcas-deco--left {
-    top: auto !important;
-    bottom: 0px !important;
-    left: 6px !important;
+    top: 290px !important;
+    bottom: auto !important;
+    left: 4px !important;
     right: auto !important;
-    width: 120px !important;
+    width: 95px !important;
   }
   #cat-propio .marcas-deco--right {
-    top: 55px !important;
+    top: 30px !important;
     bottom: auto !important;
-    right: 6px !important;
+    right: 10px !important;
     left: auto !important;
   }
 }
