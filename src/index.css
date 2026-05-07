@@ -2690,7 +2690,7 @@ body::before {
     bottom: auto !important;
   }
 
-  /* TV: esquina superior-derecha, por encima del texto — anclado al tope */
+  /* TV: esquina superior-derecha, anclado al tope */
   #cat-medios .marcas-deco--left {
     top: 10px !important;
     bottom: auto !important;
@@ -2698,20 +2698,20 @@ body::before {
     left: auto !important;
     width: 80px !important;
   }
-  /* Notebook: bottom para que siempre quede junto al carrusel de Instagram sin importar la altura del texto */
+  /* Notebook: debajo del texto descriptivo, junto al carrusel de Instagram */
   #cat-medios .marcas-deco--right {
-    top: auto !important;
-    bottom: 750px !important;
+    top: 440px !important;
+    bottom: auto !important;
     left: 6px !important;
     right: auto !important;
     width: 90px !important;
     scale: -1 1;
   }
 
-  /* Cine3: bottom para que siempre quede junto al carrusel sin importar la altura del texto */
+  /* Cine3: junto al carrusel */
   #cat-marcas .marcas-deco--left {
-    top: auto !important;
-    bottom: 310px !important;
+    top: 255px !important;
+    bottom: auto !important;
     left: 6px !important;
     right: auto !important;
     width: 55px !important;
@@ -2723,10 +2723,10 @@ body::before {
     left: auto !important;
   }
 
-  /* Lisa: bottom para que siempre quede junto al carrusel sin importar la altura del texto */
+  /* Lisa: junto al carrusel */
   #cat-propio .marcas-deco--left {
-    top: auto !important;
-    bottom: 310px !important;
+    top: 305px !important;
+    bottom: auto !important;
     left: 4px !important;
     right: auto !important;
     width: 95px !important;
@@ -2737,4 +2737,11 @@ body::before {
     right: 10px !important;
     left: auto !important;
   }
+}
+
+/* ── Pantallas angostas (≤380px: Samsung A25, etc.) — bajar imágenes para no tapar texto ── */
+@media (max-width: 380px) {
+  #cat-medios .marcas-deco--right { top: 490px !important; }
+  #cat-marcas .marcas-deco--left  { top: 290px !important; }
+  #cat-propio .marcas-deco--left  { top: 340px !important; }
 }
