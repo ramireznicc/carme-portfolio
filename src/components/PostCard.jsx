@@ -23,10 +23,15 @@ const HeartIcon = () => (
 // Dimensiones naturales del player de TikTok embed v2
 const TK_W = 325
 const TK_H = 740
+const TK_CROP_TOP = 72   // oculta header (avatar + botones)
+const TK_CROP_BOT = 155  // oculta copy, hashtags y audio
+const TK_VIS_H = TK_H - TK_CROP_TOP - TK_CROP_BOT  // 513px visibles
 
 function TikTokEmbed({ src, title }) {
-  const wrapRef = useRef(null)
+  const wrapRef  = useRef(null)
+  const iframeRef = useRef(null)
   const [scale, setScale] = useState(1)
+  const [ended, setEnded]  = useState(false)
 
   useEffect(() => {
     const el = wrapRef.current
@@ -38,9 +43,35 @@ function TikTokEmbed({ src, title }) {
     return () => ro.disconnect()
   }, [])
 
+  // Escucha eventos de TikTok embed para detectar fin del video
+  useEffect(() => {
+    const onMsg = (e) => {
+      try {
+        const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data
+        if (!d) return
+        const isEnded =
+          d.type === 'ended' ||
+          d.event === 'ended' ||
+          d.type === 'tiktok:video:end' ||
+          (d.type === 'onPlayerStateChange' && d.value === 'ended')
+        if (isEnded) setEnded(true)
+      } catch {}
+    }
+    window.addEventListener('message', onMsg)
+    return () => window.removeEventListener('message', onMsg)
+  }, [])
+
+  const replay = (e) => {
+    e.stopPropagation()
+    const iframe = iframeRef.current
+    if (iframe) { iframe.src = ''; iframe.src = src }
+    setEnded(false)
+  }
+
   return (
     <div ref={wrapRef} className="post-tiktok-wrap">
       <iframe
+        ref={iframeRef}
         src={src}
         title={title}
         loading="lazy"
@@ -48,12 +79,19 @@ function TikTokEmbed({ src, title }) {
         style={{
           width: TK_W,
           height: TK_H,
-          transform: `scale(${scale})`,
+          transform: `scale(${scale}) translateY(-${TK_CROP_TOP}px)`,
           transformOrigin: 'top left',
           border: 'none',
         }}
       />
-      <div className="tiktok-swipe-guard" aria-hidden="true" />
+      {/* Overlay cuando el video termina: bloquea recomendados y ofrece replay */}
+      {ended && (
+        <div className="tiktok-ended-overlay" onClick={replay} role="button" aria-label="Reproducir de nuevo">
+          <span className="tiktok-replay-icon">↺</span>
+        </div>
+      )}
+      {/* Fallback estático: cubre "Videos relacionados" y "Ver ahora" */}
+      <div className="tiktok-endscreen-guard" aria-hidden="true" />
     </div>
   )
 }

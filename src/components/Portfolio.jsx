@@ -9,6 +9,17 @@ import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 
+/* Convierte *texto* en <mark> y <br> en saltos de línea */
+function parseDesc(text) {
+  if (!text) return null
+  return text.split('<br>').flatMap((segment, bi) => {
+    const parts = segment.trim().split('*').map((part, i) =>
+      i % 2 === 0 ? part : <mark key={`${bi}-${i}`} className="desc-highlight">{part}</mark>
+    )
+    return bi === 0 ? parts : [<br key={`br-${bi}`} />, ...parts]
+  })
+}
+
 /* ── Sketch crayon arrows ── */
 const ArrowRight = () => (
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,17 +196,24 @@ export default function Portfolio() {
               </div>
             </FadeIn>
 
+            {cat.id === 'medios' && (() => {
+              const desc = cat.rows.find(r => r.description)?.description
+              return desc ? (
+                <FadeIn>
+                  <p className="cat-row-desc cat-row-desc--pre">{parseDesc(desc)}</p>
+                </FadeIn>
+              ) : null
+            })()}
+
             <div className={`cat-rows${cat.rows.length === 2 ? ' cat-rows--two-col' : ''}`}>
+              {cat.id === 'cm' && <>
+                <img src="/dibujos/agenda.png" alt="" className="cm-deco cm-deco--agenda" aria-hidden="true" />
+                <img src="/dibujos/flor.png"   alt="" className="cm-deco cm-deco--flor"   aria-hidden="true" />
+              </>}
               {cat.rows.map((row) => (
                 <div key={row.id} className="cat-row">
                   <FadeIn>
                     <div className="cat-row-meta">
-                      {row.id === 'cm-ig' && (
-                        <img src="/dibujos/agenda.png" alt="" className="portfolio-cat-deco" aria-hidden="true" />
-                      )}
-                      {row.id === 'cm-tt' && (
-                        <img src="/dibujos/flor.png" alt="" className="portfolio-cat-deco" aria-hidden="true" />
-                      )}
                       {row.platform && (
                         <span
                           className="cat-platform-pill"
@@ -209,8 +227,8 @@ export default function Portfolio() {
                           {row.platform}
                         </span>
                       )}
-                      {row.description && (
-                        <p className="cat-row-desc">{row.description}</p>
+                      {row.description && cat.id !== 'medios' && (
+                        <p className="cat-row-desc">{parseDesc(row.description)}</p>
                       )}
                     </div>
                   </FadeIn>

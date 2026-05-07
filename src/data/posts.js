@@ -31,7 +31,7 @@ export const categories = [
         id: 'cm-ig',
         platform: 'Instagram',
         description:
-          'Trabajé como cm del perfil de la diputada Lucila De Ponti, escribiendo copys, produciendo y editando videos, creando guiones, planificando estrategias de contenido y evaluando las métricas y el rendimiento de las diferentes redes sociales según el lenguaje de cada una. Trabajos pre producidos y guionados y edición de notas o entrevistas en vivo, o de intervenciones políticas.',
+          'Trabajé como *cm* del perfil de la diputada Lucila De Ponti, *escribiendo copys, produciendo y editando videos, creando guiones*, planificando estrategias de contenido y evaluando las métricas y el rendimiento de las diferentes redes sociales según el lenguaje de cada una. Trabajos *pre producidos y guionados* y edición de notas o entrevistas en vivo, o de intervenciones políticas.',
         posts: [
           { ...ph('cm-ig-1',  3, 2, 3), videoUrl: '/videos/lucila1.mp4',  embedUrl: 'https://www.instagram.com/p/DWZRBknjyAr/embed/',  postUrl: 'https://www.instagram.com/p/DWZRBknjyAr/' },
           { ...ph('cm-ig-2',  9, 1, 3), videoUrl: '/videos/lucila2.mp4',  embedUrl: 'https://www.instagram.com/p/DVGxfQXjm7J/embed/',  postUrl: 'https://www.instagram.com/p/DVGxfQXjm7J/' },
@@ -47,7 +47,7 @@ export const categories = [
         id: 'cm-tt',
         platform: 'TikTok',
         description:
-          'Contenido más informal, muestra un lado más cercano de la persona dando lugar al humor siempre cuidando la imagen y contextos.',
+          'Contenido más *informal,* muestra un lado *más cercano* de la persona dando lugar al *humor* siempre *cuidando la imagen* y contextos.',
         posts: [
           { ...ph('cm-tt-1',  5, 1, 2, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7542577738884910341', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7542577738884910341' },
           { ...ph('cm-tt-3',  9, 3, 1, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7600894253476220168', postUrl: 'https://www.tiktok.com/@luciladeponti/video/7600894253476220168' },
@@ -70,7 +70,8 @@ export const categories = [
       {
         id: 'medios-ig',
         platform: 'Instagram',
-        description: '',
+        description:
+          'Conduzco, panelizo y produzco. En el *streaming* pensamos en qué contar y cómo hacerlo para que quien está del otro lado de la pantalla *se quede y nos siga eligiendo.*<br>*Moda para Feos por BrindisTV* es un proyecto que nació en el 2023 y va por su cuarta temporada de lunes a jueves de 16 a 17 hs por YouTube. El enfoque principal es la *farándula y el chisme*, pero le sumamos otras cosas para darle sal y pimienta: *sketchs de humor, consultorios amorosos* (y de todo tipo de quejares) con los oyentes, *notas, entrevistas*, columnas de temas de interés general y entretenimiento. En algún momento nos gustó decirle *"satélite marginal del chisme y la desidia".*',
         posts: [
           { ...ph('med-ig-1',  4, 1, 2), noMeta: true, embedUrl: 'https://www.instagram.com/p/DV9pyOijgc7/embed/',  postUrl: 'https://www.instagram.com/p/DV9pyOijgc7/' },
           { ...ph('med-ig-2',  9, 2, 3), noMeta: true, embedUrl: 'https://www.instagram.com/p/DV1kqS5D-WB/embed/',  postUrl: 'https://www.instagram.com/p/DV1kqS5D-WB/' },
@@ -108,7 +109,8 @@ export const categories = [
       {
         id: 'marcas-1',
         platform: null,
-        description: '',
+        description:
+          'Hago *reseñas y contenido para marcas* usando mi genuinidad y creatividad: cuento mi experiencia con el producto, servicio, etc. de manera creíble y adaptando el formato a cada *red social.* Mi idea es que quien lo ve sienta que es una *recomendación real* y no una publicidad, o que al menos sepa que mi reseña no lo va a defraudar.',
         posts: [
           { ...ph('mar-ig-1', 4, 1, 3), noMeta: true, embedUrl: 'https://www.instagram.com/p/DXhvQt7Df_U/embed/', postUrl: 'https://www.instagram.com/p/DXhvQt7Df_U/' },
           { ...ph('mar-1', 1, 2, 1, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7615726114677296401', postUrl: 'https://www.tiktok.com/@carsi_carmela/video/7615726114677296401' },
@@ -128,7 +130,8 @@ export const categories = [
       {
         id: 'propio-1',
         platform: null,
-        description: '',
+        description:
+          'Como podrás ver acá es donde más *libertad* tengo y puedo jugar con mis intereses o *tendencias* sin miedo a la vergüenza o el "cringe". *Pruebo formatos, trends, mezclo humor con opinión.* No tengo una sola temática: un día es un sketch o algo de *humor*, otro es algo que me pareció absurdo y no podía no compartir, una *opinión*, una *reseña,* una *reflexión,* un recorte del *programa.* Me muevo libremente y descubro también que es lo que más espera la gente de mi perfil.',
         posts: [
           { ...ph('pro-1', 7, 1, 3, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7602374461920251152', postUrl: 'https://www.tiktok.com/@carsi_carmela/video/7602374461920251152' },
           { ...ph('pro-2', 5, 2, 1, 'tiktok'), embedUrl: 'https://www.tiktok.com/embed/v2/7567882978697727249', postUrl: 'https://www.tiktok.com/@carsi_carmela/video/7567882978697727249' },

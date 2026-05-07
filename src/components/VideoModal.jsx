@@ -8,9 +8,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-const TK_W = 325          // iframe's native pixel width
-const TK_H = 740          // iframe's native pixel height
-const TK_VIRTUAL_W = 400  // virtual reference width — larger → smaller UI elements on screen
+const TK_W = 325
+const TK_H = 740
+const TK_VIRTUAL_W = 420
+const TK_CROP_TOP = 72   // oculta header (avatar + botones de TikTok)
+const TK_CROP_BOT = 200  // oculta descripción, hashtags, "Ver ahora" y barra extra
+const TK_VIS_H = TK_H - TK_CROP_TOP - TK_CROP_BOT  // 468px visibles
 
 function ModalTikTokEmbed({ src, title }) {
   const wrapRef = useRef(null)
@@ -21,8 +24,7 @@ function ModalTikTokEmbed({ src, title }) {
     if (!el) return
     const ro = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect
-      // Scale to fill height OR virtual width, whichever is larger — prevents black gaps
-      const scale = Math.max(width / TK_VIRTUAL_W, height / TK_H)
+      const scale = Math.max(width / TK_VIRTUAL_W, height / TK_VIS_H)
       const scaledW = TK_W * scale
       const offsetX = Math.max(0, (width - scaledW) / 2)
       setLayout({ scale, offsetX })
@@ -44,7 +46,7 @@ function ModalTikTokEmbed({ src, title }) {
           left: layout.offsetX,
           width: TK_W,
           height: TK_H,
-          transform: `scale(${layout.scale})`,
+          transform: `scale(${layout.scale}) translateY(-${TK_CROP_TOP}px)`,
           transformOrigin: 'top left',
           border: 'none',
         }}
@@ -343,9 +345,8 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
                 ref={videoRef}
                 src={videoUrl}
                 autoPlay
-                muted
                 playsInline
-                onCanPlay={(e) => { e.target.muted = true; e.target.play().catch(() => {}) }}
+                onCanPlay={(e) => { e.target.play().catch(() => {}) }}
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000', display: 'block' }}
               />
               <VideoControls key={`ctrl-${index}`} videoRef={videoRef} />
