@@ -32,8 +32,8 @@ function ModalTikTokEmbed({ src, title }) {
       <iframe
         src={autoSrc}
         title={title || 'TikTok'}
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media"
+        loading="eager"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen"
         style={{
           position: 'absolute',
           top: 0,

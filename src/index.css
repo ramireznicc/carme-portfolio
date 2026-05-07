@@ -2567,11 +2567,12 @@ body::before {
     box-shadow: none;
   }
   .modal-video-wrap--tiktok {
-    width: min(86vw, calc(min(80vh, 80dvh) * 325 / 468));
+    width: 100%;
     height: auto;
-    flex: 0 0 auto;
-    border-radius: 14px;
-    margin: auto;
+    flex: 1;
+    aspect-ratio: unset;
+    border-radius: 0;
+    margin: 0;
   }
   .modal-nav-btn { display: none; }
 }
