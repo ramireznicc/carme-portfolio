@@ -118,7 +118,7 @@ function VideoControls({ videoRef }) {
   const [currentTime, setCurrentTime] = useState(0)
   const [duration,    setDuration]    = useState(0)
   const [playing,     setPlaying]     = useState(true)
-  const [muted,       setMuted]       = useState(true)
+  const [muted,       setMuted]       = useState(false)
   const barRef      = useRef(null)
   const scrubbing   = useRef(false)
 
@@ -281,14 +281,19 @@ export default function VideoModal({ posts, index, onNavigate, onClose }) {
     requestAnimationFrame(fade)
   }
 
-  // Autoplay via DOM (iOS-safe)
+  // Autoplay via DOM — intenta con sonido; si el navegador rechaza, cae a muted
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    v.muted = true
+    v.muted = false
+    v.volume = 1
     v.setAttribute('playsinline', '')
     v.setAttribute('webkit-playsinline', '')
-    const tryPlay = () => v.play().catch(() => {})
+    const tryPlay = () =>
+      v.play().catch(() => {
+        v.muted = true
+        v.play().catch(() => {})
+      })
     tryPlay()
     const t = setTimeout(tryPlay, 100)
     return () => clearTimeout(t)

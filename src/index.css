@@ -2694,12 +2694,12 @@ body::before {
   #cat-medios .marcas-deco--left {
     top: 10px !important;
     bottom: auto !important;
-    right: 6px !important;
+    right: -18px !important;
     left: auto !important;
     width: 80px !important;
   }
   #cat-medios .marcas-deco--right {
-    top: 430px !important;
+    top: 470px !important;
     bottom: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2709,7 +2709,7 @@ body::before {
 
   /* Marcas: cine a esquina inferior izquierda, like baja un poco */
   #cat-marcas .marcas-deco--left {
-    top: 240px !important;
+    top: 320px !important;
     bottom: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2724,7 +2724,7 @@ body::before {
 
   /* Propio: sad arriba-derecha (como like en marcas), lisa izq al lado del carrusel (como cine3) */
   #cat-propio .marcas-deco--left {
-    top: 290px !important;
+    top: 370px !important;
     bottom: auto !important;
     left: 4px !important;
     right: auto !important;
