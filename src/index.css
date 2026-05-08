@@ -2695,7 +2695,7 @@ body::before {
   }
   /* Notebook: anclado al carrusel (bottom relativo a cat-row) */
   #cat-medios .marcas-deco--right {
-    bottom: -15px !important;
+    bottom: -35px !important;
     top: auto !important;
     left: 6px !important;
     right: auto !important;
