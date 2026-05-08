@@ -14,6 +14,9 @@ function useSectionSnap() {
       if (window.innerWidth < 900) return
       if (e.target.closest('.swiper')) return
 
+      // Bloquear todo durante la animación para no interferir
+      if (locked) { e.preventDefault(); return }
+
       const dir      = e.deltaY > 0 ? 1 : -1
       const vh       = window.innerHeight
       const sections = [...document.querySelectorAll('.section')]
@@ -37,17 +40,17 @@ function useSectionSnap() {
       // Última sección: scroll libre para ver el final de la página
       if (dir > 0 && idx === sections.length - 1) return
 
-      e.preventDefault()
-      if (locked) return
-
       const next = Math.max(0, Math.min(sections.length - 1, idx + dir))
       if (next === idx) return
 
+      e.preventDefault()
       locked = true
       sections[next].scrollIntoView({ behavior: 'smooth', block: 'start' })
-      const release = () => { locked = false }
-      window.addEventListener('scrollend', release, { once: true })
-      setTimeout(release, 1500)
+      const fallback = setTimeout(() => { locked = false }, 1500)
+      window.addEventListener('scrollend', () => {
+        clearTimeout(fallback)
+        setTimeout(() => { locked = false }, 500)
+      }, { once: true })
     }
 
     window.addEventListener('wheel', onWheel, { passive: false })

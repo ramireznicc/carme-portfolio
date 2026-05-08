@@ -176,16 +176,13 @@ export default function Portfolio() {
         {categories.map((cat, idx) => (
           <div key={cat.id} id={`cat-${cat.id}`} className="portfolio-category">
             {cat.id === 'marcas' && <>
-              <img src="/dibujos/cine3.png" alt="" className="marcas-deco marcas-deco--left"  aria-hidden="true" />
               <img src="/dibujos/like.png"  alt="" className="marcas-deco marcas-deco--right" aria-hidden="true" />
             </>}
             {cat.id === 'medios' && <>
-              <img src="/dibujos/tv.png"       alt="" className="marcas-deco marcas-deco--left"  aria-hidden="true" />
-              <img src="/dibujos/notebook.png" alt="" className="marcas-deco marcas-deco--right" aria-hidden="true" />
+              <img src="/dibujos/tv.png" alt="" className="marcas-deco marcas-deco--left" aria-hidden="true" />
             </>}
             {cat.id === 'propio' && <>
-              <img src="/dibujos/lisa.png" alt="" className="marcas-deco marcas-deco--left"  aria-hidden="true" />
-              <img src="/dibujos/sad.png"  alt="" className="marcas-deco marcas-deco--right" aria-hidden="true" />
+              <img src="/dibujos/sad.png" alt="" className="marcas-deco marcas-deco--right" aria-hidden="true" />
             </>}
             <FadeIn>
               <div className="cat-header">
@@ -208,10 +205,13 @@ export default function Portfolio() {
             <div className={`cat-rows${cat.rows.length === 2 ? ' cat-rows--two-col' : ''}`}>
               {cat.id === 'cm' && <>
                 <img src="/dibujos/agenda.png" alt="" className="cm-deco cm-deco--agenda" aria-hidden="true" />
-                <img src="/dibujos/flor.png"   alt="" className="cm-deco cm-deco--flor"   aria-hidden="true" />
               </>}
-              {cat.rows.map((row) => (
+              {cat.rows.map((row, rowIdx) => (
                 <div key={row.id} className="cat-row">
+                  {cat.id === 'cm'     && rowIdx === 1 && <img src="/dibujos/flor.png"     alt="" className="cm-deco cm-deco--flor"            aria-hidden="true" />}
+                  {cat.id === 'medios' && rowIdx === 0 && <img src="/dibujos/notebook.png" alt="" className="marcas-deco marcas-deco--right"    aria-hidden="true" />}
+                  {cat.id === 'marcas' && rowIdx === 0 && <img src="/dibujos/cine3.png"    alt="" className="marcas-deco marcas-deco--left"     aria-hidden="true" />}
+                  {cat.id === 'propio' && rowIdx === 0 && <img src="/dibujos/lisa.png"     alt="" className="marcas-deco marcas-deco--left"     aria-hidden="true" />}
                   <FadeIn>
                     <div className="cat-row-meta">
                       {row.platform && (

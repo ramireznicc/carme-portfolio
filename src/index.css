@@ -64,22 +64,11 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%; /* prevent font scaling on iOS rotation */
   text-size-adjust: 100%;
 }
 
-.hero,
-.about-section,
-.portfolio-section,
-.contact-section {
-  scroll-snap-align: start;
-}
-
-.portfolio-category {
-  scroll-snap-align: start;
-}
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -542,13 +531,13 @@ body::before {
   opacity: 0;
 }
 .cm-deco--agenda {
-  width: 180px;
+  width: clamp(100px, 12.4vw, 180px);
   top: -20px;
   left: calc(50% - 30px);
   rotate: -8deg;
 }
 .cm-deco--flor {
-  width: 150px;
+  width: clamp(80px, 10.3vw, 150px);
   top: -10px;
   right: 24px;
   rotate: 10deg;
@@ -568,7 +557,7 @@ body::before {
 
 .marcas-deco {
   position: absolute;
-  width: 160px;
+  width: clamp(90px, 11vw, 160px);
   pointer-events: none;
   top: 60px;
   opacity: 0;
@@ -1928,7 +1917,7 @@ body::before {
   .social-profile-card { padding: 12px 14px; gap: 10px; }
   .social-profile-top { width: 36px; height: 36px; border-radius: 10px; }
   .social-profile-cta { display: none; }
-  .about-tools { flex-wrap: nowrap; gap: 8px; overflow: visible; }
+  .about-tools { flex-wrap: wrap; gap: 8px; overflow: visible; }
   .tool-item {
     width: 42px;
     height: 42px;
@@ -2607,6 +2596,9 @@ body::before {
 .about-bio-deco-strip { display: none; }
 
 @media (max-width: 899px) {
+  /* Las decos laterales están ocultas — overflow: hidden ya no es necesario */
+  .about-section { overflow: visible; }
+
   .about-outer { flex-direction: column; }
 
   /* Ocultar las filas horizontales de decos — reemplazadas por imágenes inline */
@@ -2657,6 +2649,8 @@ body::before {
 
 /* ── Portfolio: imágenes en las esquinas, más pequeñas ── */
 @media (max-width: 768px) {
+  .cat-row { position: relative; }
+
   /* Agenda y Flor en mobile: esquinas del área de filas */
   .cm-deco--agenda {
     width: 70px;
@@ -2666,7 +2660,8 @@ body::before {
   }
   .cm-deco--flor {
     width: 90px;
-    top: 595px;
+    bottom: 70px;
+    top: auto;
     right: 6px;
     left: auto;
   }
@@ -2698,20 +2693,20 @@ body::before {
     left: auto !important;
     width: 80px !important;
   }
-  /* Notebook: debajo del texto descriptivo, junto al carrusel de Instagram */
+  /* Notebook: anclado al carrusel (bottom relativo a cat-row) */
   #cat-medios .marcas-deco--right {
-    top: 440px !important;
-    bottom: auto !important;
+    bottom: 40px !important;
+    top: auto !important;
     left: 6px !important;
     right: auto !important;
     width: 90px !important;
     scale: -1 1;
   }
 
-  /* Cine3: junto al carrusel */
+  /* Cine3: anclado al carrusel (bottom relativo a cat-row) */
   #cat-marcas .marcas-deco--left {
-    top: 255px !important;
-    bottom: auto !important;
+    bottom: 30px !important;
+    top: auto !important;
     left: 6px !important;
     right: auto !important;
     width: 55px !important;
@@ -2723,10 +2718,10 @@ body::before {
     left: auto !important;
   }
 
-  /* Lisa: junto al carrusel */
+  /* Lisa: anclada al carrusel (bottom relativo a cat-row) */
   #cat-propio .marcas-deco--left {
-    top: 305px !important;
-    bottom: auto !important;
+    bottom: 30px !important;
+    top: auto !important;
     left: 4px !important;
     right: auto !important;
     width: 95px !important;
@@ -2739,9 +2734,3 @@ body::before {
   }
 }
 
-/* ── Pantallas angostas (≤380px: Samsung A25, etc.) — bajar imágenes para no tapar texto ── */
-@media (max-width: 380px) {
-  #cat-medios .marcas-deco--right { top: 490px !important; }
-  #cat-marcas .marcas-deco--left  { top: 290px !important; }
-  #cat-propio .marcas-deco--left  { top: 340px !important; }
-}
