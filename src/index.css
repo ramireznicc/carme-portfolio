@@ -599,12 +599,14 @@ body::before {
 #cat-medios .marcas-deco--left  { rotate: -10deg; left: 11%; top: 100px; translate: -50% 0; }
 #cat-medios .marcas-deco--right { rotate:   4deg; top: -220px; right: 90px; }
 
-/* Ocultar deco de marcas/propio en anchos intermedios donde no caben bien */
+/* Ocultar decos en anchos intermedios donde no caben sin tapar texto */
 @media (min-width: 769px) and (max-width: 1200px) {
   #cat-marcas .marcas-deco--left,
   #cat-marcas .marcas-deco--right,
   #cat-propio .marcas-deco--left,
-  #cat-propio .marcas-deco--right {
+  #cat-propio .marcas-deco--right,
+  #cat-medios .marcas-deco--left,
+  #cat-medios .marcas-deco--right {
     display: none !important;
   }
 }
