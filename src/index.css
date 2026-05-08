@@ -457,7 +457,7 @@ body::before {
 .portfolio-section {
   background: var(--bg);
   border-top: 1px solid var(--border);
-  padding-top: 48px;
+  padding-top: 80px;
 }
 .portfolio-section .section-header { margin-bottom: 16px; }
 
