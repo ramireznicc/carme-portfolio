@@ -1927,9 +1927,12 @@ body::before {
   .service-card p { font-size: 0.85rem; }
 
   /* ── About ── */
-  .about-layout { gap: 28px; }
+  .about-section { padding-top: 28px !important; padding-bottom: 28px !important; }
+  .about-layout { gap: 10px; }
   .about-col-socials { flex-direction: row; gap: 10px; }
-  .about-heading { font-size: 1.7rem; }
+  .about-heading { font-size: 1.45rem; line-height: 1.25; margin-bottom: 10px; }
+  .about-bio p { margin-bottom: 7px; line-height: 1.55; font-size: 0.88rem; }
+  .about-tools-row { margin-top: 8px; }
   .social-profile-card { padding: 12px 14px; gap: 10px; }
   .social-profile-top { width: 36px; height: 36px; border-radius: 10px; }
   .social-profile-cta { display: none; }
