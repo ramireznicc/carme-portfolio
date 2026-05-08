@@ -597,7 +597,7 @@ body::before {
 
 /* Medios: posición y rotación propias */
 #cat-medios .marcas-deco--left  { rotate: -10deg; left: 11%; top: 100px; translate: -50% 0; }
-#cat-medios .marcas-deco--right { rotate:   4deg; top: 230px; right: 120px; }
+#cat-medios .marcas-deco--right { rotate:   4deg; top: 80px; right: 80px; }
 
 /* Ocultar deco de marcas/propio en anchos intermedios donde no caben bien */
 @media (min-width: 769px) and (max-width: 1200px) {
