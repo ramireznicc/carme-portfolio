@@ -1917,15 +1917,15 @@ body::before {
   .social-profile-card { padding: 12px 14px; gap: 10px; }
   .social-profile-top { width: 36px; height: 36px; border-radius: 10px; }
   .social-profile-cta { display: none; }
-  .about-tools { flex-wrap: wrap; gap: 8px; overflow: visible; }
+  .about-tools { flex-wrap: nowrap; gap: 6px; overflow: visible; }
   .tool-item {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
     gap: 0;
     box-shadow: 0 0 0 2.5px #fff, 0 0 0 4px rgba(0,0,0,0.13), 0 3px 10px rgba(0,0,0,0.08);
   }
-  .tool-icon-wrap svg { width: 20px !important; height: 20px !important; }
+  .tool-icon-wrap svg { width: 18px !important; height: 18px !important; }
   .tool-item-name { display: none; }
 
   /* ── Forms: prevent iOS zoom on input focus (requires font-size >= 16px) ── */
@@ -2695,7 +2695,7 @@ body::before {
   }
   /* Notebook: anclado al carrusel (bottom relativo a cat-row) */
   #cat-medios .marcas-deco--right {
-    bottom: 40px !important;
+    bottom: -15px !important;
     top: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2705,7 +2705,7 @@ body::before {
 
   /* Cine3: anclado al carrusel (bottom relativo a cat-row) */
   #cat-marcas .marcas-deco--left {
-    bottom: 30px !important;
+    bottom: -25px !important;
     top: auto !important;
     left: 6px !important;
     right: auto !important;
@@ -2720,7 +2720,7 @@ body::before {
 
   /* Lisa: anclada al carrusel (bottom relativo a cat-row) */
   #cat-propio .marcas-deco--left {
-    bottom: 30px !important;
+    bottom: -25px !important;
     top: auto !important;
     left: 4px !important;
     right: auto !important;
