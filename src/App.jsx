@@ -31,8 +31,8 @@ function useSectionSnap() {
       const cur  = sections[idx]
       const rect = cur.getBoundingClientRect()
 
-      // Portfolio y About: scroll libre mientras haya contenido que ver
-      if (cur.id === 'portfolio' || cur.id === 'sobre-mi') {
+      // Portfolio: scroll libre mientras haya contenido que ver
+      if (cur.id === 'portfolio') {
         if (dir > 0 && rect.bottom > vh + 50) return
         if (dir < 0 && rect.top  < -50)       return
       }
