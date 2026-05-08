@@ -622,7 +622,7 @@ body::before {
     bottom: auto !important;
     translate: none !important;
   }
-  #cat-marcas .marcas-deco--left { top: -20px !important; width: 50px !important; }
+  #cat-marcas .marcas-deco--left { top: 0px !important; width: 50px !important; }
   #cat-marcas .marcas-deco--right,
   #cat-propio .marcas-deco--right,
   #cat-medios .marcas-deco--right {
