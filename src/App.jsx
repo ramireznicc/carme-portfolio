@@ -18,7 +18,6 @@ function useSectionSnap() {
       if (locked) { e.preventDefault(); return }
 
       const dir      = e.deltaY > 0 ? 1 : -1
-      const vh       = window.innerHeight
       const sections = [...document.querySelectorAll('.section')]
       if (!sections.length) return
 
@@ -28,20 +27,12 @@ function useSectionSnap() {
         if (s.getBoundingClientRect().top <= 0) idx = i
       })
 
-      const cur  = sections[idx]
-      const rect = cur.getBoundingClientRect()
+      // Solo snap en la transición Hero (idx=0) ↔ About (idx=1)
+      const isHeroToAbout = idx === 0 && dir === 1
+      const isAboutToHero = idx === 1 && dir === -1
+      if (!isHeroToAbout && !isAboutToHero) return
 
-      // Portfolio y About: scroll libre mientras haya contenido que ver
-      if (cur.id === 'portfolio' || cur.id === 'sobre-mi') {
-        if (dir > 0 && rect.bottom > vh + 50) return
-        if (dir < 0 && rect.top  < -50)       return
-      }
-
-      // Última sección: scroll libre para ver el final de la página
-      if (dir > 0 && idx === sections.length - 1) return
-
-      const next = Math.max(0, Math.min(sections.length - 1, idx + dir))
-      if (next === idx) return
+      const next = idx + dir
 
       e.preventDefault()
       locked = true
