@@ -609,6 +609,13 @@ body::before {
   .about-heading { font-size: 1.6rem; line-height: 1.25; margin-bottom: 10px; }
 }
 
+/* Pantallas notebook ~1200-1500px: decos más hacia los bordes para no tapar texto */
+@media (min-width: 1201px) and (max-width: 1500px) {
+  #cat-medios .marcas-deco--left  { left: 3%; }
+  #cat-medios .marcas-deco--right { right: 20px; }
+  #cat-propio .marcas-deco--right { right: 30px; }
+}
+
 /* En anchos intermedios: decos pequeñas en las esquinas del header (sin tapar texto) */
 @media (min-width: 769px) and (max-width: 1200px) {
   #cat-marcas .marcas-deco--left,
